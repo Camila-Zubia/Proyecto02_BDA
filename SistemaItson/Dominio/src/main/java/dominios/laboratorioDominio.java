@@ -7,6 +7,7 @@ package dominios;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,12 +39,12 @@ public class laboratorioDominio implements Serializable {
     @Column(name = "contraseña", nullable = false, length = 50)
     private String contraseña;
     
-    @Column(name = "horaInicio", nullable = false, length = 50)
-    @Temporal(TemporalType.DATE)
+    @Column(name = "horaInicio", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar horaInicio;
     
-    @Column(name = "horaFin", nullable = false, length = 50)
-    @Temporal(TemporalType.DATE)
+    @Column(name = "horaFin", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar horaFin;
     
     /**
@@ -54,7 +55,7 @@ public class laboratorioDominio implements Serializable {
     @JoinColumn(name = "idUnidadAcademica")
     private unidadAcademicaDominio unidadAcademica;
     
-    @OneToMany(mappedBy = "laboratorio")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "laboratorio")
     private List<computadoraDominio> computadoras;
 
     public laboratorioDominio() {

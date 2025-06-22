@@ -6,6 +6,7 @@ package dominios;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,10 +35,10 @@ public class unidadAcademicaDominio implements Serializable {
     /**
      * CONEXIONES
      */
-    @OneToMany(mappedBy = "unidadAcademica")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "unidadAcademica")
     private List<carreraDominio> carreras;
     
-    @OneToMany(mappedBy = "unidadAcademica")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "unidadAcademica")
     private List<laboratorioDominio> laboratorios;
 
     public unidadAcademicaDominio() {

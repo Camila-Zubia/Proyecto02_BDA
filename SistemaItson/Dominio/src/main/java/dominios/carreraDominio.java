@@ -5,8 +5,8 @@
 package dominios;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -36,13 +34,12 @@ public class carreraDominio implements Serializable {
     private String nombre;
 
     @Column(name = "TiempoLimiteDiario", nullable = false, length = 50)
-    @Temporal(TemporalType.DATE)
-    private Calendar TiempoLimiteDiario;
+    private int TiempoLimiteDiario;
 
     /**
      * CONEXIONES
      */
-    @OneToMany(mappedBy = "carrera")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "carrera")
     private List<estudianteDominio> estudiantes;
     
     @ManyToOne
@@ -59,7 +56,7 @@ public class carreraDominio implements Serializable {
     public carreraDominio() {
     }
 
-    public carreraDominio(String nombre, Calendar TiempoLimiteDiario) {
+    public carreraDominio(String nombre, int TiempoLimiteDiario) {
         this.nombre = nombre;
         this.TiempoLimiteDiario = TiempoLimiteDiario;
     }
@@ -80,11 +77,11 @@ public class carreraDominio implements Serializable {
         this.nombre = nombre;
     }
 
-    public Calendar getTiempoLimiteDiario() {
+    public int getTiempoLimiteDiario() {
         return TiempoLimiteDiario;
     }
 
-    public void setTiempoLimiteDiario(Calendar TiempoLimiteDiario) {
+    public void setTiempoLimiteDiario(int TiempoLimiteDiario) {
         this.TiempoLimiteDiario = TiempoLimiteDiario;
     }
 

@@ -6,6 +6,7 @@ package dominios;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,7 +39,7 @@ public class softwareDominio implements Serializable {
      * CONEXIONES
      */
     
-    @OneToMany(mappedBy = "software")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "software")
     private List<computadoraSoftwareDominio> detalles;
 
     public softwareDominio() {
