@@ -1,1 +1,10 @@
 com\mycompany\dominio\Dominio.class
+dominios\computadoraDominio.class
+dominios\softwareDominio.class
+dominios\laboratorioDominio.class
+dominios\estudianteDominio.class
+dominios\bloqueoDominio.class
+dominios\computadoraSoftwareDominio.class
+dominios\unidadAcademicaDominio.class
+dominios\carreraDominio.class
+dominios\estudianteReservaComputadoraDominio.class
