@@ -202,7 +202,6 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JButton btnAnterior;
