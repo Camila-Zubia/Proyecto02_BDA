@@ -8,12 +8,12 @@ package presentacion.Administrador;
  *
  * @author saula
  */
-public class AgregarLabFrm extends javax.swing.JFrame {
+public class AgregarLaboratorioFrm extends javax.swing.JFrame {
 
     /**
      * Creates new form AgregarLabFrm
      */
-    public AgregarLabFrm() {
+    public AgregarLaboratorioFrm () {
         initComponents();
     }
 
@@ -43,13 +43,17 @@ public class AgregarLabFrm extends javax.swing.JFrame {
         unidadLbl = new javax.swing.JLabel();
         horaInicioTimePicker = new com.github.lgooddatepicker.components.TimePicker();
         horaCierreTimePicker = new com.github.lgooddatepicker.components.TimePicker();
+        btnAnterior = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,14 +62,14 @@ public class AgregarLabFrm extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(186, 215, 235));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray));
 
+        jLabel1.setText("AGREGAR LABORATORIO");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(4, 109, 181));
-        jLabel1.setText("AGREGAR LABORATORIO");
 
+        agregarBtn.setText("AGREGAR");
         agregarBtn.setBackground(new java.awt.Color(0, 153, 255));
         agregarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        agregarBtn.setText("AGREGAR");
 
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.setOpaque(false);
@@ -78,32 +82,32 @@ public class AgregarLabFrm extends javax.swing.JFrame {
         contraseñaTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         contraseñaTxt.setText("jPasswordField2");
 
+        nombreLbl.setText("NOMBRE");
         nombreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         nombreLbl.setForeground(new java.awt.Color(4, 109, 181));
-        nombreLbl.setText("NOMBRE");
 
-        unidadComboBox.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         unidadComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        unidadComboBox.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
+        horaInicioLbl.setText("HORA INICIO:");
         horaInicioLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         horaInicioLbl.setForeground(new java.awt.Color(4, 109, 181));
-        horaInicioLbl.setText("HORA INICIO:");
 
+        horaCierreLbl.setText("HORA CIERRE:");
         horaCierreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         horaCierreLbl.setForeground(new java.awt.Color(4, 109, 181));
-        horaCierreLbl.setText("HORA CIERRE:");
 
+        contraseñaLbl.setText("CONTRASEÑA:");
         contraseñaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         contraseñaLbl.setForeground(new java.awt.Color(4, 109, 181));
-        contraseñaLbl.setText("CONTRASEÑA:");
 
+        confirmarContraseñaLbl.setText("CONFIRMAR CONTRASEÑA:");
         confirmarContraseñaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         confirmarContraseñaLbl.setForeground(new java.awt.Color(4, 109, 181));
-        confirmarContraseñaLbl.setText("CONFIRMAR CONTRASEÑA:");
 
+        unidadLbl.setText("UNIDAD:");
         unidadLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         unidadLbl.setForeground(new java.awt.Color(4, 109, 181));
-        unidadLbl.setText("UNIDAD:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -168,22 +172,30 @@ public class AgregarLabFrm extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
+        btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
+        btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(69, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(agregarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(123, 123, 123))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(60, 60, 60))))
+                        .addGap(0, 63, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(123, 123, 123))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(60, 60, 60))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,9 +203,12 @@ public class AgregarLabFrm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(agregarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(agregarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAnterior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -228,8 +243,18 @@ public class AgregarLabFrm extends javax.swing.JFrame {
         jMenuItem4.setText("Agregar Computadoras");
         jMenu3.add(jMenuItem4);
 
-        jMenuItem5.setText("Generar Reportes");
-        jMenu3.add(jMenuItem5);
+        jMenu1.setText("Generar Reportes");
+
+        jMenuItem7.setText("Centro de Computo");
+        jMenu1.add(jMenuItem7);
+
+        jMenuItem8.setText("Carreras");
+        jMenu1.add(jMenuItem8);
+
+        jMenuItem6.setText("Bloqueos");
+        jMenu1.add(jMenuItem6);
+
+        jMenu3.add(jMenu1);
 
         jMenuBar2.add(jMenu3);
 
@@ -252,6 +277,7 @@ public class AgregarLabFrm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JButton agregarBtn;
+    private javax.swing.JButton btnAnterior;
     private javax.swing.JLabel confirmarContraseñaLbl;
     private javax.swing.JPasswordField confirmarContraseñaTxt;
     private javax.swing.JLabel contraseñaLbl;
@@ -261,13 +287,16 @@ public class AgregarLabFrm extends javax.swing.JFrame {
     private javax.swing.JLabel horaInicioLbl;
     private com.github.lgooddatepicker.components.TimePicker horaInicioTimePicker;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel nombreLbl;

@@ -8,12 +8,12 @@ package presentacion.Administrador;
  *
  * @author adell
  */
-public class menuFrm extends javax.swing.JFrame {
+public class MenuFrm extends javax.swing.JFrame {
 
     /**
      * Creates new form menuFrm
      */
-    public menuFrm() {
+    public MenuFrm() {
         initComponents();
     }
 
@@ -41,7 +41,10 @@ public class menuFrm extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -50,7 +53,6 @@ public class menuFrm extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1077, 624));
 
         jPanel1.setBackground(new java.awt.Color(186, 215, 235));
         jPanel1.setForeground(new java.awt.Color(186, 215, 235));
@@ -100,8 +102,18 @@ public class menuFrm extends javax.swing.JFrame {
         jMenuItem4.setText("Agregar Computadoras");
         jMenu3.add(jMenuItem4);
 
-        jMenuItem5.setText("Generar Reportes");
-        jMenu3.add(jMenuItem5);
+        jMenu4.setText("Generar Reportes");
+
+        jMenuItem7.setText("Centro de Computo");
+        jMenu4.add(jMenuItem7);
+
+        jMenuItem8.setText("Carreras");
+        jMenu4.add(jMenuItem8);
+
+        jMenuItem6.setText("Bloqueos");
+        jMenu4.add(jMenuItem6);
+
+        jMenu3.add(jMenu4);
 
         jMenuBar2.add(jMenu3);
 
@@ -128,13 +140,16 @@ public class menuFrm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
