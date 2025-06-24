@@ -77,10 +77,8 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
         nombreTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         confirmarContraseñaTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        confirmarContraseñaTxt.setText("jPasswordField1");
 
         contraseñaTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        contraseñaTxt.setText("jPasswordField2");
 
         nombreLbl.setText("NOMBRE");
         nombreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
