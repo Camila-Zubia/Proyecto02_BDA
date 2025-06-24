@@ -34,6 +34,7 @@ public class reportesFrm extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1077, 624));
 
         jMenu1.setText("Opciones");
 
