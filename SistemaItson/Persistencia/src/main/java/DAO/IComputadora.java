@@ -19,6 +19,10 @@ public interface IComputadora {
     
     void apartarComputadora(int id) throws PersistenciaException;
     
+    computadoraDominio modificar(computadoraDominio computadora) throws PersistenciaException;
+    
+    void eliminar(int id) throws PersistenciaException;
+    
     //List<computadoraDominio> buscarTabla() throws PersistenciaException;
     
 }

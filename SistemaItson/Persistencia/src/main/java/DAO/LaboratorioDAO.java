@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import DTO.LaboratorioDTO;
 import dominios.laboratorioDominio;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -52,6 +53,32 @@ public class LaboratorioDAO implements ILaboratorio{
                 manager.getTransaction().rollback();
             }
             throw new PersistenciaException("Error al guardar el laboratorio: " + ex.getMessage());
+        } finally {
+            if (manager != null) {
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public laboratorioDominio modificar(LaboratorioDTO laboratorio) throws PersistenciaException {
+        EntityManager manager = factory.createEntityManager();
+        try {
+            manager.getTransaction().begin();
+            laboratorioDominio labEncontrado = manager.find(laboratorioDominio.class, laboratorio.getIdLaboratorios());
+            if (labEncontrado == null) {
+                throw new PersistenciaException("No se encontró el laboratorio con ID: " + laboratorio.getIdLaboratorios());
+            }
+            labEncontrado.setNombre(laboratorio.getNombre());
+            labEncontrado.setHoraInicio(laboratorio.getHoraInicio());
+            labEncontrado.setHoraInicio(laboratorio.getHoraFin());
+            manager.getTransaction().commit();
+            return labEncontrado;
+        } catch (PersistenciaException ex) {
+            if (manager != null && manager.getTransaction().isActive()) {
+                manager.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al modificar el laboratorio: " + ex.getMessage());
         } finally {
             if (manager != null) {
                 manager.close();

@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import DTO.LaboratorioDTO;
 import dominios.laboratorioDominio;
 
 /**
@@ -15,4 +16,6 @@ public interface ILaboratorio {
     laboratorioDominio buscarPorId(int id) throws PersistenciaException;
 
     laboratorioDominio agregar(laboratorioDominio laboratorio) throws PersistenciaException;
+    
+    laboratorioDominio modificar(LaboratorioDTO laboratorio) throws PersistenciaException;
 }

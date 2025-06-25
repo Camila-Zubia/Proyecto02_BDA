@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import dominios.EstatusComputadora;
 import dominios.computadoraDominio;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -68,13 +69,61 @@ public class ComputadoraDAO implements IComputadora{
             if (computadora == null) {
                 throw new PersistenciaException("No se encontró la computadora con ID: " + id);
             }
-            computadora.setEstatus(false);
+            computadora.setEstatus(EstatusComputadora.APARTADA);
             manager.getTransaction().commit();
-        } catch (Exception ex) {
+        } catch (PersistenciaException ex) {
             if (manager != null && manager.getTransaction().isActive()) {
                 manager.getTransaction().rollback();
             }
             throw new PersistenciaException("Error al apartar la computadora: " + ex.getMessage());
+        } finally {
+            if (manager != null) {
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public computadoraDominio modificar(computadoraDominio computadora) throws PersistenciaException {
+        EntityManager manager = factory.createEntityManager();
+        try {
+            manager.getTransaction().begin();
+            computadoraDominio computadoraEncontrada = manager.find(computadoraDominio.class, computadora.getIdComputadoras());
+            if (computadoraEncontrada == null) {
+                throw new PersistenciaException("No se encontró la computadora con ID: " + computadora.getIdComputadoras());
+            }
+            computadoraEncontrada.setNumero(computadora.getNumero());
+            computadoraEncontrada.setDireccionIp(computadora.getDireccionIp());
+            manager.getTransaction().commit();
+            return computadoraEncontrada;
+        } catch (PersistenciaException ex) {
+            if (manager != null && manager.getTransaction().isActive()) {
+                manager.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al modificar la computadora: " + ex.getMessage());
+        } finally {
+            if (manager != null) {
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public void eliminar(int id) throws PersistenciaException {
+        EntityManager manager = factory.createEntityManager();
+        try {
+            manager.getTransaction().begin();
+            computadoraDominio computadora = manager.find(computadoraDominio.class, id);
+            if (computadora == null) {
+                throw new PersistenciaException("No se encontró la computadora con ID: " + id);
+            }
+            computadora.setEstatus(EstatusComputadora.DESCONECTADA);
+            manager.getTransaction().commit();
+        } catch (PersistenciaException ex) {
+            if (manager != null && manager.getTransaction().isActive()) {
+                manager.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al eliminar la computadora: " + ex.getMessage());
         } finally {
             if (manager != null) {
                 manager.close();

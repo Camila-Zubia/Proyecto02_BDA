@@ -37,7 +37,7 @@ public class computadoraDominio implements Serializable {
     private String direccionIp;
 
     @Column(name = "estatus", nullable = false)
-    private boolean estatus;
+    private EstatusComputadora estatus;
 
     /**
      * CONEXIONES
@@ -55,7 +55,7 @@ public class computadoraDominio implements Serializable {
     public computadoraDominio() {
     }
 
-    public computadoraDominio(String numero, String direccionIp, boolean estatus) {
+    public computadoraDominio(String numero, String direccionIp, EstatusComputadora estatus) {
         this.numero = numero;
         this.direccionIp = direccionIp;
         this.estatus = estatus;
@@ -85,11 +85,11 @@ public class computadoraDominio implements Serializable {
         this.direccionIp = direccionIp;
     }
 
-    public boolean isEstatus() {
+    public EstatusComputadora isEstatus() {
         return estatus;
     }
 
-    public void setEstatus(boolean estatus) {
+    public void setEstatus(EstatusComputadora estatus) {
         this.estatus = estatus;
     }
 
@@ -116,10 +116,5 @@ public class computadoraDominio implements Serializable {
     public void setReservas(List<estudianteReservaComputadoraDominio> reservas) {
         this.reservas = reservas;
     }
-
-    
-    
-    
-    
     
 }
