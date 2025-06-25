@@ -74,7 +74,7 @@ public class ComputadoraDAO implements IComputadora{
             if (manager != null && manager.getTransaction().isActive()) {
                 manager.getTransaction().rollback();
             }
-            throw new PersistenciaException("Error al guardar la computadora: " + ex.getMessage());
+            throw new PersistenciaException("Error al apartar la computadora: " + ex.getMessage());
         } finally {
             if (manager != null) {
                 manager.close();

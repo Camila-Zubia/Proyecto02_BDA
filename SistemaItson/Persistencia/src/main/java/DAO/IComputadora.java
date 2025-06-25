@@ -5,6 +5,7 @@
 package DAO;
 
 import dominios.computadoraDominio;
+import java.util.List;
 
 /**
  *
@@ -17,5 +18,7 @@ public interface IComputadora {
     computadoraDominio agregar(computadoraDominio computadora) throws PersistenciaException;
     
     void apartarComputadora(int id) throws PersistenciaException;
+    
+    //List<computadoraDominio> buscarTabla() throws PersistenciaException;
     
 }
