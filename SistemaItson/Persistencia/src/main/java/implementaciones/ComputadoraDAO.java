@@ -8,9 +8,9 @@ import excepciones.PersistenciaException;
 import com.mycompany.persistencia.IComputadora;
 import dominios.EstatusComputadora;
 import dominios.computadoraDominio;
+import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -119,6 +119,22 @@ public class ComputadoraDAO implements IComputadora{
             if (manager != null && manager.getTransaction().isActive()) {
                 manager.getTransaction().rollback();
             }
+            throw new PersistenciaException("Error al eliminar la computadora: " + ex.getMessage());
+        } finally {
+            if (manager != null) {
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public List<computadoraDominio> listarComputadoras() throws PersistenciaException {
+        EntityManager manager = ManejadorConexiones.getEntityManager();
+        try {
+            String consulta = "SELECT c FROM computadoraDominio c";
+            TypedQuery<computadoraDominio> query = manager.createQuery(consulta, computadoraDominio.class);
+            return query.getResultList();
+        }catch (Exception ex) {
             throw new PersistenciaException("Error al eliminar la computadora: " + ex.getMessage());
         } finally {
             if (manager != null) {
