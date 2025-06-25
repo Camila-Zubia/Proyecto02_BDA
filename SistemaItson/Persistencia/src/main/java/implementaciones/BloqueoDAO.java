@@ -1,0 +1,81 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package implementaciones;
+
+import excepciones.PersistenciaException;
+import com.mycompany.persistencia.IBloqueo;
+import dominios.bloqueoDominio;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+/**
+ *
+ * @author Camila Zubía
+ */
+public class BloqueoDAO implements IBloqueo{
+
+    @Override
+    public bloqueoDominio registrarBloqueo(bloqueoDominio bloqueo) throws PersistenciaException {
+        EntityManager manager = ManejadorConexiones.getEntityManager();
+        try {
+            manager.getTransaction().begin();
+            manager.persist(bloqueo);
+            manager.getTransaction().commit();
+            return bloqueo;
+        } catch (Exception ex) {
+            if (manager != null && manager.getTransaction().isActive()) {
+                manager.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al registrar el bloqueo: " + ex.getMessage());
+        } finally {
+            if (manager != null) {
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public bloqueoDominio buscarPorId(int id) throws PersistenciaException {
+        EntityManager manager = ManejadorConexiones.getEntityManager();
+        try {
+            bloqueoDominio bloqueo = manager.find(bloqueoDominio.class, id);
+            if (bloqueo == null) {
+                throw new PersistenciaException("No se encontró el bloqueo con ID: " + id);
+            }
+            return bloqueo;
+        } catch (PersistenciaException ex) {
+            throw new PersistenciaException("Error al buscar el bloqueo por ID" + ex.getMessage());
+        } finally {
+            if (manager != null) {
+                manager.close();
+            }
+        }
+    }
+
+    @Override
+    public void liberarBloqueo(int id) throws PersistenciaException {
+        EntityManager manager = ManejadorConexiones.getEntityManager();
+        try {
+            manager.getTransaction().begin();
+            bloqueoDominio bloqueo = manager.find(bloqueoDominio.class, id);
+            if (bloqueo == null) {
+                throw new PersistenciaException("No se encontró el bloqueo con ID: " + id);
+            }
+            bloqueo.setEstatus(false);
+            manager.getTransaction().commit();
+        } catch (Exception ex) {
+            if (manager != null && manager.getTransaction().isActive()) {
+                manager.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al liberar el bloqueo: " + ex.getMessage());
+        } finally {
+            if (manager != null) {
+                manager.close();
+            }
+        }
+    }
+    
+}
