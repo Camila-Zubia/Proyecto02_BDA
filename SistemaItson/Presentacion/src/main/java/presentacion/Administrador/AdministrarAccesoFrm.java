@@ -35,6 +35,9 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
         buscadorTxt = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         consultarBtn = new javax.swing.JButton();
+        btnPaginadoAnterior = new javax.swing.JButton();
+        btnPaginadoSiguiente = new javax.swing.JButton();
+        paginaLbl = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -87,6 +90,21 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
         consultarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         consultarBtn.setText("CAMBIAR ACCESO");
 
+        btnPaginadoAnterior.setBackground(new java.awt.Color(0, 153, 255));
+        btnPaginadoAnterior.setText("Anterior");
+
+        btnPaginadoSiguiente.setBackground(new java.awt.Color(0, 153, 255));
+        btnPaginadoSiguiente.setText("Siguiente");
+        btnPaginadoSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPaginadoSiguienteActionPerformed(evt);
+            }
+        });
+
+        paginaLbl.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        paginaLbl.setForeground(new java.awt.Color(4, 109, 181));
+        paginaLbl.setText("Página ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -94,13 +112,18 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(134, 134, 134))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnPaginadoAnterior)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPaginadoSiguiente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(paginaLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(consultarBtn)
                         .addContainerGap())))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -128,8 +151,12 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(consultarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(consultarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnPaginadoAnterior)
+                                .addComponent(btnPaginadoSiguiente)
+                                .addComponent(paginaLbl))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -202,10 +229,16 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnPaginadoSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaginadoSiguienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPaginadoSiguienteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnPaginadoAnterior;
+    private javax.swing.JButton btnPaginadoSiguiente;
     private javax.swing.JTextField buscadorTxt;
     private javax.swing.JButton consultarBtn;
     private javax.swing.JLabel jLabel1;
@@ -222,5 +255,6 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel paginaLbl;
     // End of variables declaration//GEN-END:variables
 }
