@@ -6,7 +6,6 @@ package com.mycompany.persistencia;
 
 import dominios.bloqueoDominio;
 import excepciones.PersistenciaException;
-import java.util.List;
 
 /**
  *
@@ -21,7 +20,5 @@ public interface IBloqueo {
     void liberarBloqueo(int id) throws PersistenciaException;
     
     //List<bloqueoDominio> buscarTabla() throws PersistenciaException;
-    
-    public List<bloqueoDominio> obtenerBloqueosActivos() throws PersistenciaException;
     
 }
