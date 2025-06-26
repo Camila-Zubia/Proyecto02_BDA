@@ -142,5 +142,28 @@ public class ComputadoraDAO implements IComputadora{
             }
         }
     }
+
+    @Override
+    public void liberarComputadora(int id) throws PersistenciaException {
+        EntityManager manager = ManejadorConexiones.getEntityManager();
+        try {
+            manager.getTransaction().begin();
+            computadoraDominio computadora = manager.find(computadoraDominio.class, id);
+            if (computadora == null) {
+                throw new PersistenciaException("No se encontró la computadora con ID: " + id);
+            }
+            computadora.setEstatus(EstatusComputadora.DISPONIBLE);
+            manager.getTransaction().commit();
+        } catch (PersistenciaException ex) {
+            if (manager != null && manager.getTransaction().isActive()) {
+                manager.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al liberar la computadora: " + ex.getMessage());
+        } finally {
+            if (manager != null) {
+                manager.close();
+            }
+        }
+    }
     
 }
