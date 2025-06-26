@@ -3,10 +3,11 @@ package fachada.implementaciones;
 //@author SAUL ISAAC APODACA BALDENEGRO 00000252020
 
 import DTO.NuevoLaboratorioDTO;
+import daos.ILaboratorioDAO;
+import daos.implementaciones.LaboratorioDAO;
 import dominios.LaboratorioDominio;
 import excepciones.NegocioException;
 import fachada.ILaboratorioFachada;
-import implementaciones.LaboratorioDAO;
 import negocio.ILaboratorioNegocio;
 import negocio.implementaciones.LaboratorioNegocio;
 
