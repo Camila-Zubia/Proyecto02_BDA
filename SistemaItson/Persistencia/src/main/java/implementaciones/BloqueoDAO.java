@@ -8,16 +8,17 @@ import excepciones.PersistenciaException;
 import com.mycompany.persistencia.IBloqueo;
 import dominios.BloqueoDominio;
 
-import dominios.bloqueoDominio;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
  * @author Camila Zubía
  */
-public class BloqueoDAO implements IBloqueo{
+public class BloqueoDAO implements IBloqueo {
 
     @Override
     public BloqueoDominio registrarBloqueo(BloqueoDominio bloqueo) throws PersistenciaException {
@@ -79,5 +80,22 @@ public class BloqueoDAO implements IBloqueo{
             }
         }
     }
-    
+
+    @Override
+    public List<BloqueoDominio> obtenerBloqueosActivos() throws PersistenciaException {
+        EntityManager manager = ManejadorConexiones.getEntityManager();
+
+        try {
+            String consulta = "SELECT b FROM bloqueoDominio b WHERE b.estatus = true";
+
+            TypedQuery<BloqueoDominio> query = manager.createQuery(consulta, BloqueoDominio.class);
+            return query.getResultList();
+
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al consultar bloqueos activos" + e.getMessage());
+        } finally {
+            manager.close();
+        }
+    }
+
 }

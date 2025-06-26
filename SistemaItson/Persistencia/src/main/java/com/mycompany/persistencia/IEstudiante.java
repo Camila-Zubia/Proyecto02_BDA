@@ -6,6 +6,7 @@ package com.mycompany.persistencia;
 
 import dominios.EstudianteDominio;
 import excepciones.PersistenciaException;
+import java.util.List;
 
 
 /**
@@ -13,11 +14,16 @@ import excepciones.PersistenciaException;
  * @author Camila Zubía
  */
 public interface IEstudiante {
-    
-     EstudianteDominio buscarPorID(int id) throws PersistenciaException;
 
-     estudianteDominio buscarPorID(int id) throws PersistenciaException;
+
+     
+     EstudianteDominio buscarPorID(int id) throws PersistenciaException;
      
      boolean estaBloqueado(int id) throws PersistenciaException;
     
+
+
+    public List<EstudianteDominio> obtenerEstudiantesConBloqueosActivos() throws PersistenciaException;
+
+
 }
