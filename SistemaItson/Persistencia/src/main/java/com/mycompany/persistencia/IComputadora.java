@@ -24,6 +24,8 @@ public interface IComputadora {
     
     void eliminar(int id) throws PersistenciaException;
     
-    //List<computadoraDominio> buscarTabla() throws PersistenciaException;
+    List<computadoraDominio> listarComputadoras() throws PersistenciaException;
+    
+    void liberarComputadora(int id) throws PersistenciaException;
     
 }

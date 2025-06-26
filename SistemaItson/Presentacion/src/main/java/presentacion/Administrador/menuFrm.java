@@ -35,16 +35,21 @@ public class MenuFrm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         labelImagenItson = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        menuBar = new javax.swing.JMenuBar();
+        menuPanelControl = new javax.swing.JMenu();
+        menuGestionBloqueos = new javax.swing.JMenu();
+        menuItemConsultarBloqueos = new javax.swing.JMenuItem();
+        menuItemBloquearAcceso = new javax.swing.JMenuItem();
+        menuGestionComputadoras = new javax.swing.JMenu();
+        menuItemAgregarComputadoras = new javax.swing.JMenuItem();
+        menuItemModificarComputadoras = new javax.swing.JMenuItem();
+        menuGestionLaboratorios = new javax.swing.JMenu();
+        menuItemAgregarLaboratorio = new javax.swing.JMenuItem();
+        menuItemModificarLaboratorio = new javax.swing.JMenuItem();
+        menuGenerarReportes = new javax.swing.JMenu();
+        menuItemReporteCentroComputo = new javax.swing.JMenuItem();
+        menuItemReporteCarreras = new javax.swing.JMenuItem();
+        menuItemReporteBloqueos = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -87,36 +92,73 @@ public class MenuFrm extends javax.swing.JFrame {
                 .addGap(99, 99, 99))
         );
 
-        jMenu3.setText("Opciones");
+        menuPanelControl.setText("Panel de Control");
 
-        jMenuItem1.setText("Consultar Bloqueos");
-        jMenu3.add(jMenuItem1);
+        menuGestionBloqueos.setText("Gestión de Bloqueos");
 
-        jMenuItem2.setText("Bloquear Acceso Alumnos");
-        jMenu3.add(jMenuItem2);
+        menuItemConsultarBloqueos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemConsultarBloqueos.setText("Consultar Bloqueos");
+        menuGestionBloqueos.add(menuItemConsultarBloqueos);
 
-        jMenuItem3.setText("Agregar Laboratorios");
-        jMenu3.add(jMenuItem3);
+        menuItemBloquearAcceso.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemBloquearAcceso.setText("Bloquear Acceso");
+        menuGestionBloqueos.add(menuItemBloquearAcceso);
 
-        jMenuItem4.setText("Agregar Computadoras");
-        jMenu3.add(jMenuItem4);
+        menuPanelControl.add(menuGestionBloqueos);
 
-        jMenu4.setText("Generar Reportes");
+        menuGestionComputadoras.setText("Gestión de Computadoras");
 
-        jMenuItem7.setText("Centro de Computo");
-        jMenu4.add(jMenuItem7);
+        menuItemAgregarComputadoras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemAgregarComputadoras.setText("Agregar Computadoras");
+        menuGestionComputadoras.add(menuItemAgregarComputadoras);
 
-        jMenuItem8.setText("Carreras");
-        jMenu4.add(jMenuItem8);
+        menuItemModificarComputadoras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemModificarComputadoras.setText("Modificar Computadoras");
+        menuItemModificarComputadoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemModificarComputadorasActionPerformed(evt);
+            }
+        });
+        menuGestionComputadoras.add(menuItemModificarComputadoras);
 
-        jMenuItem6.setText("Bloqueos");
-        jMenu4.add(jMenuItem6);
+        menuPanelControl.add(menuGestionComputadoras);
 
-        jMenu3.add(jMenu4);
+        menuGestionLaboratorios.setText("Gestión de Laboratorios");
 
-        jMenuBar2.add(jMenu3);
+        menuItemAgregarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemAgregarLaboratorio.setText("Agregar Laboratorio");
+        menuGestionLaboratorios.add(menuItemAgregarLaboratorio);
 
-        setJMenuBar(jMenuBar2);
+        menuItemModificarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemModificarLaboratorio.setText("Modificar Laboratorio");
+        menuItemModificarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemModificarLaboratorioActionPerformed(evt);
+            }
+        });
+        menuGestionLaboratorios.add(menuItemModificarLaboratorio);
+
+        menuPanelControl.add(menuGestionLaboratorios);
+
+        menuGenerarReportes.setText("Generar Reportes");
+
+        menuItemReporteCentroComputo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemReporteCentroComputo.setText("Centro de Computo");
+        menuGenerarReportes.add(menuItemReporteCentroComputo);
+
+        menuItemReporteCarreras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemReporteCarreras.setText("Carreras");
+        menuGenerarReportes.add(menuItemReporteCarreras);
+
+        menuItemReporteBloqueos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemReporteBloqueos.setText("Bloqueos");
+        menuGenerarReportes.add(menuItemReporteBloqueos);
+
+        menuPanelControl.add(menuGenerarReportes);
+
+        menuBar.add(menuPanelControl);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,27 +174,40 @@ public class MenuFrm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void menuItemModificarComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarComputadorasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemModificarComputadorasActionPerformed
+
+    private void menuItemModificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarLaboratorioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu jPopupMenu3;
     private javax.swing.JLabel labelImagenItson;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu menuGenerarReportes;
+    private javax.swing.JMenu menuGestionBloqueos;
+    private javax.swing.JMenu menuGestionComputadoras;
+    private javax.swing.JMenu menuGestionLaboratorios;
+    private javax.swing.JMenuItem menuItemAgregarComputadoras;
+    private javax.swing.JMenuItem menuItemAgregarLaboratorio;
+    private javax.swing.JMenuItem menuItemBloquearAcceso;
+    private javax.swing.JMenuItem menuItemConsultarBloqueos;
+    private javax.swing.JMenuItem menuItemModificarComputadoras;
+    private javax.swing.JMenuItem menuItemModificarLaboratorio;
+    private javax.swing.JMenuItem menuItemReporteBloqueos;
+    private javax.swing.JMenuItem menuItemReporteCarreras;
+    private javax.swing.JMenuItem menuItemReporteCentroComputo;
+    private javax.swing.JMenu menuPanelControl;
     // End of variables declaration//GEN-END:variables
 }

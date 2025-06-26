@@ -2,50 +2,114 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Menu class="javax.swing.JMenuBar" name="jMenuBar2">
+    <Menu class="javax.swing.JMenuBar" name="menuBar">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenu3">
+        <Menu class="javax.swing.JMenu" name="menuPanelControl">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Opciones"/>
+            <Property name="text" type="java.lang.String" value="Panel de Control"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <Menu class="javax.swing.JMenu" name="menuGestionBloqueos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar Bloqueos"/>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Bloqueos"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItemConsultarBloqueos">
+                  <Properties>
+                    <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                      <KeyStroke key="Shift+Ctrl+B"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Consultar Bloqueos"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItemBloquearAcceso">
+                  <Properties>
+                    <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                      <KeyStroke key="Ctrl+B"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Bloquear Acceso"/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="menuGestionComputadoras">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Bloquear Acceso Alumnos"/>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Computadoras"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItemAgregarComputadoras">
+                  <Properties>
+                    <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                      <KeyStroke key="Ctrl+Alt+A"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Agregar Computadoras"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItemModificarComputadoras">
+                  <Properties>
+                    <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                      <KeyStroke key="Ctrl+Alt+M"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Modificar Computadoras"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemModificarComputadorasActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="menuGestionLaboratorios">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar Laboratorios"/>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Laboratorios"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar Computadoras"/>
-              </Properties>
-            </MenuItem>
-            <Menu class="javax.swing.JMenu" name="jMenu1">
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItemAgregarLaboratorio">
+                  <Properties>
+                    <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                      <KeyStroke key="Ctrl+Alt+L"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Agregar Laboratorio"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="menuItemModificarLaboratorio">
+                  <Properties>
+                    <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                      <KeyStroke key="Shift+Ctrl+L"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Modificar Laboratorio"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemModificarLaboratorioActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="menuGenerarReportes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Generar Reportes"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
+                <MenuItem class="javax.swing.JMenuItem" name="menuItemReporteCentroComputo">
                   <Properties>
+                    <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                      <KeyStroke key="Ctrl+R"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Centro de Computo"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
+                <MenuItem class="javax.swing.JMenuItem" name="menuItemReporteCarreras">
                   <Properties>
+                    <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                      <KeyStroke key="Shift+Ctrl+R"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Carreras"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
+                <MenuItem class="javax.swing.JMenuItem" name="menuItemReporteBloqueos">
                   <Properties>
+                    <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                      <KeyStroke key="Shift+Ctrl+K"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Bloqueos"/>
                   </Properties>
                 </MenuItem>
@@ -60,7 +124,7 @@
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
   <SyntheticProperties>
-    <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar2"/>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="menuBar"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
@@ -186,6 +250,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
+                <Property name="text" type="java.lang.String" value="AGREGAR COMPUTADORA"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
@@ -195,18 +260,17 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="b5" green="6d" red="4" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="AGREGAR COMPUTADORA"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="agregarBtn">
               <Properties>
+                <Property name="text" type="java.lang.String" value="AGREGAR"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="99" red="0" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial Black" size="18" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="AGREGAR"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel2">
@@ -301,13 +365,13 @@
               <SubComponents>
                 <Component class="javax.swing.JCheckBox" name="mySqlCheckBox">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="MySQL WorkBench"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial Black" size="18" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="6d" red="4" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="MySQL WorkBench"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="ipTxt">
@@ -319,31 +383,28 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="softwareLbl">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="SOFTWARE:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial Black" size="24" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="6d" red="4" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="SOFTWARE:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="ipLbl">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="IP:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial Black" size="24" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="6d" red="4" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="IP:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="laboratorioComboBox">
                   <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Arial" size="18" style="0"/>
-                    </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="4">
                         <StringItem index="0" value="Item 1"/>
@@ -352,6 +413,9 @@
                         <StringItem index="3" value="Item 4"/>
                       </StringArray>
                     </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Arial" size="18" style="0"/>
+                    </Property>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -359,46 +423,46 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="laboratorioLbl">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="LABORATORIO:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial Black" size="24" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="6d" red="4" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="LABORATORIO:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="numeroLbl">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="NUMERO:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial Black" size="24" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="6d" red="4" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="NUMERO:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="AutoCadCheckBox">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="AutoCAD"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial Black" size="18" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="6d" red="4" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="AutoCAD"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="photoshopCheckBox">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Photoshop"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial Black" size="18" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="6d" red="4" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Photoshop"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="photoshopCheckBoxActionPerformed"/>
@@ -406,24 +470,24 @@
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="wordCheckBox">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Word"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial Black" size="18" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="6d" red="4" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Word"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="netBeansCheckBox">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Apache NetBeans"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial Black" size="18" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="6d" red="4" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Apache NetBeans"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="numeroComputadoraTxt">
@@ -437,11 +501,11 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnAnterior">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="eb" green="d7" red="ba" type="rgb"/>
-                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/anterior.png"/>
+                </Property>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="eb" green="d7" red="ba" type="rgb"/>
                 </Property>
               </Properties>
             </Component>

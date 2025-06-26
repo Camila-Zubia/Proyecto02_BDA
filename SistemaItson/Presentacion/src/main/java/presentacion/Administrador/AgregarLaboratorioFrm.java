@@ -4,16 +4,20 @@
  */
 package presentacion.Administrador;
 
+import DTO.NuevoLaboratorioDTO;
+import dominios.LaboratorioDominio;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author saula
  */
 public class AgregarLaboratorioFrm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AgregarLabFrm
-     */
+    private ILaboratorioFachada laboratorioFachada;
     public AgregarLaboratorioFrm () {
+        this.laboratorioFachada = new LaboratorioFachada();
         initComponents();
     }
 
@@ -41,19 +45,24 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
         contraseñaLbl = new javax.swing.JLabel();
         confirmarContraseñaLbl = new javax.swing.JLabel();
         unidadLbl = new javax.swing.JLabel();
-        timePicker1 = new com.github.lgooddatepicker.components.TimePicker();
-        timePicker2 = new com.github.lgooddatepicker.components.TimePicker();
+        timePickerHoraCierre = new com.github.lgooddatepicker.components.TimePicker();
+        timePickerHoraInicio = new com.github.lgooddatepicker.components.TimePicker();
         btnAnterior = new javax.swing.JButton();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        menuBar = new javax.swing.JMenuBar();
+        menuPanelControl = new javax.swing.JMenu();
+        menuGestionBloqueos = new javax.swing.JMenu();
+        menuItemConsultarBloqueos = new javax.swing.JMenuItem();
+        menuItemBloquearAcceso = new javax.swing.JMenuItem();
+        menuGestionComputadoras = new javax.swing.JMenu();
+        menuItemAgregarComputadoras = new javax.swing.JMenuItem();
+        menuItemModificarComputadoras = new javax.swing.JMenuItem();
+        menuGestionLaboratorios = new javax.swing.JMenu();
+        menuItemAgregarLaboratorio = new javax.swing.JMenuItem();
+        menuItemModificarLaboratorio = new javax.swing.JMenuItem();
+        menuGenerarReportes = new javax.swing.JMenu();
+        menuItemReporteCentroComputo = new javax.swing.JMenuItem();
+        menuItemReporteCarreras = new javax.swing.JMenuItem();
+        menuItemReporteBloqueos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,14 +71,19 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(186, 215, 235));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray));
 
+        jLabel1.setText("AGREGAR LABORATORIO");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(4, 109, 181));
-        jLabel1.setText("AGREGAR LABORATORIO");
 
+        agregarBtn.setText("AGREGAR");
         agregarBtn.setBackground(new java.awt.Color(0, 153, 255));
         agregarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        agregarBtn.setText("AGREGAR");
+        agregarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarBtnActionPerformed(evt);
+            }
+        });
 
         jPanel2.setOpaque(false);
 
@@ -79,32 +93,32 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
 
         contraseñaTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
+        nombreLbl.setText("NOMBRE");
         nombreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         nombreLbl.setForeground(new java.awt.Color(4, 109, 181));
-        nombreLbl.setText("NOMBRE");
 
+        unidadComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona..." }));
         unidadComboBox.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        unidadComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        horaInicioLbl.setText("HORA INICIO:");
         horaInicioLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         horaInicioLbl.setForeground(new java.awt.Color(4, 109, 181));
-        horaInicioLbl.setText("HORA INICIO:");
 
+        horaCierreLbl.setText("HORA CIERRE:");
         horaCierreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         horaCierreLbl.setForeground(new java.awt.Color(4, 109, 181));
-        horaCierreLbl.setText("HORA CIERRE:");
 
+        contraseñaLbl.setText("CONTRASEÑA:");
         contraseñaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         contraseñaLbl.setForeground(new java.awt.Color(4, 109, 181));
-        contraseñaLbl.setText("CONTRASEÑA:");
 
+        confirmarContraseñaLbl.setText("CONFIRMAR CONTRASEÑA:");
         confirmarContraseñaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         confirmarContraseñaLbl.setForeground(new java.awt.Color(4, 109, 181));
-        confirmarContraseñaLbl.setText("CONFIRMAR CONTRASEÑA:");
 
+        unidadLbl.setText("UNIDAD:");
         unidadLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         unidadLbl.setForeground(new java.awt.Color(4, 109, 181));
-        unidadLbl.setText("UNIDAD:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -130,8 +144,8 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
                         .addGap(121, 121, 121)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nombreTxt)
-                            .addComponent(timePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(timePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(timePickerHoraCierre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(timePickerHoraInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(contraseñaTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -145,11 +159,11 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(horaInicioLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timePicker2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(timePickerHoraInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(horaCierreLbl)
-                    .addComponent(timePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(timePickerHoraCierre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(contraseñaLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -165,8 +179,8 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
+        btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -222,36 +236,73 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
                 .addContainerGap(66, Short.MAX_VALUE))
         );
 
-        jMenu3.setText("Opciones");
+        menuPanelControl.setText("Panel de Control");
 
-        jMenuItem1.setText("Consultar Bloqueos");
-        jMenu3.add(jMenuItem1);
+        menuGestionBloqueos.setText("Gestión de Bloqueos");
 
-        jMenuItem2.setText("Bloquear Acceso Alumnos");
-        jMenu3.add(jMenuItem2);
+        menuItemConsultarBloqueos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemConsultarBloqueos.setText("Consultar Bloqueos");
+        menuGestionBloqueos.add(menuItemConsultarBloqueos);
 
-        jMenuItem3.setText("Agregar Laboratorios");
-        jMenu3.add(jMenuItem3);
+        menuItemBloquearAcceso.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemBloquearAcceso.setText("Bloquear Acceso");
+        menuGestionBloqueos.add(menuItemBloquearAcceso);
 
-        jMenuItem4.setText("Agregar Computadoras");
-        jMenu3.add(jMenuItem4);
+        menuPanelControl.add(menuGestionBloqueos);
 
-        jMenu1.setText("Generar Reportes");
+        menuGestionComputadoras.setText("Gestión de Computadoras");
 
-        jMenuItem7.setText("Centro de Computo");
-        jMenu1.add(jMenuItem7);
+        menuItemAgregarComputadoras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemAgregarComputadoras.setText("Agregar Computadoras");
+        menuGestionComputadoras.add(menuItemAgregarComputadoras);
 
-        jMenuItem8.setText("Carreras");
-        jMenu1.add(jMenuItem8);
+        menuItemModificarComputadoras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemModificarComputadoras.setText("Modificar Computadoras");
+        menuItemModificarComputadoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemModificarComputadorasActionPerformed(evt);
+            }
+        });
+        menuGestionComputadoras.add(menuItemModificarComputadoras);
 
-        jMenuItem6.setText("Bloqueos");
-        jMenu1.add(jMenuItem6);
+        menuPanelControl.add(menuGestionComputadoras);
 
-        jMenu3.add(jMenu1);
+        menuGestionLaboratorios.setText("Gestión de Laboratorios");
 
-        jMenuBar2.add(jMenu3);
+        menuItemAgregarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemAgregarLaboratorio.setText("Agregar Laboratorio");
+        menuGestionLaboratorios.add(menuItemAgregarLaboratorio);
 
-        setJMenuBar(jMenuBar2);
+        menuItemModificarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemModificarLaboratorio.setText("Modificar Laboratorio");
+        menuItemModificarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemModificarLaboratorioActionPerformed(evt);
+            }
+        });
+        menuGestionLaboratorios.add(menuItemModificarLaboratorio);
+
+        menuPanelControl.add(menuGestionLaboratorios);
+
+        menuGenerarReportes.setText("Generar Reportes");
+
+        menuItemReporteCentroComputo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemReporteCentroComputo.setText("Centro de Computo");
+        menuGenerarReportes.add(menuItemReporteCentroComputo);
+
+        menuItemReporteCarreras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemReporteCarreras.setText("Carreras");
+        menuGenerarReportes.add(menuItemReporteCarreras);
+
+        menuItemReporteBloqueos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemReporteBloqueos.setText("Bloqueos");
+        menuGenerarReportes.add(menuItemReporteBloqueos);
+
+        menuPanelControl.add(menuGenerarReportes);
+
+        menuBar.add(menuPanelControl);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -267,6 +318,96 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
+        try{ 
+            if (!validarCampos()) return;
+            
+            NuevoLaboratorioDTO laboratorioGuardar = construirNuevoLaboratorioDTO();
+            LaboratorioDominio nuevoLaboratorio = laboratorioFachada.guardar(laboratorioGuardar);
+
+            JOptionPane.showMessageDialog(this, "Laboratorio registrado con éxito.");
+
+            limpiarCampos();
+
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_agregarBtnActionPerformed
+
+    private void menuItemModificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarLaboratorioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
+
+    private void menuItemModificarComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarComputadorasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemModificarComputadorasActionPerformed
+
+    private boolean validarCampos() {
+        if (nombreTxt.getText().trim().isEmpty()) {
+            mostrarError("El nombre del laboratorio es obligatorio.");
+            return false;
+        }
+        if (timePickerHoraInicio.getTime() == null || timePickerHoraCierre.getTime() == null) {
+            mostrarError("Debes seleccionar ambas horas.");
+            return false;
+        }
+        if (!timePickerHoraInicio.getTime().isBefore(timePickerHoraCierre.getTime())) {
+            mostrarError("La hora de inicio debe ser antes que la hora de cierre.");
+            return false;
+        }
+        if (unidadComboBox.getSelectedItem() == null
+                || unidadComboBox.getSelectedItem().toString().equals("Selecciona...")) {
+            mostrarError("Debes seleccionar una unidad académica.");
+            return false;
+        }
+        if (!verificarCoincidenciaContrasenas()) {
+            return false;
+        }
+
+        char[] contrasena = contraseñaTxt.getPassword();
+        if (contrasena.length < 6) {
+            mostrarError("La contraseña debe tener al menos 6 caracteres.");
+            return false;
+        }
+
+        return true;
+
+    }
+
+    private boolean verificarCoincidenciaContrasenas(){
+        char[] contrasena1 = contraseñaTxt.getPassword();
+        char[] contrasena2 = confirmarContraseñaTxt.getPassword();
+        if(!Arrays.equals(contrasena1, contrasena2)){
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.");
+            return false;
+        } 
+        return true;
+    }
+    
+    private void mostrarError(String mensaje){
+        JOptionPane.showMessageDialog(this, mensaje, "Validacion", JOptionPane.WARNING_MESSAGE);
+    }
+    
+    private NuevoLaboratorioDTO construirNuevoLaboratorioDTO(){
+        NuevoLaboratorioDTO dto = new NuevoLaboratorioDTO();
+        dto.setNombre(nombreTxt.getText().trim());
+        dto.setHoraInicio(timePickerHoraInicio.getTime());
+        dto.setHoraCierre(timePickerHoraCierre.getTime());
+        dto.setUnidad(unidadComboBox.getSelectedItem().toString());
+        dto.setContrasena(contraseñaTxt.getPassword());
+        return dto;
+    }
+    
+    private void limpiarCampos() {
+        nombreTxt.setText("");
+        contraseñaTxt.setText("");
+        confirmarContraseñaTxt.setText("");
+        timePickerHoraInicio.setTime(null);
+        timePickerHoraCierre.setTime(null);
+        unidadComboBox.setSelectedIndex(0);
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JButton agregarBtn;
@@ -278,22 +419,27 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
     private javax.swing.JLabel horaCierreLbl;
     private javax.swing.JLabel horaInicioLbl;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu menuGenerarReportes;
+    private javax.swing.JMenu menuGestionBloqueos;
+    private javax.swing.JMenu menuGestionComputadoras;
+    private javax.swing.JMenu menuGestionLaboratorios;
+    private javax.swing.JMenuItem menuItemAgregarComputadoras;
+    private javax.swing.JMenuItem menuItemAgregarLaboratorio;
+    private javax.swing.JMenuItem menuItemBloquearAcceso;
+    private javax.swing.JMenuItem menuItemConsultarBloqueos;
+    private javax.swing.JMenuItem menuItemModificarComputadoras;
+    private javax.swing.JMenuItem menuItemModificarLaboratorio;
+    private javax.swing.JMenuItem menuItemReporteBloqueos;
+    private javax.swing.JMenuItem menuItemReporteCarreras;
+    private javax.swing.JMenuItem menuItemReporteCentroComputo;
+    private javax.swing.JMenu menuPanelControl;
     private javax.swing.JLabel nombreLbl;
     private javax.swing.JTextField nombreTxt;
-    private com.github.lgooddatepicker.components.TimePicker timePicker1;
-    private com.github.lgooddatepicker.components.TimePicker timePicker2;
+    private com.github.lgooddatepicker.components.TimePicker timePickerHoraCierre;
+    private com.github.lgooddatepicker.components.TimePicker timePickerHoraInicio;
     private javax.swing.JComboBox<String> unidadComboBox;
     private javax.swing.JLabel unidadLbl;
     // End of variables declaration//GEN-END:variables

@@ -26,6 +26,10 @@ public class estudianteReservaComputadoraDominio implements Serializable {
     @Column(name = "idReserva")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idReserva;
+    
+    @Column(name = "minutosReserva", nullable = false, length = 50)
+    private int minutosReserva;
+    
     /**
      * CONEXIONES
      */
@@ -40,8 +44,9 @@ public class estudianteReservaComputadoraDominio implements Serializable {
     public estudianteReservaComputadoraDominio() {
     }
 
-    public estudianteReservaComputadoraDominio(int idReserva, estudianteDominio estudianteReserva, computadoraDominio computadoraReservas) {
+    public estudianteReservaComputadoraDominio(int idReserva, int minutosReserva, estudianteDominio estudianteReserva, computadoraDominio computadoraReservas) {
         this.idReserva = idReserva;
+        this.minutosReserva = minutosReserva;
         this.estudianteReserva = estudianteReserva;
         this.computadoraReservas = computadoraReservas;
     }
@@ -52,6 +57,14 @@ public class estudianteReservaComputadoraDominio implements Serializable {
 
     public void setIdReserva(int idReserva) {
         this.idReserva = idReserva;
+    }
+
+    public int getMinutosReserva() {
+        return minutosReserva;
+    }
+
+    public void setMinutosReserva(int minutosReserva) {
+        this.minutosReserva = minutosReserva;
     }
 
     public estudianteDominio getEstudianteReserva() {

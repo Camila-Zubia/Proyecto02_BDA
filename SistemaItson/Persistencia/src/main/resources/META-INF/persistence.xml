@@ -11,6 +11,7 @@
     <class>dominios.bloqueoDominio</class>
     <class>dominios.estudianteReservaComputadoraDominio</class>
     <class>dominios.computadoraSoftwareDominio</class>
+    <class>dominios.AdministradorDominio</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/proyecto2bda?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

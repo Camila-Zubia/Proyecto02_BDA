@@ -38,16 +38,21 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
         btnPaginadoAnterior = new javax.swing.JButton();
         btnPaginadoSiguiente = new javax.swing.JButton();
         paginaLbl = new javax.swing.JLabel();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        menuBar = new javax.swing.JMenuBar();
+        menuPanelControl = new javax.swing.JMenu();
+        menuGestionBloqueos = new javax.swing.JMenu();
+        menuItemConsultarBloqueos = new javax.swing.JMenuItem();
+        menuItemBloquearAcceso = new javax.swing.JMenuItem();
+        menuGestionComputadoras = new javax.swing.JMenu();
+        menuItemAgregarComputadoras = new javax.swing.JMenuItem();
+        menuItemModificarComputadoras = new javax.swing.JMenuItem();
+        menuGestionLaboratorios = new javax.swing.JMenu();
+        menuItemAgregarLaboratorio = new javax.swing.JMenuItem();
+        menuItemModificarLaboratorio = new javax.swing.JMenuItem();
+        menuGenerarReportes = new javax.swing.JMenu();
+        menuItemReporteCentroComputo = new javax.swing.JMenuItem();
+        menuItemReporteCarreras = new javax.swing.JMenuItem();
+        menuItemReporteBloqueos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,13 +61,13 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(186, 215, 235));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray));
 
+        jLabel1.setText("ADMINISTRAR ACCESO");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(4, 109, 181));
-        jLabel1.setText("ADMINISTRAR ACCESO");
 
-        btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
+        btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,33 +82,33 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        btnBuscar.setText("BUSCAR");
         btnBuscar.setBackground(new java.awt.Color(0, 153, 255));
         btnBuscar.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
 
+        consultarBtn.setText("CAMBIAR ACCESO");
         consultarBtn.setBackground(new java.awt.Color(0, 153, 255));
         consultarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        consultarBtn.setText("CAMBIAR ACCESO");
 
-        btnPaginadoAnterior.setBackground(new java.awt.Color(0, 153, 255));
         btnPaginadoAnterior.setText("Anterior");
+        btnPaginadoAnterior.setBackground(new java.awt.Color(0, 153, 255));
 
-        btnPaginadoSiguiente.setBackground(new java.awt.Color(0, 153, 255));
         btnPaginadoSiguiente.setText("Siguiente");
+        btnPaginadoSiguiente.setBackground(new java.awt.Color(0, 153, 255));
         btnPaginadoSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPaginadoSiguienteActionPerformed(evt);
             }
         });
 
+        paginaLbl.setText("Página ");
         paginaLbl.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         paginaLbl.setForeground(new java.awt.Color(4, 109, 181));
-        paginaLbl.setText("Página ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -180,36 +185,73 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenu3.setText("Opciones");
+        menuPanelControl.setText("Panel de Control");
 
-        jMenuItem1.setText("Consultar Bloqueos");
-        jMenu3.add(jMenuItem1);
+        menuGestionBloqueos.setText("Gestión de Bloqueos");
 
-        jMenuItem2.setText("Bloquear Acceso Alumnos");
-        jMenu3.add(jMenuItem2);
+        menuItemConsultarBloqueos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemConsultarBloqueos.setText("Consultar Bloqueos");
+        menuGestionBloqueos.add(menuItemConsultarBloqueos);
 
-        jMenuItem3.setText("Agregar Laboratorios");
-        jMenu3.add(jMenuItem3);
+        menuItemBloquearAcceso.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemBloquearAcceso.setText("Bloquear Acceso");
+        menuGestionBloqueos.add(menuItemBloquearAcceso);
 
-        jMenuItem4.setText("Agregar Computadoras");
-        jMenu3.add(jMenuItem4);
+        menuPanelControl.add(menuGestionBloqueos);
 
-        jMenu1.setText("Generar Reportes");
+        menuGestionComputadoras.setText("Gestión de Computadoras");
 
-        jMenuItem7.setText("Centro de Computo");
-        jMenu1.add(jMenuItem7);
+        menuItemAgregarComputadoras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemAgregarComputadoras.setText("Agregar Computadoras");
+        menuGestionComputadoras.add(menuItemAgregarComputadoras);
 
-        jMenuItem8.setText("Carreras");
-        jMenu1.add(jMenuItem8);
+        menuItemModificarComputadoras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemModificarComputadoras.setText("Modificar Computadoras");
+        menuItemModificarComputadoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemModificarComputadorasActionPerformed(evt);
+            }
+        });
+        menuGestionComputadoras.add(menuItemModificarComputadoras);
 
-        jMenuItem6.setText("Bloqueos");
-        jMenu1.add(jMenuItem6);
+        menuPanelControl.add(menuGestionComputadoras);
 
-        jMenu3.add(jMenu1);
+        menuGestionLaboratorios.setText("Gestión de Laboratorios");
 
-        jMenuBar2.add(jMenu3);
+        menuItemAgregarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemAgregarLaboratorio.setText("Agregar Laboratorio");
+        menuGestionLaboratorios.add(menuItemAgregarLaboratorio);
 
-        setJMenuBar(jMenuBar2);
+        menuItemModificarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemModificarLaboratorio.setText("Modificar Laboratorio");
+        menuItemModificarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemModificarLaboratorioActionPerformed(evt);
+            }
+        });
+        menuGestionLaboratorios.add(menuItemModificarLaboratorio);
+
+        menuPanelControl.add(menuGestionLaboratorios);
+
+        menuGenerarReportes.setText("Generar Reportes");
+
+        menuItemReporteCentroComputo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemReporteCentroComputo.setText("Centro de Computo");
+        menuGenerarReportes.add(menuItemReporteCentroComputo);
+
+        menuItemReporteCarreras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemReporteCarreras.setText("Carreras");
+        menuGenerarReportes.add(menuItemReporteCarreras);
+
+        menuItemReporteBloqueos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemReporteBloqueos.setText("Bloqueos");
+        menuGenerarReportes.add(menuItemReporteBloqueos);
+
+        menuPanelControl.add(menuGenerarReportes);
+
+        menuBar.add(menuPanelControl);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -233,6 +275,14 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPaginadoSiguienteActionPerformed
 
+    private void menuItemModificarComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarComputadorasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemModificarComputadorasActionPerformed
+
+    private void menuItemModificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarLaboratorioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JButton btnAnterior;
@@ -242,19 +292,24 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
     private javax.swing.JTextField buscadorTxt;
     private javax.swing.JButton consultarBtn;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu menuGenerarReportes;
+    private javax.swing.JMenu menuGestionBloqueos;
+    private javax.swing.JMenu menuGestionComputadoras;
+    private javax.swing.JMenu menuGestionLaboratorios;
+    private javax.swing.JMenuItem menuItemAgregarComputadoras;
+    private javax.swing.JMenuItem menuItemAgregarLaboratorio;
+    private javax.swing.JMenuItem menuItemBloquearAcceso;
+    private javax.swing.JMenuItem menuItemConsultarBloqueos;
+    private javax.swing.JMenuItem menuItemModificarComputadoras;
+    private javax.swing.JMenuItem menuItemModificarLaboratorio;
+    private javax.swing.JMenuItem menuItemReporteBloqueos;
+    private javax.swing.JMenuItem menuItemReporteCarreras;
+    private javax.swing.JMenuItem menuItemReporteCentroComputo;
+    private javax.swing.JMenu menuPanelControl;
     private javax.swing.JLabel paginaLbl;
     // End of variables declaration//GEN-END:variables
 }

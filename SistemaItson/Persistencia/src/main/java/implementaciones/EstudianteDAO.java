@@ -41,11 +41,19 @@ public class EstudianteDAO implements IEstudiante{
     @Override
     public boolean estaBloqueado(int id) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
-        String consulta = "SELECT b FROM bloqueoDominio b WHERE b.idEstudiante = :id AND b.estatus = true";
-        TypedQuery<bloqueoDominio> query = manager.createQuery(consulta, bloqueoDominio.class);
-        query.setParameter("idEstudiante", id);
-        List<bloqueoDominio> resultados = query.getResultList();
-        return !resultados.isEmpty();
+        try{
+            String consulta = "SELECT b FROM bloqueoDominio b WHERE b.estudiante.id = :idEstudiante AND b.estatus = true";
+            TypedQuery<bloqueoDominio> query = manager.createQuery(consulta, bloqueoDominio.class);
+            query.setParameter("idEstudiante", id);
+            List<bloqueoDominio> resultados = query.getResultList();
+            return !resultados.isEmpty();
+        }catch(Exception ex){
+            throw new PersistenciaException("Error al verificar si el estudiante esta bloqueado" + ex);
+        }finally{
+            if (manager != null) {
+                manager.close();
+            }
+        }
     }
     
 }

@@ -1,9 +1,13 @@
-com\mycompany\dominio\Dominio.class
+DTO\FiltroDTO.class
 dominios\computadoraDominio.class
+DTO\LaboratorioDTO.class
+dominios\bloqueoDominio.class
+DTO\TablaBloqueosDTO.class
+DTO\TablaEstudiantesDTO.class
+dominios\EstatusComputadora.class
 dominios\softwareDominio.class
 dominios\laboratorioDominio.class
 dominios\estudianteDominio.class
-dominios\bloqueoDominio.class
 dominios\computadoraSoftwareDominio.class
 dominios\unidadAcademicaDominio.class
 dominios\carreraDominio.class
