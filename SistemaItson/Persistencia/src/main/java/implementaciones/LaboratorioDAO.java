@@ -7,7 +7,7 @@ package implementaciones;
 import excepciones.PersistenciaException;
 import com.mycompany.persistencia.ILaboratorio;
 import DTO.LaboratorioDTO;
-import dominios.laboratorioDominio;
+import dominios.LaboratorioDominio;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,10 +19,10 @@ import javax.persistence.Persistence;
 public class LaboratorioDAO implements ILaboratorio{
 
     @Override
-    public laboratorioDominio buscarPorId(int id) throws PersistenciaException {
+    public LaboratorioDominio buscarPorId(int id) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
-            laboratorioDominio laboratorio = manager.find(laboratorioDominio.class, id);
+            LaboratorioDominio laboratorio = manager.find(LaboratorioDominio.class, id);
             if (laboratorio == null) {
                 throw new PersistenciaException("No se encontró el laboratorio con ID: " + id);
             }
@@ -37,7 +37,7 @@ public class LaboratorioDAO implements ILaboratorio{
     }
 
     @Override
-    public laboratorioDominio agregar(laboratorioDominio laboratorio) throws PersistenciaException {
+    public LaboratorioDominio agregar(LaboratorioDominio laboratorio) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             manager.getTransaction().begin();
@@ -57,11 +57,11 @@ public class LaboratorioDAO implements ILaboratorio{
     }
 
     @Override
-    public laboratorioDominio modificar(LaboratorioDTO laboratorio) throws PersistenciaException {
+    public LaboratorioDominio modificar(LaboratorioDTO laboratorio) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             manager.getTransaction().begin();
-            laboratorioDominio labEncontrado = manager.find(laboratorioDominio.class, laboratorio.getIdLaboratorios());
+            LaboratorioDominio labEncontrado = manager.find(LaboratorioDominio.class, laboratorio.getIdLaboratorios());
             if (labEncontrado == null) {
                 throw new PersistenciaException("No se encontró el laboratorio con ID: " + laboratorio.getIdLaboratorios());
             }

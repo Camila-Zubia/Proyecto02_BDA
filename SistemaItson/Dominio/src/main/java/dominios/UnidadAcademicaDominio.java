@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "unidadesAcademicas")
 
-public class unidadAcademicaDominio implements Serializable {
+public class UnidadAcademicaDominio implements Serializable {
 
     @Id()
     @Column(name = "idUnidadAcademica")
@@ -36,15 +36,15 @@ public class unidadAcademicaDominio implements Serializable {
      * CONEXIONES
      */
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "unidadAcademica")
-    private List<carreraDominio> carreras;
+    private List<CarreraDominio> carreras;
     
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "unidadAcademica")
-    private List<laboratorioDominio> laboratorios;
+    private List<LaboratorioDominio> laboratorios;
 
-    public unidadAcademicaDominio() {
+    public UnidadAcademicaDominio() {
     }
 
-    public unidadAcademicaDominio(String nombres) {
+    public UnidadAcademicaDominio(String nombres) {
         this.nombres = nombres;
       
     }
@@ -65,19 +65,19 @@ public class unidadAcademicaDominio implements Serializable {
         this.nombres = nombres;
     }
 
-    public List<carreraDominio> getCarreras() {
+    public List<CarreraDominio> getCarreras() {
         return carreras;
     }
 
-    public void setCarreras(List<carreraDominio> carreras) {
+    public void setCarreras(List<CarreraDominio> carreras) {
         this.carreras = carreras;
     }
 
-    public List<laboratorioDominio> getLaboratorios() {
+    public List<LaboratorioDominio> getLaboratorios() {
         return laboratorios;
     }
 
-    public void setLaboratorios(List<laboratorioDominio> laboratorios) {
+    public void setLaboratorios(List<LaboratorioDominio> laboratorios) {
         this.laboratorios = laboratorios;
     }
     

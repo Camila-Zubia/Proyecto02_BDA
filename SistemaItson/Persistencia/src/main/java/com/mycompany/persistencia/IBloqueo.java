@@ -4,7 +4,7 @@
  */
 package com.mycompany.persistencia;
 
-import dominios.bloqueoDominio;
+import dominios.BloqueoDominio;
 import excepciones.PersistenciaException;
 
 /**
@@ -13,9 +13,9 @@ import excepciones.PersistenciaException;
  */
 public interface IBloqueo {
     
-    bloqueoDominio registrarBloqueo(bloqueoDominio bloqueo) throws PersistenciaException;
+    BloqueoDominio registrarBloqueo(BloqueoDominio bloqueo) throws PersistenciaException;
     
-    bloqueoDominio buscarPorId(int id) throws PersistenciaException;
+    BloqueoDominio buscarPorId(int id) throws PersistenciaException;
     
     void liberarBloqueo(int id) throws PersistenciaException;
     
