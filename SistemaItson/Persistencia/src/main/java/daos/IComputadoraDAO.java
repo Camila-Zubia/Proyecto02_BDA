@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Camila Zubía
  */
-public interface IComputadora {
+public interface IComputadoraDAO {
     
     ComputadoraDominio buscarPorId(int id) throws PersistenciaException;
     

@@ -2,21 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package implementaciones;
+package daos.implementaciones;
 
 import excepciones.PersistenciaException;
-import com.mycompany.persistencia.IComputadora;
 import dominios.EstatusComputadora;
 import dominios.ComputadoraDominio;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import com.mycompany.persistencia.IComputadoraDAO;
 
 /**
  *
  * @author Camila Zubía
  */
-public class ComputadoraDAO implements IComputadora{
+public class ComputadoraDAO implements IComputadoraDAO{
 
     @Override
     public ComputadoraDominio buscarPorId(int id) throws PersistenciaException {

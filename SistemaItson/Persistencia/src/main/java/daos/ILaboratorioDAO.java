@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.mycompany.persistencia;
+package daos;
 
 import DTO.LaboratorioDTO;
 import dominios.LaboratorioDominio;
@@ -12,7 +12,7 @@ import excepciones.PersistenciaException;
  *
  * @author Camila Zubía
  */
-public interface ILaboratorio {
+public interface ILaboratorioDAO {
     
     LaboratorioDominio buscarPorId(int id) throws PersistenciaException;
 

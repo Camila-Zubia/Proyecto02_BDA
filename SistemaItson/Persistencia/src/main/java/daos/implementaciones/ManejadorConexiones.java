@@ -1,4 +1,4 @@
-package implementaciones;
+package daos.implementaciones;
 
 //@author SAUL ISAAC APODACA BALDENEGRO 00000252020
 

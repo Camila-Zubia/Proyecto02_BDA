@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package implementaciones;
+package daos.implementaciones;
 
 import excepciones.PersistenciaException;
-import com.mycompany.persistencia.IBloqueo;
 import dominios.BloqueoDominio;
 
 import java.util.List;
@@ -13,12 +12,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import daos.IBloqueoDAO;
 
 /**
  *
  * @author Camila Zubía
  */
-public class BloqueoDAO implements IBloqueo {
+public class BloqueoDAO implements IBloqueoDAO {
 
     @Override
     public BloqueoDominio registrarBloqueo(BloqueoDominio bloqueo) throws PersistenciaException {

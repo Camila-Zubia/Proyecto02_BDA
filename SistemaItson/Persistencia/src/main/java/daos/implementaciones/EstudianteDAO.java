@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package implementaciones;
+package daos.implementaciones;
 
 import excepciones.PersistenciaException;
-import com.mycompany.persistencia.IEstudiante;
 import dominios.BloqueoDominio;
 import dominios.EstudianteDominio;
 import java.util.List;
@@ -13,12 +12,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import daos.IEstudianteDAO;
 
 /**
  *
  * @author Camila Zubía
  */
-public class EstudianteDAO implements IEstudiante {
+public class EstudianteDAO implements IEstudianteDAO {
 
     @Override
     public EstudianteDominio buscarPorID(int id) throws PersistenciaException {
@@ -57,12 +57,12 @@ public class EstudianteDAO implements IEstudiante {
     }
 
     @Override
-    public List<estudianteDominio> obtenerEstudiantesConBloqueosActivos() {
+    public List<EstudianteDominio> obtenerEstudiantesConBloqueosActivos() {
         EntityManager em = ManejadorConexiones.getEntityManager();
 
         try {
             String consulta = "SELECT DISTINCT e FROM estudianteDominio e JOIN e.bloqueos b WHERE b.estatus = true";
-            TypedQuery<estudianteDominio> query = em.createQuery(consulta, estudianteDominio.class);
+            TypedQuery<EstudianteDominio> query = em.createQuery(consulta, EstudianteDominio.class);
             return query.getResultList();
         } finally {
             em.close();
