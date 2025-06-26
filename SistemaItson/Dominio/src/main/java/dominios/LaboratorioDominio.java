@@ -5,6 +5,7 @@
 package dominios;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -36,16 +37,16 @@ public class LaboratorioDominio implements Serializable {
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
     
-    @Column(name = "contraseña", nullable = false, length = 50)
+    @Column(name = "contraseña", nullable = false, length = 100)
     private String contraseña;
     
     @Column(name = "horaInicio", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar horaInicio;
+    private LocalTime horaInicio;
     
     @Column(name = "horaFin", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar horaFin;
+    private LocalTime horaFin;
     
     /**
      * CONEXIONES
@@ -61,7 +62,7 @@ public class LaboratorioDominio implements Serializable {
     public LaboratorioDominio() {
     }
 
-    public LaboratorioDominio(String nombre, String contraseña, Calendar horaInicio, Calendar horaFin) {
+    public LaboratorioDominio(String nombre, String contraseña, LocalTime horaInicio, LocalTime horaFin) {
         this.nombre = nombre;
         this.contraseña = contraseña;
         this.horaInicio = horaInicio;
@@ -92,19 +93,19 @@ public class LaboratorioDominio implements Serializable {
         this.contraseña = contraseña;
     }
 
-    public Calendar getHoraInicio() {
+    public LocalTime getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(Calendar horaInicio) {
+    public void setHoraInicio(LocalTime horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public Calendar getHoraFin() {
+    public LocalTime getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(Calendar horaFin) {
+    public void setHoraFin(LocalTime horaFin) {
         this.horaFin = horaFin;
     }
 

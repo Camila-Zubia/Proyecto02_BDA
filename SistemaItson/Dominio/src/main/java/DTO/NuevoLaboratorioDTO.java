@@ -3,6 +3,7 @@ package DTO;
 //@author SAUL ISAAC APODACA BALDENEGRO 00000252020
 
 import java.time.LocalTime;
+import java.util.Arrays;
 
 
 public class NuevoLaboratorioDTO {
@@ -11,6 +12,7 @@ public class NuevoLaboratorioDTO {
     private LocalTime horaCierre;
     private char[] contrasena;
     private String unidad;
+    private String contrasenaHash;
 
     public NuevoLaboratorioDTO() {
     }
@@ -23,6 +25,14 @@ public class NuevoLaboratorioDTO {
         this.unidad = unidad;
     }
 
+    public String getContrasenaHash() {
+        return contrasenaHash;
+    }
+
+    public void setContrasenaHash(String contrasenaHash) {
+        this.contrasenaHash = contrasenaHash;
+    }
+    
     public String getNombre() {
         return nombre;
     }
@@ -63,5 +73,8 @@ public class NuevoLaboratorioDTO {
         this.unidad = unidad;
     }
     
+    public void limpiarContrasena() {
+        if (contrasena != null) Arrays.fill(contrasena, '\0');
+    }
     
 }

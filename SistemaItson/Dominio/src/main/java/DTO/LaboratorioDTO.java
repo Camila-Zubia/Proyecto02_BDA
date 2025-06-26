@@ -4,6 +4,7 @@
  */
 package DTO;
 
+import java.time.LocalTime;
 import java.util.Calendar;
 
 /**
@@ -14,10 +15,10 @@ public class LaboratorioDTO {
     
     private int idLaboratorios;
     private String nombre;
-    private Calendar horaInicio;
-    private Calendar horaFin;
+    private LocalTime horaInicio;
+    private LocalTime horaFin;
 
-    public LaboratorioDTO(String nombre, Calendar horaInicio, Calendar horaFin) {
+    public LaboratorioDTO(String nombre, LocalTime horaInicio, LocalTime horaFin) {
         this.nombre = nombre;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
@@ -31,19 +32,19 @@ public class LaboratorioDTO {
         this.nombre = nombre;
     }
 
-    public Calendar getHoraInicio() {
+    public LocalTime getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(Calendar horaInicio) {
+    public void setHoraInicio(LocalTime horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public Calendar getHoraFin() {
+    public LocalTime getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(Calendar horaFin) {
+    public void setHoraFin(LocalTime horaFin) {
         this.horaFin = horaFin;
     }
 
