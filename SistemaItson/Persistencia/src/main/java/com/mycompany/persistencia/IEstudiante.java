@@ -4,7 +4,7 @@
  */
 package com.mycompany.persistencia;
 
-import dominios.estudianteDominio;
+import dominios.EstudianteDominio;
 import excepciones.PersistenciaException;
 
 
@@ -14,7 +14,7 @@ import excepciones.PersistenciaException;
  */
 public interface IEstudiante {
     
-     estudianteDominio buscarPorID(int id) throws PersistenciaException;
+     EstudianteDominio buscarPorID(int id) throws PersistenciaException;
      
      boolean estaBloqueado(int id) throws PersistenciaException;
     

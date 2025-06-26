@@ -7,7 +7,7 @@ package implementaciones;
 import excepciones.PersistenciaException;
 import com.mycompany.persistencia.IComputadora;
 import dominios.EstatusComputadora;
-import dominios.computadoraDominio;
+import dominios.ComputadoraDominio;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -19,10 +19,10 @@ import javax.persistence.TypedQuery;
 public class ComputadoraDAO implements IComputadora{
 
     @Override
-    public computadoraDominio buscarPorId(int id) throws PersistenciaException {
+    public ComputadoraDominio buscarPorId(int id) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try{
-            computadoraDominio computadora = manager.find(computadoraDominio.class, id);
+            ComputadoraDominio computadora = manager.find(ComputadoraDominio.class, id);
             if (computadora == null) {
                 throw new PersistenciaException("No se encontró la computadora con ID: " + id);
             }
@@ -37,7 +37,7 @@ public class ComputadoraDAO implements IComputadora{
     }
 
     @Override
-    public computadoraDominio agregar(computadoraDominio computadora) throws PersistenciaException {
+    public ComputadoraDominio agregar(ComputadoraDominio computadora) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             manager.getTransaction().begin();
@@ -61,7 +61,7 @@ public class ComputadoraDAO implements IComputadora{
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             manager.getTransaction().begin();
-            computadoraDominio computadora = manager.find(computadoraDominio.class, id);
+            ComputadoraDominio computadora = manager.find(ComputadoraDominio.class, id);
             if (computadora == null) {
                 throw new PersistenciaException("No se encontró la computadora con ID: " + id);
             }
@@ -80,11 +80,11 @@ public class ComputadoraDAO implements IComputadora{
     }
 
     @Override
-    public computadoraDominio modificar(computadoraDominio computadora) throws PersistenciaException {
+    public ComputadoraDominio modificar(ComputadoraDominio computadora) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             manager.getTransaction().begin();
-            computadoraDominio computadoraEncontrada = manager.find(computadoraDominio.class, computadora.getIdComputadoras());
+            ComputadoraDominio computadoraEncontrada = manager.find(ComputadoraDominio.class, computadora.getIdComputadoras());
             if (computadoraEncontrada == null) {
                 throw new PersistenciaException("No se encontró la computadora con ID: " + computadora.getIdComputadoras());
             }
@@ -109,7 +109,7 @@ public class ComputadoraDAO implements IComputadora{
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             manager.getTransaction().begin();
-            computadoraDominio computadora = manager.find(computadoraDominio.class, id);
+            ComputadoraDominio computadora = manager.find(ComputadoraDominio.class, id);
             if (computadora == null) {
                 throw new PersistenciaException("No se encontró la computadora con ID: " + id);
             }
@@ -128,11 +128,11 @@ public class ComputadoraDAO implements IComputadora{
     }
 
     @Override
-    public List<computadoraDominio> listarComputadoras() throws PersistenciaException {
+    public List<ComputadoraDominio> listarComputadoras() throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             String consulta = "SELECT c FROM computadoraDominio c";
-            TypedQuery<computadoraDominio> query = manager.createQuery(consulta, computadoraDominio.class);
+            TypedQuery<ComputadoraDominio> query = manager.createQuery(consulta, ComputadoraDominio.class);
             return query.getResultList();
         }catch (Exception ex) {
             throw new PersistenciaException("Error al eliminar la computadora: " + ex.getMessage());
@@ -148,7 +148,7 @@ public class ComputadoraDAO implements IComputadora{
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             manager.getTransaction().begin();
-            computadoraDominio computadora = manager.find(computadoraDominio.class, id);
+            ComputadoraDominio computadora = manager.find(ComputadoraDominio.class, id);
             if (computadora == null) {
                 throw new PersistenciaException("No se encontró la computadora con ID: " + id);
             }

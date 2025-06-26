@@ -6,8 +6,8 @@ package implementaciones;
 
 import excepciones.PersistenciaException;
 import com.mycompany.persistencia.IEstudiante;
-import dominios.bloqueoDominio;
-import dominios.estudianteDominio;
+import dominios.BloqueoDominio;
+import dominios.EstudianteDominio;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,10 +21,10 @@ import javax.persistence.TypedQuery;
 public class EstudianteDAO implements IEstudiante{
 
     @Override
-    public estudianteDominio buscarPorID(int id) throws PersistenciaException {
+    public EstudianteDominio buscarPorID(int id) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
-            estudianteDominio estudiante = manager.find(estudianteDominio.class, id);
+            EstudianteDominio estudiante = manager.find(EstudianteDominio.class, id);
             if (estudiante == null) {
                 throw new PersistenciaException("No se encontró el estudiante con ID: " + id);
             }
@@ -43,9 +43,9 @@ public class EstudianteDAO implements IEstudiante{
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try{
             String consulta = "SELECT b FROM bloqueoDominio b WHERE b.estudiante.id = :idEstudiante AND b.estatus = true";
-            TypedQuery<bloqueoDominio> query = manager.createQuery(consulta, bloqueoDominio.class);
+            TypedQuery<BloqueoDominio> query = manager.createQuery(consulta, BloqueoDominio.class);
             query.setParameter("idEstudiante", id);
-            List<bloqueoDominio> resultados = query.getResultList();
+            List<BloqueoDominio> resultados = query.getResultList();
             return !resultados.isEmpty();
         }catch(Exception ex){
             throw new PersistenciaException("Error al verificar si el estudiante esta bloqueado" + ex);

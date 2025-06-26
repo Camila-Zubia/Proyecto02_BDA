@@ -6,7 +6,7 @@ package implementaciones;
 
 import excepciones.PersistenciaException;
 import com.mycompany.persistencia.IBloqueo;
-import dominios.bloqueoDominio;
+import dominios.BloqueoDominio;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -18,7 +18,7 @@ import javax.persistence.Persistence;
 public class BloqueoDAO implements IBloqueo{
 
     @Override
-    public bloqueoDominio registrarBloqueo(bloqueoDominio bloqueo) throws PersistenciaException {
+    public BloqueoDominio registrarBloqueo(BloqueoDominio bloqueo) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             manager.getTransaction().begin();
@@ -38,10 +38,10 @@ public class BloqueoDAO implements IBloqueo{
     }
 
     @Override
-    public bloqueoDominio buscarPorId(int id) throws PersistenciaException {
+    public BloqueoDominio buscarPorId(int id) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
-            bloqueoDominio bloqueo = manager.find(bloqueoDominio.class, id);
+            BloqueoDominio bloqueo = manager.find(BloqueoDominio.class, id);
             if (bloqueo == null) {
                 throw new PersistenciaException("No se encontró el bloqueo con ID: " + id);
             }
@@ -60,7 +60,7 @@ public class BloqueoDAO implements IBloqueo{
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             manager.getTransaction().begin();
-            bloqueoDominio bloqueo = manager.find(bloqueoDominio.class, id);
+            BloqueoDominio bloqueo = manager.find(BloqueoDominio.class, id);
             if (bloqueo == null) {
                 throw new PersistenciaException("No se encontró el bloqueo con ID: " + id);
             }

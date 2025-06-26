@@ -4,7 +4,7 @@
  */
 package com.mycompany.persistencia;
 
-import dominios.computadoraDominio;
+import dominios.ComputadoraDominio;
 import excepciones.PersistenciaException;
 import java.util.List;
 
@@ -14,17 +14,17 @@ import java.util.List;
  */
 public interface IComputadora {
     
-    computadoraDominio buscarPorId(int id) throws PersistenciaException;
+    ComputadoraDominio buscarPorId(int id) throws PersistenciaException;
     
-    computadoraDominio agregar(computadoraDominio computadora) throws PersistenciaException;
+    ComputadoraDominio agregar(ComputadoraDominio computadora) throws PersistenciaException;
     
     void apartarComputadora(int id) throws PersistenciaException;
     
-    computadoraDominio modificar(computadoraDominio computadora) throws PersistenciaException;
+    ComputadoraDominio modificar(ComputadoraDominio computadora) throws PersistenciaException;
     
     void eliminar(int id) throws PersistenciaException;
     
-    List<computadoraDominio> listarComputadoras() throws PersistenciaException;
+    List<ComputadoraDominio> listarComputadoras() throws PersistenciaException;
     
     void liberarComputadora(int id) throws PersistenciaException;
     

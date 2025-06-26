@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SoftwaresInstalados")
-public class computadoraSoftwareDominio implements Serializable {
+public class ComputadoraSoftwareDominio implements Serializable {
 
    @Id()
     @Column(name = "id")
@@ -33,16 +33,16 @@ public class computadoraSoftwareDominio implements Serializable {
    
    @ManyToOne
     @JoinColumn(name = "idSoftware")
-    private softwareDominio software;
+    private SoftwareDominio software;
     
     @ManyToOne
     @JoinColumn(name = "idComputadora")
-    private computadoraDominio computadora;      
+    private ComputadoraDominio computadora;      
 
-    public computadoraSoftwareDominio() {
+    public ComputadoraSoftwareDominio() {
     }
 
-    public computadoraSoftwareDominio(int id, softwareDominio software, computadoraDominio computadora) {
+    public ComputadoraSoftwareDominio(int id, SoftwareDominio software, ComputadoraDominio computadora) {
         this.id = id;
         this.software = software;
         this.computadora = computadora;
@@ -56,19 +56,19 @@ public class computadoraSoftwareDominio implements Serializable {
         this.id = id;
     }
 
-    public softwareDominio getSoftware() {
+    public SoftwareDominio getSoftware() {
         return software;
     }
 
-    public void setSoftware(softwareDominio software) {
+    public void setSoftware(SoftwareDominio software) {
         this.software = software;
     }
 
-    public computadoraDominio getComputadora() {
+    public ComputadoraDominio getComputadora() {
         return computadora;
     }
 
-    public void setComputadora(computadoraDominio computadora) {
+    public void setComputadora(ComputadoraDominio computadora) {
         this.computadora = computadora;
     }
     

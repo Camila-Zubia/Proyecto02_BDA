@@ -5,7 +5,7 @@
 package com.mycompany.persistencia;
 
 import DTO.LaboratorioDTO;
-import dominios.laboratorioDominio;
+import dominios.LaboratorioDominio;
 import excepciones.PersistenciaException;
 
 /**
@@ -14,9 +14,9 @@ import excepciones.PersistenciaException;
  */
 public interface ILaboratorio {
     
-    laboratorioDominio buscarPorId(int id) throws PersistenciaException;
+    LaboratorioDominio buscarPorId(int id) throws PersistenciaException;
 
-    laboratorioDominio agregar(laboratorioDominio laboratorio) throws PersistenciaException;
+    LaboratorioDominio agregar(LaboratorioDominio laboratorio) throws PersistenciaException;
     
-    laboratorioDominio modificar(LaboratorioDTO laboratorio) throws PersistenciaException;
+    LaboratorioDominio modificar(LaboratorioDTO laboratorio) throws PersistenciaException;
 }

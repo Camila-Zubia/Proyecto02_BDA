@@ -4,7 +4,7 @@
  */
 package com.mycompany.persistencia;
 
-import dominios.estudianteReservaComputadoraDominio;
+import dominios.EstudianteReservaComputadoraDominio;
 import excepciones.PersistenciaException;
 
 /**
@@ -13,7 +13,7 @@ import excepciones.PersistenciaException;
  */
 public interface IReservacion {
     
-    estudianteReservaComputadoraDominio registrar(estudianteReservaComputadoraDominio reservacion) throws PersistenciaException;
+    EstudianteReservaComputadoraDominio registrar(EstudianteReservaComputadoraDominio reservacion) throws PersistenciaException;
     
-    estudianteReservaComputadoraDominio buscarPorId(int id) throws PersistenciaException;
+    EstudianteReservaComputadoraDominio buscarPorId(int id) throws PersistenciaException;
 }

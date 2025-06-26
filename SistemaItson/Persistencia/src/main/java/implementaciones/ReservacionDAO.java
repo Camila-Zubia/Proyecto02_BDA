@@ -5,7 +5,7 @@
 package implementaciones;
 
 import com.mycompany.persistencia.IReservacion;
-import dominios.estudianteReservaComputadoraDominio;
+import dominios.EstudianteReservaComputadoraDominio;
 import excepciones.PersistenciaException;
 import javax.persistence.EntityManager;
 
@@ -16,7 +16,7 @@ import javax.persistence.EntityManager;
 public class ReservacionDAO implements IReservacion{
 
     @Override
-    public estudianteReservaComputadoraDominio registrar(estudianteReservaComputadoraDominio reservacion) throws PersistenciaException {
+    public EstudianteReservaComputadoraDominio registrar(EstudianteReservaComputadoraDominio reservacion) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             manager.getTransaction().begin();
@@ -38,10 +38,10 @@ public class ReservacionDAO implements IReservacion{
     }
 
     @Override
-    public estudianteReservaComputadoraDominio buscarPorId(int id) throws PersistenciaException {
+    public EstudianteReservaComputadoraDominio buscarPorId(int id) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
-            estudianteReservaComputadoraDominio reservacion = manager.find(estudianteReservaComputadoraDominio.class, id);
+            EstudianteReservaComputadoraDominio reservacion = manager.find(EstudianteReservaComputadoraDominio.class, id);
             if (reservacion == null) {
                 throw new PersistenciaException("No se encontró la reservacion con ID: " + id);
             }

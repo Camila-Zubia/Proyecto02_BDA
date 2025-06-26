@@ -30,7 +30,7 @@ public class AdministradorDominio implements Serializable {
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idUnidad")
-    private unidadAcademicaDominio unidadAcademica;
+    private UnidadAcademicaDominio unidadAcademica;
 
     public AdministradorDominio() {
     }
@@ -59,11 +59,11 @@ public class AdministradorDominio implements Serializable {
         this.contraseña = contraseña;
     }
 
-    public unidadAcademicaDominio getUnidadAcademica() {
+    public UnidadAcademicaDominio getUnidadAcademica() {
         return unidadAcademica;
     }
 
-    public void setUnidadAcademica(unidadAcademicaDominio unidadAcademica) {
+    public void setUnidadAcademica(UnidadAcademicaDominio unidadAcademica) {
         this.unidadAcademica = unidadAcademica;
     }
     
