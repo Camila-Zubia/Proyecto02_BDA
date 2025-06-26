@@ -23,6 +23,6 @@ public class LaboratorioFachada implements ILaboratorioFachada{
 
     @Override
     public LaboratorioDominio guardar(NuevoLaboratorioDTO nuevoLaboratorio) throws NegocioException{
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return laboratorioNegocio.guardar(nuevoLaboratorio);
     }
 }
