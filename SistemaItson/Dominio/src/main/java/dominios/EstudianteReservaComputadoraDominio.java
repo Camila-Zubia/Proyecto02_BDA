@@ -5,6 +5,7 @@
 package dominios;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -27,8 +30,17 @@ public class EstudianteReservaComputadoraDominio implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idReserva;
     
-    @Column(name = "minutosReserva", nullable = false, length = 50)
-    private int minutosReserva;
+    @Column(name = "tiempoReserva", nullable = false, length = 50)
+    private int tiempoReserva;
+    
+    @Column(name = "fechaInicio", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalTime fechaInicio;
+
+    @Column(name = "fechaLiberacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalTime fechaLiberacion;
+
     
     /**
      * CONEXIONES
@@ -44,11 +56,10 @@ public class EstudianteReservaComputadoraDominio implements Serializable {
     public EstudianteReservaComputadoraDominio() {
     }
 
-    public EstudianteReservaComputadoraDominio(int idReserva, int minutosReserva, EstudianteDominio estudianteReserva, ComputadoraDominio computadoraReservas) {
-        this.idReserva = idReserva;
-        this.minutosReserva = minutosReserva;
-        this.estudianteReserva = estudianteReserva;
-        this.computadoraReservas = computadoraReservas;
+    public EstudianteReservaComputadoraDominio(int tiempoReserva, LocalTime fechaInicio, LocalTime fechaLiberacion) {
+        this.tiempoReserva = tiempoReserva;
+        this.fechaInicio = fechaInicio;
+        this.fechaLiberacion = fechaLiberacion;
     }
 
     public int getIdReserva() {
@@ -59,12 +70,28 @@ public class EstudianteReservaComputadoraDominio implements Serializable {
         this.idReserva = idReserva;
     }
 
-    public int getMinutosReserva() {
-        return minutosReserva;
+    public int getTiempoReserva() {
+        return tiempoReserva;
     }
 
-    public void setMinutosReserva(int minutosReserva) {
-        this.minutosReserva = minutosReserva;
+    public void setTiempoReserva(int tiempoReserva) {
+        this.tiempoReserva = tiempoReserva;
+    }
+
+    public LocalTime getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(LocalTime fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public LocalTime getFechaLiberacion() {
+        return fechaLiberacion;
+    }
+
+    public void setFechaLiberacion(LocalTime fechaLiberacion) {
+        this.fechaLiberacion = fechaLiberacion;
     }
 
     public EstudianteDominio getEstudianteReserva() {

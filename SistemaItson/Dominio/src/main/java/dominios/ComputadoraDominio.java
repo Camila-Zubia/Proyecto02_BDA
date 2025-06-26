@@ -35,9 +35,12 @@ public class ComputadoraDominio implements Serializable {
 
     @Column(name = "direccionIp", nullable = false, length = 50)
     private String direccionIp;
-
+    
     @Column(name = "estatus", nullable = false)
     private EstatusComputadora estatus;
+
+    @Column(name = "tipo", nullable = false)
+    private TipoComputadora tipo;
 
     /**
      * CONEXIONES
@@ -55,10 +58,11 @@ public class ComputadoraDominio implements Serializable {
     public ComputadoraDominio() {
     }
 
-    public ComputadoraDominio(String numero, String direccionIp, EstatusComputadora estatus) {
+    public ComputadoraDominio(String numero, String direccionIp, EstatusComputadora estatus, TipoComputadora tipo) {
         this.numero = numero;
         this.direccionIp = direccionIp;
         this.estatus = estatus;
+        this.tipo = tipo;
     }
 
     public int getIdComputadoras() {
@@ -91,6 +95,14 @@ public class ComputadoraDominio implements Serializable {
 
     public void setEstatus(EstatusComputadora estatus) {
         this.estatus = estatus;
+    }
+
+    public TipoComputadora getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoComputadora tipo) {
+        this.tipo = tipo;
     }
 
     public LaboratorioDominio getLaboratorio() {

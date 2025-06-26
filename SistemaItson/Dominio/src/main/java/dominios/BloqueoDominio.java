@@ -33,7 +33,11 @@ public class BloqueoDominio implements Serializable {
 
     @Column(name = "FechaBloqueo", nullable = false, length = 50)
     @Temporal(TemporalType.DATE)
-    private Calendar FechaBloqueo;
+    private Calendar fechaBloqueo;
+    
+    @Column(name = "FechaLiberacion", length = 50)
+    @Temporal(TemporalType.DATE)
+    private Calendar fechaLiberacion;
 
     @Column(name = "motivo", nullable = false, length = 50)
     private String motivo;
@@ -56,8 +60,9 @@ public class BloqueoDominio implements Serializable {
     public BloqueoDominio() {
     }
 
-    public BloqueoDominio(Calendar FechaBloqueo, String motivo, boolean estatus) {
-        this.FechaBloqueo = FechaBloqueo;
+    public BloqueoDominio(Calendar fechaBloqueo, Calendar fechaLiberacion, String motivo, boolean estatus) {
+        this.fechaBloqueo = fechaBloqueo;
+        this.fechaLiberacion = fechaLiberacion;
         this.motivo = motivo;
         this.estatus = estatus;
     }
@@ -71,11 +76,19 @@ public class BloqueoDominio implements Serializable {
     }
 
     public Calendar getFechaBloqueo() {
-        return FechaBloqueo;
+        return fechaBloqueo;
     }
 
     public void setFechaBloqueo(Calendar FechaBloqueo) {
-        this.FechaBloqueo = FechaBloqueo;
+        this.fechaBloqueo = FechaBloqueo;
+    }
+
+    public Calendar getFechaLiberacion() {
+        return fechaLiberacion;
+    }
+
+    public void setFechaLiberacion(Calendar fechaLiberacion) {
+        this.fechaLiberacion = fechaLiberacion;
     }
 
     public String getMotivo() {
