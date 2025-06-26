@@ -7,8 +7,14 @@ package daos.implementaciones;
 import daos.ILaboratorioDAO;
 import excepciones.PersistenciaException;
 import DTO.LaboratorioDTO;
+import DTO.NuevoLaboratorioDTO;
+import daos.IUnidadAcademicaDAO;
 import dominios.LaboratorioDominio;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -16,6 +22,12 @@ import javax.persistence.EntityManager;
  */
 public class LaboratorioDAO implements ILaboratorioDAO{
 
+    private IUnidadAcademicaDAO unidadAcademicaDAO;
+    
+    public LaboratorioDAO(){
+        this.unidadAcademicaDAO = new UnidadAcademicaDAO();
+    }
+    
     @Override
     public LaboratorioDominio buscarPorId(int id) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
@@ -35,14 +47,21 @@ public class LaboratorioDAO implements ILaboratorioDAO{
     }
 
     @Override
-    public LaboratorioDominio agregar(LaboratorioDominio laboratorio) throws PersistenciaException {
+    public LaboratorioDominio guardar(NuevoLaboratorioDTO nuevoLaboratorio) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             manager.getTransaction().begin();
+            LaboratorioDominio laboratorio = new LaboratorioDominio();
+            laboratorio.setNombre(nuevoLaboratorio.getNombre());
+            laboratorio.setHoraInicio(nuevoLaboratorio.getHoraInicio());
+            laboratorio.setHoraFin(nuevoLaboratorio.getHoraCierre());
+            laboratorio.setContraseña(nuevoLaboratorio.getContrasenaHash());
+            laboratorio.setUnidadAcademica(
+                    unidadAcademicaDAO.obtenerPorNombre(nuevoLaboratorio.getUnidad()));
             manager.persist(laboratorio);
             manager.getTransaction().commit();
             return laboratorio;
-        } catch (Exception ex) {
+        } catch (PersistenciaException ex) {
             if (manager != null && manager.getTransaction().isActive()) {
                 manager.getTransaction().rollback();
             }
@@ -78,5 +97,22 @@ public class LaboratorioDAO implements ILaboratorioDAO{
                 manager.close();
             }
         }
+    }
+    
+    @Override
+    public boolean existePorNombre(String nombre) throws PersistenciaException{
+        EntityManager manager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder cb = manager.getCriteriaBuilder();
+        
+        CriteriaQuery<Long> query = cb.createQuery(Long.class);
+        Root<LaboratorioDominio> root = query.from(LaboratorioDominio.class);
+        
+        Predicate condicion = cb.equal(
+                cb.lower(root.get("nombre")), 
+                nombre.toLowerCase());
+        query.select(cb.count(root)).where(condicion);
+        
+        Long resultado = manager.createQuery(query).getSingleResult();
+        return resultado > 0;
     }
 }

@@ -5,6 +5,7 @@
 package daos;
 
 import DTO.LaboratorioDTO;
+import DTO.NuevoLaboratorioDTO;
 import dominios.LaboratorioDominio;
 import excepciones.PersistenciaException;
 
@@ -16,7 +17,9 @@ public interface ILaboratorioDAO {
     
     LaboratorioDominio buscarPorId(int id) throws PersistenciaException;
 
-    LaboratorioDominio agregar(LaboratorioDominio laboratorio) throws PersistenciaException;
+    LaboratorioDominio guardar(NuevoLaboratorioDTO laboratorio) throws PersistenciaException;
     
     LaboratorioDominio modificar(LaboratorioDTO laboratorio) throws PersistenciaException;
+    
+    boolean existePorNombre(String nombre) throws PersistenciaException;
 }
