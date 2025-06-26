@@ -45,21 +45,21 @@ public class DesbloquearFrm extends javax.swing.JFrame {
         motivoTxt = new javax.swing.JTextArea();
         mostrarFechaLbl = new javax.swing.JLabel();
         fechaLbl = new javax.swing.JLabel();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        menuBar = new javax.swing.JMenuBar();
+        menuPanelControl = new javax.swing.JMenu();
+        menuGestionBloqueos = new javax.swing.JMenu();
+        menuItemConsultarBloqueos = new javax.swing.JMenuItem();
+        menuItemBloquearAcceso = new javax.swing.JMenuItem();
+        menuGestionComputadoras = new javax.swing.JMenu();
+        menuItemAgregarComputadoras = new javax.swing.JMenuItem();
+        menuItemModificarComputadoras = new javax.swing.JMenuItem();
+        menuGestionLaboratorios = new javax.swing.JMenu();
+        menuItemAgregarLaboratorio = new javax.swing.JMenuItem();
+        menuItemModificarLaboratorio = new javax.swing.JMenuItem();
+        menuGenerarReportes = new javax.swing.JMenu();
+        menuItemReporteCentroComputo = new javax.swing.JMenuItem();
+        menuItemReporteCarreras = new javax.swing.JMenuItem();
+        menuItemReporteBloqueos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -243,54 +243,73 @@ public class DesbloquearFrm extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jMenu3.setText("Panel de Control");
+        menuPanelControl.setText("Panel de Control");
 
-        jMenu2.setText("Gestión de Bloqueos");
+        menuGestionBloqueos.setText("Gestión de Bloqueos");
 
-        jMenuItem5.setText("Consultar Bloqueos");
-        jMenu2.add(jMenuItem5);
+        menuItemConsultarBloqueos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemConsultarBloqueos.setText("Consultar Bloqueos");
+        menuGestionBloqueos.add(menuItemConsultarBloqueos);
 
-        jMenuItem9.setText("Bloquear Acceso");
-        jMenu2.add(jMenuItem9);
+        menuItemBloquearAcceso.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemBloquearAcceso.setText("Bloquear Acceso");
+        menuGestionBloqueos.add(menuItemBloquearAcceso);
 
-        jMenu3.add(jMenu2);
+        menuPanelControl.add(menuGestionBloqueos);
 
-        jMenu4.setText("Gestión de Computadoras");
+        menuGestionComputadoras.setText("Gestión de Computadoras");
 
-        jMenuItem10.setText("Agregar Computadoras");
-        jMenu4.add(jMenuItem10);
+        menuItemAgregarComputadoras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemAgregarComputadoras.setText("Agregar Computadoras");
+        menuGestionComputadoras.add(menuItemAgregarComputadoras);
 
-        jMenuItem11.setText("Modificar Computadoras");
-        jMenu4.add(jMenuItem11);
+        menuItemModificarComputadoras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemModificarComputadoras.setText("Modificar Computadoras");
+        menuItemModificarComputadoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemModificarComputadorasActionPerformed(evt);
+            }
+        });
+        menuGestionComputadoras.add(menuItemModificarComputadoras);
 
-        jMenu3.add(jMenu4);
+        menuPanelControl.add(menuGestionComputadoras);
 
-        jMenu5.setText("Gestión de Laboratorios");
+        menuGestionLaboratorios.setText("Gestión de Laboratorios");
 
-        jMenuItem12.setText("Agregar Laboratorio");
-        jMenu5.add(jMenuItem12);
+        menuItemAgregarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemAgregarLaboratorio.setText("Agregar Laboratorio");
+        menuGestionLaboratorios.add(menuItemAgregarLaboratorio);
 
-        jMenuItem13.setText("Modificar Laboratorio");
-        jMenu5.add(jMenuItem13);
+        menuItemModificarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemModificarLaboratorio.setText("Modificar Laboratorio");
+        menuItemModificarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemModificarLaboratorioActionPerformed(evt);
+            }
+        });
+        menuGestionLaboratorios.add(menuItemModificarLaboratorio);
 
-        jMenu3.add(jMenu5);
+        menuPanelControl.add(menuGestionLaboratorios);
 
-        jMenu1.setText("Generar Reportes");
+        menuGenerarReportes.setText("Generar Reportes");
 
-        jMenuItem7.setText("Centro de Computo");
-        jMenu1.add(jMenuItem7);
+        menuItemReporteCentroComputo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemReporteCentroComputo.setText("Centro de Computo");
+        menuGenerarReportes.add(menuItemReporteCentroComputo);
 
-        jMenuItem8.setText("Carreras");
-        jMenu1.add(jMenuItem8);
+        menuItemReporteCarreras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemReporteCarreras.setText("Carreras");
+        menuGenerarReportes.add(menuItemReporteCarreras);
 
-        jMenuItem6.setText("Bloqueos");
-        jMenu1.add(jMenuItem6);
+        menuItemReporteBloqueos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemReporteBloqueos.setText("Bloqueos");
+        menuGenerarReportes.add(menuItemReporteBloqueos);
 
-        jMenu3.add(jMenu1);
+        menuPanelControl.add(menuGenerarReportes);
 
-        jMenuBar2.add(jMenu3);
+        menuBar.add(menuPanelControl);
 
-        setJMenuBar(jMenuBar2);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -306,6 +325,14 @@ public class DesbloquearFrm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void menuItemModificarComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarComputadorasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemModificarComputadorasActionPerformed
+
+    private void menuItemModificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarLaboratorioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;
@@ -315,24 +342,24 @@ public class DesbloquearFrm extends javax.swing.JFrame {
     private javax.swing.JLabel fechaLbl;
     private javax.swing.JLabel idLbl;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu menuGenerarReportes;
+    private javax.swing.JMenu menuGestionBloqueos;
+    private javax.swing.JMenu menuGestionComputadoras;
+    private javax.swing.JMenu menuGestionLaboratorios;
+    private javax.swing.JMenuItem menuItemAgregarComputadoras;
+    private javax.swing.JMenuItem menuItemAgregarLaboratorio;
+    private javax.swing.JMenuItem menuItemBloquearAcceso;
+    private javax.swing.JMenuItem menuItemConsultarBloqueos;
+    private javax.swing.JMenuItem menuItemModificarComputadoras;
+    private javax.swing.JMenuItem menuItemModificarLaboratorio;
+    private javax.swing.JMenuItem menuItemReporteBloqueos;
+    private javax.swing.JMenuItem menuItemReporteCarreras;
+    private javax.swing.JMenuItem menuItemReporteCentroComputo;
+    private javax.swing.JMenu menuPanelControl;
     private javax.swing.JLabel mostrarCarreraLbl;
     private javax.swing.JLabel mostrarFechaLbl;
     private javax.swing.JLabel mostrarIdLbl;
