@@ -6,6 +6,9 @@ package presentacion.Administrador;
 
 import DTO.NuevoLaboratorioDTO;
 import dominios.LaboratorioDominio;
+import excepciones.NegocioException;
+import fachada.ILaboratorioFachada;
+import fachada.implementaciones.LaboratorioFachada;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
