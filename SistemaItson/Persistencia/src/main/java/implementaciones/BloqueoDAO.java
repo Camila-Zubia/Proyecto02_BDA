@@ -6,11 +6,9 @@ package implementaciones;
 
 import excepciones.PersistenciaException;
 import com.mycompany.persistencia.IBloqueo;
-<<<<<<< HEAD
 import dominios.BloqueoDominio;
-=======
+
 import dominios.bloqueoDominio;
->>>>>>> parent of b1d0fa5 (bloqueos)
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

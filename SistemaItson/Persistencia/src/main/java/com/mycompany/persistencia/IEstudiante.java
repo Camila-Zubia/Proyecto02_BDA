@@ -14,11 +14,9 @@ import excepciones.PersistenciaException;
  */
 public interface IEstudiante {
     
-<<<<<<< HEAD
      EstudianteDominio buscarPorID(int id) throws PersistenciaException;
-=======
+
      estudianteDominio buscarPorID(int id) throws PersistenciaException;
->>>>>>> parent of b1d0fa5 (bloqueos)
      
      boolean estaBloqueado(int id) throws PersistenciaException;
     
