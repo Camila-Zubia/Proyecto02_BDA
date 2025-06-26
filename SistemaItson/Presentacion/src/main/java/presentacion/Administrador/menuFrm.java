@@ -37,11 +37,16 @@ public class MenuFrm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -87,32 +92,50 @@ public class MenuFrm extends javax.swing.JFrame {
                 .addGap(99, 99, 99))
         );
 
-        jMenu3.setText("Opciones");
+        jMenu3.setText("Panel de Control");
 
-        jMenuItem1.setText("Consultar Bloqueos");
-        jMenu3.add(jMenuItem1);
+        jMenu4.setText("Gestión de Bloqueos");
 
-        jMenuItem2.setText("Bloquear Acceso Alumnos");
-        jMenu3.add(jMenuItem2);
+        jMenuItem5.setText("Consultar Bloqueos");
+        jMenu4.add(jMenuItem5);
 
-        jMenuItem3.setText("Agregar Laboratorios");
-        jMenu3.add(jMenuItem3);
-
-        jMenuItem4.setText("Agregar Computadoras");
-        jMenu3.add(jMenuItem4);
-
-        jMenu4.setText("Generar Reportes");
-
-        jMenuItem7.setText("Centro de Computo");
-        jMenu4.add(jMenuItem7);
-
-        jMenuItem8.setText("Carreras");
-        jMenu4.add(jMenuItem8);
-
-        jMenuItem6.setText("Bloqueos");
-        jMenu4.add(jMenuItem6);
+        jMenuItem9.setText("Bloquear Acceso");
+        jMenu4.add(jMenuItem9);
 
         jMenu3.add(jMenu4);
+
+        jMenu5.setText("Gestión de Computadoras");
+
+        jMenuItem10.setText("Agregar Computadoras");
+        jMenu5.add(jMenuItem10);
+
+        jMenuItem11.setText("Modificar Computadoras");
+        jMenu5.add(jMenuItem11);
+
+        jMenu3.add(jMenu5);
+
+        jMenu6.setText("Gestión de Laboratorios");
+
+        jMenuItem12.setText("Agregar Laboratorio");
+        jMenu6.add(jMenuItem12);
+
+        jMenuItem13.setText("Modificar Laboratorio");
+        jMenu6.add(jMenuItem13);
+
+        jMenu3.add(jMenu6);
+
+        jMenu7.setText("Generar Reportes");
+
+        jMenuItem7.setText("Centro de Computo");
+        jMenu7.add(jMenuItem7);
+
+        jMenuItem8.setText("Carreras");
+        jMenu7.add(jMenuItem8);
+
+        jMenuItem6.setText("Bloqueos");
+        jMenu7.add(jMenuItem6);
+
+        jMenu3.add(jMenu7);
 
         jMenuBar2.add(jMenu3);
 
@@ -140,15 +163,20 @@ public class MenuFrm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
