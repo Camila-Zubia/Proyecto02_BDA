@@ -4,6 +4,8 @@
  */
 package fachada;
 
+import DTO.FiltroDTO;
+import DTO.TablaBloqueosDTO;
 import dominios.BloqueoDominio;
 import excepciones.NegocioException;
 import java.util.List;
@@ -21,4 +23,6 @@ public interface IBloqueoFachada {
     void liberarBloqueo(int id) throws NegocioException;
 
     public List<BloqueoDominio> obtenerBloqueosActivos() throws NegocioException;
+    
+    List<TablaBloqueosDTO> buscarTabla(FiltroDTO filtro) throws NegocioException;
 }
