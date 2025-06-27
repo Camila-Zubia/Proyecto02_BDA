@@ -10,6 +10,7 @@ import excepciones.PersistenciaException;
 import DTO.LaboratorioDTO;
 import DTO.NuevoLaboratorioDTO;
 import DTO.TablaLaboratorioDTO;
+import daos.IConexionBD;
 import daos.IUnidadAcademicaDAO;
 import dominios.LaboratorioDominio;
 import java.time.LocalTime;
@@ -29,15 +30,17 @@ import javax.persistence.criteria.Root;
  */
 public class LaboratorioDAO implements ILaboratorioDAO{
 
-    private IUnidadAcademicaDAO unidadAcademicaDAO;
+    private final IUnidadAcademicaDAO unidadAcademicaDAO;
+    private final IConexionBD conexionBD;
     
-    public LaboratorioDAO(){
-        this.unidadAcademicaDAO = new UnidadAcademicaDAO();
+    public LaboratorioDAO(IConexionBD conexionBD){
+        this.conexionBD = conexionBD;
+        this.unidadAcademicaDAO = new UnidadAcademicaDAO(this.conexionBD);
     }
     
     @Override
     public LaboratorioDominio buscarPorId(int id) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             LaboratorioDominio laboratorio = manager.find(LaboratorioDominio.class, id);
             if (laboratorio == null) {
@@ -55,7 +58,7 @@ public class LaboratorioDAO implements ILaboratorioDAO{
 
     @Override
     public LaboratorioDominio guardar(NuevoLaboratorioDTO nuevoLaboratorio) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             manager.getTransaction().begin();
             LaboratorioDominio laboratorio = new LaboratorioDominio();
@@ -82,7 +85,7 @@ public class LaboratorioDAO implements ILaboratorioDAO{
 
     @Override
     public LaboratorioDominio modificar(LaboratorioDTO laboratorio) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             manager.getTransaction().begin();
             LaboratorioDominio labEncontrado = manager.find(LaboratorioDominio.class, laboratorio.getIdLaboratorios());
@@ -108,7 +111,7 @@ public class LaboratorioDAO implements ILaboratorioDAO{
     
     @Override
     public boolean existePorNombre(String nombre) throws PersistenciaException{
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         CriteriaBuilder cb = manager.getCriteriaBuilder();
         
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
@@ -125,7 +128,7 @@ public class LaboratorioDAO implements ILaboratorioDAO{
 
     @Override
     public List<TablaLaboratorioDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             CriteriaBuilder cb = manager.getCriteriaBuilder();
             CriteriaQuery cq = cb.createQuery(LaboratorioDominio.class);

@@ -4,6 +4,7 @@ package daos.implementaciones;
 
 import DTO.AdministradorRegistroDTO;
 import daos.IAdministradorDAO;
+import daos.IConexionBD;
 import dominios.AdministradorDominio;
 import excepciones.PersistenciaException;
 import javax.persistence.EntityManager;
@@ -11,9 +12,14 @@ import javax.persistence.EntityManager;
 
 public class AdministradorDAO implements IAdministradorDAO{
 
+    private final IConexionBD conexionBD;
+    
+    public AdministradorDAO (IConexionBD conexionBD){
+        this.conexionBD = conexionBD;
+    }
     @Override
     public AdministradorDominio buscarPorUsuario(AdministradorRegistroDTO administradorRegistroDTO) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         AdministradorDominio admin = null;
         try{
             admin = manager.find(AdministradorDominio.class, administradorRegistroDTO.getUsuario());

@@ -6,11 +6,16 @@ package fachada.implementaciones;
 
 import DTO.FiltroDTO;
 import DTO.TablaEstudiantesDTO;
+import daos.IConexionBD;
+import daos.IEstudianteDAO;
+import daos.implementaciones.ConexionBD;
+import daos.implementaciones.EstudianteDAO;
 import dominios.EstudianteDominio;
 import excepciones.NegocioException;
 import fachada.IEstudianteFachada;
 import java.util.List;
 import negocio.IEstudianteNegocio;
+import negocio.implementaciones.EstudianteNegocio;
 
 /**
  *
@@ -18,8 +23,14 @@ import negocio.IEstudianteNegocio;
  */
 public class EstudianteFachada implements IEstudianteFachada {
 
-    private IEstudianteNegocio estudianteNegocio;
+    private final IEstudianteNegocio estudianteNegocio;
 
+    public EstudianteFachada(){
+        IConexionBD conexionBD = new ConexionBD();
+        IEstudianteDAO estudianteDAO = new EstudianteDAO(conexionBD);
+        this.estudianteNegocio = new EstudianteNegocio(estudianteDAO);
+    }
+    
     @Override
     public List<TablaEstudiantesDTO> buscarTabla(FiltroDTO filtro) throws NegocioException {
         return estudianteNegocio.buscarTabla(filtro);

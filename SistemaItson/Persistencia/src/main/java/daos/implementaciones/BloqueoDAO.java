@@ -13,6 +13,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import daos.IBloqueoDAO;
+import daos.IConexionBD;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.stream.Collectors;
@@ -27,9 +28,16 @@ import javax.persistence.criteria.Root;
  */
 public class BloqueoDAO implements IBloqueoDAO {
 
+    private final IConexionBD conexionBD;
+    
+    public BloqueoDAO(IConexionBD conexionBD){
+        this.conexionBD = conexionBD;
+    }
+    
+    
     @Override
     public BloqueoDominio registrarBloqueo(BloqueoDominio bloqueo) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             manager.getTransaction().begin();
             manager.persist(bloqueo);
@@ -49,7 +57,7 @@ public class BloqueoDAO implements IBloqueoDAO {
 
     @Override
     public BloqueoDominio buscarPorId(int id) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             BloqueoDominio bloqueo = manager.find(BloqueoDominio.class, id);
             if (bloqueo == null) {
@@ -67,7 +75,7 @@ public class BloqueoDAO implements IBloqueoDAO {
 
     @Override
     public void liberarBloqueo(int id) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             manager.getTransaction().begin();
             BloqueoDominio bloqueo = manager.find(BloqueoDominio.class, id);
@@ -76,7 +84,7 @@ public class BloqueoDAO implements IBloqueoDAO {
             }
             bloqueo.setEstatus(false);
             manager.getTransaction().commit();
-        } catch (Exception ex) {
+        } catch (PersistenciaException ex) {
             if (manager != null && manager.getTransaction().isActive()) {
                 manager.getTransaction().rollback();
             }
@@ -90,7 +98,7 @@ public class BloqueoDAO implements IBloqueoDAO {
 
     @Override
     public List<BloqueoDominio> obtenerBloqueosActivos() throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
 
         try {
             String consulta = "SELECT b FROM bloqueoDominio b WHERE b.estatus = true";
@@ -107,7 +115,7 @@ public class BloqueoDAO implements IBloqueoDAO {
 
     @Override
     public List<TablaBloqueosDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             CriteriaBuilder cb = manager.getCriteriaBuilder();
             CriteriaQuery cq = cb.createQuery(BloqueoDominio.class);

@@ -4,7 +4,9 @@ package fachada.implementaciones;
 
 import DTO.AdministradorRegistroDTO;
 import daos.IAdministradorDAO;
+import daos.IConexionBD;
 import daos.implementaciones.AdministradorDAO;
+import daos.implementaciones.ConexionBD;
 import dominios.AdministradorDominio;
 import excepciones.NegocioException;
 import fachada.IAdministradorFachada;
@@ -14,10 +16,11 @@ import negocio.implementaciones.AdministradorNegocio;
 
 public class AdministradorFachada implements IAdministradorFachada{
     
-    private IAdministradorNegocio administradorNegocio;
+    private final IAdministradorNegocio administradorNegocio;
     
     public AdministradorFachada (){
-        IAdministradorDAO administradorDAO = new AdministradorDAO();
+        IConexionBD conexionBD = new ConexionBD();
+        IAdministradorDAO administradorDAO = new AdministradorDAO(conexionBD);
         this.administradorNegocio = new AdministradorNegocio(administradorDAO);
     }
 
