@@ -1,6 +1,7 @@
 package presentacion.Administrador;
 
 import DTO.AdministradorRegistroDTO;
+import dominios.AdministradorDominio;
 import excepciones.NegocioException;
 import fachada.IAdministradorFachada;
 import fachada.implementaciones.AdministradorFachada;
@@ -170,14 +171,17 @@ public class InicioSesionFrm extends javax.swing.JFrame {
         
         AdministradorRegistroDTO administradorRegistroDTO = new AdministradorRegistroDTO(usuario, contrasena);
         try{
-        if(administradorFachada.iniciarSesion(administradorRegistroDTO)){
-            JOptionPane.showMessageDialog(this, 
-                    "¡Bienvenido, " + administradorRegistroDTO.getUsuario() + "!");
-            new MenuFrm().setVisible(true);
-            this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(this, "Credenciales incorrectas.");
-        }
+            AdministradorDominio admin = administradorFachada.iniciarSesion(administradorRegistroDTO);
+            if (admin != null){
+                SesionAdministrador.iniciarSesion(admin);
+
+                JOptionPane.showMessageDialog(this, "¡Bienvenido, " + admin.getUsuario() + "!");
+                new MenuFrm().setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, "Credenciales incorrectas.");
+            }
+
         }catch(NegocioException ex){
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
