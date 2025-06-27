@@ -272,7 +272,6 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="ADMINISTRAR ACCESO"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
@@ -282,15 +281,16 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="b5" green="6d" red="4" type="rgb"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="ADMINISTRAR ACCESO"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnAnterior">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/anterior.png"/>
-                </Property>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="eb" green="d7" red="ba" type="rgb"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/anterior.png"/>
                 </Property>
               </Properties>
             </Component>
@@ -307,9 +307,33 @@
                       <Table columnCount="4" rowCount="4">
                         <Column editable="true" title="ID" type="java.lang.Object"/>
                         <Column editable="true" title="NOMBRE" type="java.lang.Object"/>
-                        <Column editable="true" title="MOTIVO" type="java.lang.Object"/>
-                        <Column editable="true" title="FECHA" type="java.lang.Object"/>
+                        <Column editable="true" title="A. PATERNO" type="java.lang.Object"/>
+                        <Column editable="true" title="A. MATERNO " type="java.lang.Object"/>
                       </Table>
+                    </Property>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -322,13 +346,13 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnBuscar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="BUSCAR"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="99" red="0" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial Black" size="18" style="0"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="BUSCAR"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
@@ -336,29 +360,35 @@
             </Component>
             <Component class="javax.swing.JButton" name="consultarBtn">
               <Properties>
-                <Property name="text" type="java.lang.String" value="CAMBIAR ACCESO"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="99" red="0" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial Black" size="18" style="0"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="CAMBIAR ACCESO"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultarBtnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnPaginadoAnterior">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Anterior"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="99" red="0" type="rgb"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Anterior"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPaginadoAnteriorActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnPaginadoSiguiente">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Siguiente"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="99" red="0" type="rgb"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Siguiente"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPaginadoSiguienteActionPerformed"/>
@@ -366,13 +396,13 @@
             </Component>
             <Component class="javax.swing.JLabel" name="paginaLbl">
               <Properties>
-                <Property name="text" type="java.lang.String" value="P&#xe1;gina "/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial Black" size="12" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="b5" green="6d" red="4" type="rgb"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="P&#xe1;gina "/>
               </Properties>
             </Component>
           </SubComponents>

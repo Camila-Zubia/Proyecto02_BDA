@@ -4,6 +4,16 @@
  */
 package presentacion.Administrador;
 
+import DTO.FiltroDTO;
+import DTO.TablaComputadoraDTO;
+import excepciones.NegocioException;
+import fachada.implementaciones.ComputadoraFachada;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author adell
@@ -16,7 +26,35 @@ public class ConsultarComputadorasFrm extends javax.swing.JFrame {
     public ConsultarComputadorasFrm() {
         initComponents();
     }
+    
+    ComputadoraFachada fachada = new ComputadoraFachada();
+    private int offset = 0;
+    private final int limite = 5;
 
+    private void cargarTabla() throws NegocioException {
+        try {
+            String buscador = buscadorTxt.getText().trim();
+            FiltroDTO filtro = new FiltroDTO(limite, offset, buscador);
+            List<TablaComputadoraDTO> computadoras = fachada.buscarTabla(filtro);
+
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            modelo.setRowCount(0);
+
+            for (TablaComputadoraDTO c : computadoras) {
+                Object[] fila = {
+                    c.getIdComputadora(),
+                    c.getNumero(),
+                    c.getDireccionIp(),
+                    c.getTipo(),
+                    c.getEstatus()
+                };
+                modelo.addRow(fila);
+            }
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar las computadoras: " + ex.getMessage());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,6 +139,11 @@ public class ConsultarComputadorasFrm extends javax.swing.JFrame {
 
         btnPaginadoAnterior.setBackground(new java.awt.Color(0, 153, 255));
         btnPaginadoAnterior.setText("Anterior");
+        btnPaginadoAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPaginadoAnteriorActionPerformed(evt);
+            }
+        });
 
         btnPaginadoSiguiente.setBackground(new java.awt.Color(0, 153, 255));
         btnPaginadoSiguiente.setText("Siguiente");
@@ -117,6 +160,11 @@ public class ConsultarComputadorasFrm extends javax.swing.JFrame {
         modificarBtn.setBackground(new java.awt.Color(0, 153, 255));
         modificarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         modificarBtn.setText("MODIFICAR");
+        modificarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -282,16 +330,78 @@ public class ConsultarComputadorasFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
 
     private void btnPaginadoSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaginadoSiguienteActionPerformed
-        // TODO add your handling code here:
+        offset += limite;
+        try{
+            cargarTabla();
+        }catch(NegocioException ex){
+            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al cargar las computadoras: " + ex.getMessage());
+        }
     }//GEN-LAST:event_btnPaginadoSiguienteActionPerformed
 
     private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
-        // TODO add your handling code here:
+        int filaSeleccionada = jTable1.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Seleciona una fila");
+            return;
+        }
+
+        if (filaSeleccionada != -1) {
+            int idBloqueo = (int) jTable1.getValueAt(filaSeleccionada, 0);
+            try {
+                fachada.buscarPorId(idBloqueo);
+                new AgregarComputadoraFrm(this, idBloqueo).setVisible(true);
+            } catch (NegocioException ex) {
+                Logger.getLogger(BloquearFrm.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "error al abrir la ventana");
+            }
+        }
     }//GEN-LAST:event_agregarBtnActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            cargarTabla();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al cargar las computadoras: " + ex.getMessage());
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnPaginadoAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaginadoAnteriorActionPerformed
+        if (offset - limite >= 0) {
+            offset -= limite;
+        } else {
+            offset = 0;
+        }
+        try {
+            cargarTabla();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al cargar las computadoras: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnPaginadoAnteriorActionPerformed
+
+    private void modificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarBtnActionPerformed
+        int filaSeleccionada = jTable1.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Seleciona una fila");
+            return;
+        }
+
+        if (filaSeleccionada != -1) {
+            int idBloqueo = (int) jTable1.getValueAt(filaSeleccionada, 0);
+            try {
+                fachada.buscarPorId(idBloqueo);
+                new ModificarComputadoraFrm(this, idBloqueo).setVisible(true);
+            } catch (NegocioException ex) {
+                Logger.getLogger(BloquearFrm.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "error al abrir la ventana");
+            }
+        }
+    }//GEN-LAST:event_modificarBtnActionPerformed
 
     
 

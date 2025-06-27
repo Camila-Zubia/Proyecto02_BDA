@@ -9,12 +9,19 @@ package presentacion.Administrador;
  * @author saula
  */
 public class DesbloquearFrm extends javax.swing.JFrame {
+    
+    ConsultarBloqueosFrm consultarAcceso;
+    int id;
 
     /**
      * Creates new form DesbloquearFrm
+     * @param consultarAcceso
+     * @param id
      */
-    public DesbloquearFrm() {
+    public DesbloquearFrm(ConsultarBloqueosFrm consultarAcceso, int id) {
         initComponents();
+        this.consultarAcceso = consultarAcceso;
+        this.id = id;
     }
 
     /**

@@ -386,6 +386,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Anterior"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPaginadoAnteriorActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnPaginadoSiguiente">
               <Properties>
@@ -419,6 +422,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="MODIFICAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modificarBtnActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

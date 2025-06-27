@@ -18,10 +18,16 @@ import javax.swing.JOptionPane;
  */
 public class AgregarLaboratorioFrm extends javax.swing.JFrame {
 
+    ConsultarLaboratoriosFrm consultarFrm;
+    int id;
     private ILaboratorioFachada laboratorioFachada;
-    public AgregarLaboratorioFrm () {
+    
+    
+    public AgregarLaboratorioFrm (ConsultarLaboratoriosFrm consultarFrm, int id) {
         this.laboratorioFachada = new LaboratorioFachada();
         initComponents();
+        this.consultarFrm = consultarFrm;
+        this.id = id;
     }
 
     /**

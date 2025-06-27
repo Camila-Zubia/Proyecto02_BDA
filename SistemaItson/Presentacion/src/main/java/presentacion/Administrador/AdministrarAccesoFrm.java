@@ -4,6 +4,16 @@
  */
 package presentacion.Administrador;
 
+import DTO.FiltroDTO;
+import DTO.TablaEstudiantesDTO;
+import excepciones.NegocioException;
+import fachada.implementaciones.EstudianteFachada;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author saula
@@ -12,10 +22,40 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
 
     /**
      * Creates new form BloquearFrm
+     * @throws excepciones.NegocioException
      */
-    public AdministrarAccesoFrm() {
+    public AdministrarAccesoFrm() throws NegocioException {
         initComponents();
+        cargarTabla();
     }
+    
+    EstudianteFachada fachada = new EstudianteFachada();
+    private int offset = 0;
+    private final int limite = 5;
+    
+    private void cargarTabla() throws NegocioException {
+        try {
+            String buscador = buscadorTxt.getText().trim();
+            FiltroDTO filtro = new FiltroDTO(limite, offset, buscador);
+            List<TablaEstudiantesDTO> estudiantes = fachada.buscarTabla(filtro);
+
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            modelo.setRowCount(0);
+
+            for (TablaEstudiantesDTO e : estudiantes) {
+                Object[] fila = {
+                    e.getIdEstudiante(),
+                    e.getNombres(),
+                    e.getApellidoPaterno(),
+                    e.getApellidoMaterno()
+                };
+                modelo.addRow(fila);
+            }
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los estudiantes: " + ex.getMessage());
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,13 +101,13 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(186, 215, 235));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray));
 
-        jLabel1.setText("ADMINISTRAR ACCESO");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(4, 109, 181));
+        jLabel1.setText("ADMINISTRAR ACCESO");
 
-        btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
         btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
+        btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,38 +117,48 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "NOMBRE", "MOTIVO", "FECHA"
+                "ID", "NOMBRE", "A. PATERNO", "A. MATERNO "
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        btnBuscar.setText("BUSCAR");
         btnBuscar.setBackground(new java.awt.Color(0, 153, 255));
         btnBuscar.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
 
-        consultarBtn.setText("CAMBIAR ACCESO");
         consultarBtn.setBackground(new java.awt.Color(0, 153, 255));
         consultarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        consultarBtn.setText("CAMBIAR ACCESO");
+        consultarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarBtnActionPerformed(evt);
+            }
+        });
 
-        btnPaginadoAnterior.setText("Anterior");
         btnPaginadoAnterior.setBackground(new java.awt.Color(0, 153, 255));
+        btnPaginadoAnterior.setText("Anterior");
+        btnPaginadoAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPaginadoAnteriorActionPerformed(evt);
+            }
+        });
 
-        btnPaginadoSiguiente.setText("Siguiente");
         btnPaginadoSiguiente.setBackground(new java.awt.Color(0, 153, 255));
+        btnPaginadoSiguiente.setText("Siguiente");
         btnPaginadoSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPaginadoSiguienteActionPerformed(evt);
             }
         });
 
-        paginaLbl.setText("Página ");
         paginaLbl.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         paginaLbl.setForeground(new java.awt.Color(4, 109, 181));
+        paginaLbl.setText("Página ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -268,11 +318,22 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        try {
+            cargarTabla();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnPaginadoSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaginadoSiguienteActionPerformed
-        // TODO add your handling code here:
+        offset += limite;
+        try {
+            cargarTabla();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
+        }
     }//GEN-LAST:event_btnPaginadoSiguienteActionPerformed
 
     private void menuItemModificarComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarComputadorasActionPerformed
@@ -282,6 +343,38 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
     private void menuItemModificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarLaboratorioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
+
+    private void btnPaginadoAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaginadoAnteriorActionPerformed
+        if (offset - limite >= 0) {
+            offset -= limite;
+        } else {
+            offset = 0;
+        }
+        try {
+            cargarTabla();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnPaginadoAnteriorActionPerformed
+
+    private void consultarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarBtnActionPerformed
+        int filaSeleccionada = jTable1.getSelectedRow();
+
+        if (filaSeleccionada != -1) {
+            int idEstudiante = (int) jTable1.getValueAt(filaSeleccionada, 0);
+
+            try {
+                new BloquearFrm(this, idEstudiante).setVisible(true);
+            } catch (Exception ex){
+                Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error al cargar la ventana de bloqueo: " + ex.getMessage());
+            }
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecciona una fila primero.");
+        }
+    }//GEN-LAST:event_consultarBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;

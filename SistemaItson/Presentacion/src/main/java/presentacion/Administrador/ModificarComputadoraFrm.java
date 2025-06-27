@@ -10,11 +10,18 @@ package presentacion.Administrador;
  */
 public class ModificarComputadoraFrm extends javax.swing.JFrame {
 
+    ConsultarComputadorasFrm consultarFrm;
+    int id;
+    
     /**
      * Creates new form ModificarComputadora
+     * @param consultarFrm
+     * @param id
      */
-    public ModificarComputadoraFrm() {
+    public ModificarComputadoraFrm(ConsultarComputadorasFrm consultarFrm, int id) {
         initComponents();
+        this.id = id;
+        this.consultarFrm = consultarFrm;
     }
 
     /**
