@@ -283,6 +283,9 @@
                   <Image iconType="3" name="/anterior.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnteriorActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
               <AuxValues>
@@ -358,6 +361,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="CONSULTAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultarBtnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnPaginadoAnterior">
               <Properties>
@@ -366,6 +372,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Anterior"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPaginadoAnteriorActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnPaginadoSiguiente">
               <Properties>

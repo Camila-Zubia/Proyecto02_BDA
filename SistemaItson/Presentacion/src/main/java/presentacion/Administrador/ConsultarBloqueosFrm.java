@@ -9,6 +9,8 @@ import DTO.TablaBloqueosDTO;
 import excepciones.NegocioException;
 import fachada.implementaciones.BloqueoFachada;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +22,7 @@ public class ConsultarBloqueosFrm extends javax.swing.JFrame {
 
     /**
      * Creates new form ConsultarBloqueosFrm
+     * @throws excepciones.NegocioException
      */
     public ConsultarBloqueosFrm() throws NegocioException {
         initComponents();
@@ -27,12 +30,14 @@ public class ConsultarBloqueosFrm extends javax.swing.JFrame {
     }
     
     BloqueoFachada fachada = new BloqueoFachada();
+    private int offset = 0;
+    private final int limite = 5;
     
     
     private void cargarTabla() throws NegocioException{
         try{
             String buscador = buscadorTxt.getText().trim();
-            FiltroDTO filtro = new FiltroDTO(5,0,buscador);
+            FiltroDTO filtro = new FiltroDTO(limite,offset,buscador);
             List<TablaBloqueosDTO> bloqueos = fachada.buscarTabla(filtro);
             
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
@@ -47,7 +52,7 @@ public class ConsultarBloqueosFrm extends javax.swing.JFrame {
                 };
                 modelo.addRow(fila);
             }
-        }catch(Exception ex){
+        }catch(NegocioException ex){
             JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
         }
     }
@@ -104,6 +109,11 @@ public class ConsultarBloqueosFrm extends javax.swing.JFrame {
 
         btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -130,9 +140,19 @@ public class ConsultarBloqueosFrm extends javax.swing.JFrame {
         consultarBtn.setBackground(new java.awt.Color(0, 153, 255));
         consultarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         consultarBtn.setText("CONSULTAR");
+        consultarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarBtnActionPerformed(evt);
+            }
+        });
 
         btnPaginadoAnterior.setBackground(new java.awt.Color(0, 153, 255));
         btnPaginadoAnterior.setText("Anterior");
+        btnPaginadoAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPaginadoAnteriorActionPerformed(evt);
+            }
+        });
 
         btnPaginadoSiguiente.setBackground(new java.awt.Color(0, 153, 255));
         btnPaginadoSiguiente.setText("Siguiente");
@@ -298,20 +318,64 @@ public class ConsultarBloqueosFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            cargarTabla();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnPaginadoSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaginadoSiguienteActionPerformed
         // TODO add your handling code here:
+        offset += limite;
+        try{
+            cargarTabla();
+        }catch(NegocioException ex){
+            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
+        }
     }//GEN-LAST:event_btnPaginadoSiguienteActionPerformed
 
     private void menuItemModificarComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarComputadorasActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_menuItemModificarComputadorasActionPerformed
 
     private void menuItemModificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarLaboratorioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
+
+    private void btnPaginadoAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaginadoAnteriorActionPerformed
+        // TODO add your handling code here:
+        if (offset - limite >= 0) {
+            offset -= limite;
+        }else{
+            offset = 0;
+        }try{
+            cargarTabla();
+        }catch(NegocioException ex){
+            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnPaginadoAnteriorActionPerformed
+
+    private void consultarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarBtnActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            //new frmdonde se ve el bloqueo consultado (this).setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al cargar la consulta: " + ex.getMessage());
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_consultarBtnActionPerformed
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAnteriorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
