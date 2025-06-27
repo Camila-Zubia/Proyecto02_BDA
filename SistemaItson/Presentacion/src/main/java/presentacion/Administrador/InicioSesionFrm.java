@@ -1,17 +1,25 @@
 package presentacion.Administrador;
 
+import DTO.AdministradorRegistroDTO;
+import excepciones.NegocioException;
+import fachada.IAdministradorFachada;
+import fachada.implementaciones.AdministradorFachada;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author saula
  */
 public class InicioSesionFrm extends javax.swing.JFrame {
 
-
+    private IAdministradorFachada administradorFachada;
     /**
      * Creates new form InicioSesionFrm
      */
     public InicioSesionFrm() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.administradorFachada = new AdministradorFachada();
     }
 
     /**
@@ -27,7 +35,7 @@ public class InicioSesionFrm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        FieldUsuario = new javax.swing.JTextField();
+        fieldUsuario = new javax.swing.JTextField();
         btnIniciarSesion = new javax.swing.JButton();
         fieldContraseña = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
@@ -51,13 +59,8 @@ public class InicioSesionFrm extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(4, 109, 181));
         jLabel3.setText("USUARIO");
 
-        FieldUsuario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        FieldUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        FieldUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FieldUsuarioActionPerformed(evt);
-            }
-        });
+        fieldUsuario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        fieldUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnIniciarSesion.setBackground(new java.awt.Color(0, 153, 255));
         btnIniciarSesion.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
@@ -103,7 +106,7 @@ public class InicioSesionFrm extends javax.swing.JFrame {
                                     .addComponent(jLabel2)
                                     .addGap(54, 54, 54)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(FieldUsuario)
+                                        .addComponent(fieldUsuario)
                                         .addComponent(fieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(94, 94, 94))))
         );
@@ -114,7 +117,7 @@ public class InicioSesionFrm extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(79, 79, 79)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(FieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,18 +164,31 @@ public class InicioSesionFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldContraseñaActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        // TODO add your handling code here:
+        
+        String usuario = fieldUsuario.getText();
+        char[] contrasena = fieldContraseña.getPassword();
+        
+        AdministradorRegistroDTO administradorRegistroDTO = new AdministradorRegistroDTO(usuario, contrasena);
+        try{
+        if(administradorFachada.iniciarSesion(administradorRegistroDTO)){
+            JOptionPane.showMessageDialog(this, 
+                    "¡Bienvenido, " + administradorRegistroDTO.getUsuario() + "!");
+            new MenuFrm().setVisible(true);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Credenciales incorrectas.");
+        }
+        }catch(NegocioException ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-    private void FieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FieldUsuarioActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField FieldUsuario;
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JPasswordField fieldContraseña;
+    private javax.swing.JTextField fieldUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
