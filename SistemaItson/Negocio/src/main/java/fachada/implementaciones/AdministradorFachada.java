@@ -5,6 +5,7 @@ package fachada.implementaciones;
 import DTO.AdministradorRegistroDTO;
 import daos.IAdministradorDAO;
 import daos.implementaciones.AdministradorDAO;
+import dominios.AdministradorDominio;
 import excepciones.NegocioException;
 import fachada.IAdministradorFachada;
 import negocio.IAdministradorNegocio;
@@ -21,7 +22,7 @@ public class AdministradorFachada implements IAdministradorFachada{
     }
 
     @Override
-    public boolean iniciarSesion(AdministradorRegistroDTO administradorRegistroDTO) throws NegocioException {
+    public AdministradorDominio iniciarSesion(AdministradorRegistroDTO administradorRegistroDTO) throws NegocioException {
         return administradorNegocio.iniciarSesion(administradorRegistroDTO);
     }
     
