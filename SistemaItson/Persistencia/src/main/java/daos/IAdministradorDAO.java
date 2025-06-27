@@ -5,6 +5,7 @@
 package daos;
 
 import DTO.AdministradorRegistroDTO;
+import dominios.AdministradorDominio;
 import excepciones.PersistenciaException;
 
 /**
@@ -13,5 +14,5 @@ import excepciones.PersistenciaException;
  */
 public interface IAdministradorDAO {
      
-    public boolean iniciarSesion(AdministradorRegistroDTO administradorRegistroDTO) throws PersistenciaException;
+    public AdministradorDominio buscarPorUsuario(AdministradorRegistroDTO administradorRegistroDTO) throws PersistenciaException;
 }
