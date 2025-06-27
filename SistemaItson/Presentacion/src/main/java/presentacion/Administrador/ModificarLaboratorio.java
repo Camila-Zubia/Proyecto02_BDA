@@ -4,23 +4,16 @@
  */
 package presentacion.Administrador;
 
-import DTO.NuevoLaboratorioDTO;
-import dominios.LaboratorioDominio;
-import excepciones.NegocioException;
-import fachada.ILaboratorioFachada;
-import fachada.implementaciones.LaboratorioFachada;
-import java.util.Arrays;
-import javax.swing.JOptionPane;
-
 /**
  *
- * @author saula
+ * @author adell
  */
-public class AgregarLaboratorioFrm extends javax.swing.JFrame {
+public class ModificarLaboratorio extends javax.swing.JFrame {
 
-    private ILaboratorioFachada laboratorioFachada;
-    public AgregarLaboratorioFrm () {
-        this.laboratorioFachada = new LaboratorioFachada();
+    /**
+     * Creates new form ModificarLaboratorio
+     */
+    public ModificarLaboratorio() {
         initComponents();
     }
 
@@ -36,18 +29,12 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
         PanelFondo = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        agregarBtn = new javax.swing.JButton();
+        modificarBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         nombreTxt = new javax.swing.JTextField();
-        confirmarContraseñaTxt = new javax.swing.JPasswordField();
-        contraseñaTxt = new javax.swing.JPasswordField();
         nombreLbl = new javax.swing.JLabel();
-        unidadComboBox = new javax.swing.JComboBox<>();
         horaInicioLbl = new javax.swing.JLabel();
         horaCierreLbl = new javax.swing.JLabel();
-        contraseñaLbl = new javax.swing.JLabel();
-        confirmarContraseñaLbl = new javax.swing.JLabel();
-        unidadLbl = new javax.swing.JLabel();
         timePickerHoraCierre = new com.github.lgooddatepicker.components.TimePicker();
         timePickerHoraInicio = new com.github.lgooddatepicker.components.TimePicker();
         btnAnterior = new javax.swing.JButton();
@@ -60,7 +47,7 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
         menuItemAgregarComputadoras = new javax.swing.JMenuItem();
         menuItemModificarComputadoras = new javax.swing.JMenuItem();
         menuGestionLaboratorios = new javax.swing.JMenu();
-        menuItemModificarLaboratorio = new javax.swing.JMenuItem();
+        menuItemAgregarLaboratorio = new javax.swing.JMenuItem();
         menuGenerarReportes = new javax.swing.JMenu();
         menuItemReporteCentroComputo = new javax.swing.JMenuItem();
         menuItemReporteCarreras = new javax.swing.JMenuItem();
@@ -73,17 +60,17 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(186, 215, 235));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray));
 
-        jLabel1.setText("AGREGAR LABORATORIO");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(4, 109, 181));
+        jLabel1.setText("MODIFICAR LABORATORIO");
 
-        agregarBtn.setText("AGREGAR");
-        agregarBtn.setBackground(new java.awt.Color(0, 153, 255));
-        agregarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        agregarBtn.addActionListener(new java.awt.event.ActionListener() {
+        modificarBtn.setBackground(new java.awt.Color(0, 153, 255));
+        modificarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        modificarBtn.setText("MODIFICAR");
+        modificarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarBtnActionPerformed(evt);
+                modificarBtnActionPerformed(evt);
             }
         });
 
@@ -91,36 +78,17 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
 
         nombreTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
-        confirmarContraseñaTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-
-        contraseñaTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-
-        nombreLbl.setText("NOMBRE");
         nombreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         nombreLbl.setForeground(new java.awt.Color(4, 109, 181));
+        nombreLbl.setText("NOMBRE");
 
-        unidadComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona..." }));
-        unidadComboBox.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-
-        horaInicioLbl.setText("HORA INICIO:");
         horaInicioLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         horaInicioLbl.setForeground(new java.awt.Color(4, 109, 181));
+        horaInicioLbl.setText("HORA INICIO:");
 
-        horaCierreLbl.setText("HORA CIERRE:");
         horaCierreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         horaCierreLbl.setForeground(new java.awt.Color(4, 109, 181));
-
-        contraseñaLbl.setText("CONTRASEÑA:");
-        contraseñaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        contraseñaLbl.setForeground(new java.awt.Color(4, 109, 181));
-
-        confirmarContraseñaLbl.setText("CONFIRMAR CONTRASEÑA:");
-        confirmarContraseñaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        confirmarContraseñaLbl.setForeground(new java.awt.Color(4, 109, 181));
-
-        unidadLbl.setText("UNIDAD:");
-        unidadLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        unidadLbl.setForeground(new java.awt.Color(4, 109, 181));
+        horaCierreLbl.setText("HORA CIERRE:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -129,35 +97,20 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(confirmarContraseñaLbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(confirmarContraseñaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(contraseñaLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(horaInicioLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(horaCierreLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nombreLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(unidadLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(121, 121, 121)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(unidadComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 1, Short.MAX_VALUE))
-                            .addComponent(nombreTxt)
-                            .addComponent(timePickerHoraCierre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(timePickerHoraInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(contraseñaTxt))))
+                    .addComponent(horaInicioLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(horaCierreLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(132, 132, 132)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nombreTxt)
+                    .addComponent(timePickerHoraCierre, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                    .addComponent(timePickerHoraInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(unidadLbl)
-                    .addComponent(unidadComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nombreLbl)
                     .addComponent(nombreTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -169,19 +122,11 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(timePickerHoraCierre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(horaCierreLbl))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(contraseñaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(contraseñaLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(confirmarContraseñaLbl)
-                    .addComponent(confirmarContraseñaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
-        btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
         btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
+        btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -192,16 +137,13 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(agregarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(108, 108, 108))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(modificarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 63, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(60, 60, 60))))
         );
@@ -210,14 +152,16 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(modificarBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAnterior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(agregarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAnterior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addGap(39, 39, 39))))
         );
 
         javax.swing.GroupLayout PanelFondoLayout = new javax.swing.GroupLayout(PanelFondo);
@@ -225,16 +169,16 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
         PanelFondoLayout.setHorizontalGroup(
             PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoLayout.createSequentialGroup()
-                .addContainerGap(129, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(109, 109, 109))
         );
         PanelFondoLayout.setVerticalGroup(
             PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelFondoLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(27, 27, 27)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         menuPanelControl.setText("Panel de Control");
@@ -270,14 +214,14 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
 
         menuGestionLaboratorios.setText("Gestión de Laboratorios");
 
-        menuItemModificarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemModificarLaboratorio.setText("Modificar Laboratorio");
-        menuItemModificarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
+        menuItemAgregarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemAgregarLaboratorio.setText("Agregar Laboratorio");
+        menuItemAgregarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemModificarLaboratorioActionPerformed(evt);
+                menuItemAgregarLaboratorioActionPerformed(evt);
             }
         });
-        menuGestionLaboratorios.add(menuItemModificarLaboratorio);
+        menuGestionLaboratorios.add(menuItemAgregarLaboratorio);
 
         menuPanelControl.add(menuGestionLaboratorios);
 
@@ -305,114 +249,66 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 937, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
-        try{ 
-            if (!validarCampos()) return;
-            
-            NuevoLaboratorioDTO laboratorioGuardar = construirNuevoLaboratorioDTO();
-            LaboratorioDominio nuevoLaboratorio = laboratorioFachada.guardar(laboratorioGuardar);
-
-            JOptionPane.showMessageDialog(this, "Laboratorio registrado con éxito.");
-
-            limpiarCampos();
-
-        } catch (NegocioException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_agregarBtnActionPerformed
-
-    private void menuItemModificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarLaboratorioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
+    private void modificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarBtnActionPerformed
+     
+    }//GEN-LAST:event_modificarBtnActionPerformed
 
     private void menuItemModificarComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarComputadorasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemModificarComputadorasActionPerformed
 
-    private boolean validarCampos() {
-        if (nombreTxt.getText().trim().isEmpty()) {
-            mostrarError("El nombre del laboratorio es obligatorio.");
-            return false;
-        }
-        if (timePickerHoraInicio.getTime() == null || timePickerHoraCierre.getTime() == null) {
-            mostrarError("Debes seleccionar ambas horas.");
-            return false;
-        }
-        if (!timePickerHoraInicio.getTime().isBefore(timePickerHoraCierre.getTime())) {
-            mostrarError("La hora de inicio debe ser antes que la hora de cierre.");
-            return false;
-        }
-        if (unidadComboBox.getSelectedItem() == null
-                || unidadComboBox.getSelectedItem().toString().equals("Selecciona...")) {
-            mostrarError("Debes seleccionar una unidad académica.");
-            return false;
-        }
-        if (!verificarCoincidenciaContrasenas()) {
-            return false;
-        }
+    private void menuItemAgregarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAgregarLaboratorioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemAgregarLaboratorioActionPerformed
 
-        char[] contrasena = contraseñaTxt.getPassword();
-        if (contrasena.length < 6) {
-            mostrarError("La contraseña debe tener al menos 6 caracteres.");
-            return false;
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ModificarLaboratorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ModificarLaboratorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ModificarLaboratorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ModificarLaboratorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
 
-        return true;
-
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ModificarLaboratorio().setVisible(true);
+            }
+        });
     }
 
-    private boolean verificarCoincidenciaContrasenas(){
-        char[] contrasena1 = contraseñaTxt.getPassword();
-        char[] contrasena2 = confirmarContraseñaTxt.getPassword();
-        if(!Arrays.equals(contrasena1, contrasena2)){
-            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.");
-            return false;
-        } 
-        return true;
-    }
-    
-    private void mostrarError(String mensaje){
-        JOptionPane.showMessageDialog(this, mensaje, "Validacion", JOptionPane.WARNING_MESSAGE);
-    }
-    
-    private NuevoLaboratorioDTO construirNuevoLaboratorioDTO(){
-        NuevoLaboratorioDTO dto = new NuevoLaboratorioDTO();
-        dto.setNombre(nombreTxt.getText().trim());
-        dto.setHoraInicio(timePickerHoraInicio.getTime());
-        dto.setHoraCierre(timePickerHoraCierre.getTime());
-        dto.setUnidad(unidadComboBox.getSelectedItem().toString());
-        dto.setContrasena(contraseñaTxt.getPassword());
-        return dto;
-    }
-    
-    private void limpiarCampos() {
-        nombreTxt.setText("");
-        contraseñaTxt.setText("");
-        confirmarContraseñaTxt.setText("");
-        timePickerHoraInicio.setTime(null);
-        timePickerHoraCierre.setTime(null);
-        unidadComboBox.setSelectedIndex(0);
-    }
-
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;
-    private javax.swing.JButton agregarBtn;
     private javax.swing.JButton btnAnterior;
-    private javax.swing.JLabel confirmarContraseñaLbl;
-    private javax.swing.JPasswordField confirmarContraseñaTxt;
-    private javax.swing.JLabel contraseñaLbl;
-    private javax.swing.JPasswordField contraseñaTxt;
     private javax.swing.JLabel horaCierreLbl;
     private javax.swing.JLabel horaInicioLbl;
     private javax.swing.JLabel jLabel1;
@@ -424,19 +320,18 @@ public class AgregarLaboratorioFrm extends javax.swing.JFrame {
     private javax.swing.JMenu menuGestionComputadoras;
     private javax.swing.JMenu menuGestionLaboratorios;
     private javax.swing.JMenuItem menuItemAgregarComputadoras;
+    private javax.swing.JMenuItem menuItemAgregarLaboratorio;
     private javax.swing.JMenuItem menuItemBloquearAcceso;
     private javax.swing.JMenuItem menuItemConsultarBloqueos;
     private javax.swing.JMenuItem menuItemModificarComputadoras;
-    private javax.swing.JMenuItem menuItemModificarLaboratorio;
     private javax.swing.JMenuItem menuItemReporteBloqueos;
     private javax.swing.JMenuItem menuItemReporteCarreras;
     private javax.swing.JMenuItem menuItemReporteCentroComputo;
     private javax.swing.JMenu menuPanelControl;
+    private javax.swing.JButton modificarBtn;
     private javax.swing.JLabel nombreLbl;
     private javax.swing.JTextField nombreTxt;
     private com.github.lgooddatepicker.components.TimePicker timePickerHoraCierre;
     private com.github.lgooddatepicker.components.TimePicker timePickerHoraInicio;
-    private javax.swing.JComboBox<String> unidadComboBox;
-    private javax.swing.JLabel unidadLbl;
     // End of variables declaration//GEN-END:variables
 }

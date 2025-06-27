@@ -6,14 +6,14 @@ package presentacion.Administrador;
 
 /**
  *
- * @author saula
+ * @author adell
  */
-public class AgregarComputadoraFrm extends javax.swing.JFrame {
+public class ModificarComputadora extends javax.swing.JFrame {
 
     /**
-     * Creates new form AgregarCompuFrm
+     * Creates new form ModificarComputadora
      */
-    public AgregarComputadoraFrm () {
+    public ModificarComputadora() {
         initComponents();
     }
 
@@ -31,24 +31,21 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         agregarBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        mySqlCheckBox = new javax.swing.JCheckBox();
         ipTxt = new javax.swing.JTextField();
         softwareLbl = new javax.swing.JLabel();
         ipLbl = new javax.swing.JLabel();
-        numeroLbl = new javax.swing.JLabel();
-        AutoCadCheckBox = new javax.swing.JCheckBox();
-        photoshopCheckBox = new javax.swing.JCheckBox();
-        wordCheckBox = new javax.swing.JCheckBox();
-        netBeansCheckBox = new javax.swing.JCheckBox();
-        numeroComputadoraTxt = new javax.swing.JTextField();
         laboratorioLbl = new javax.swing.JLabel();
-        laboratorioComboBox = new javax.swing.JComboBox<>();
+        numeroLbl = new javax.swing.JLabel();
+        numeroComputadoraTxt = new javax.swing.JTextField();
+        numeroComputadoraTxt1 = new javax.swing.JTextField();
+        numeroComputadoraTxt2 = new javax.swing.JTextField();
         btnAnterior = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         menuPanelControl = new javax.swing.JMenu();
         menuGestionBloqueos = new javax.swing.JMenu();
         menuItemConsultarBloqueos = new javax.swing.JMenuItem();
         menuItemBloquearAcceso = new javax.swing.JMenuItem();
+        menuGestionComputadoras = new javax.swing.JMenu();
         menuGestionLaboratorios = new javax.swing.JMenu();
         menuItemAgregarLaboratorio = new javax.swing.JMenuItem();
         menuItemModificarLaboratorio = new javax.swing.JMenuItem();
@@ -56,7 +53,6 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
         menuItemReporteCentroComputo = new javax.swing.JMenuItem();
         menuItemReporteCarreras = new javax.swing.JMenuItem();
         menuItemReporteBloqueos = new javax.swing.JMenuItem();
-        menuGestionComputadoras = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,61 +64,42 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(4, 109, 181));
-        jLabel1.setText("AGREGAR COMPUTADORA");
+        jLabel1.setText("MODIFICAR COMPUTADORA");
 
         agregarBtn.setBackground(new java.awt.Color(0, 153, 255));
         agregarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        agregarBtn.setText("AGREGAR");
+        agregarBtn.setText("MODIFICAR");
+        agregarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarBtnActionPerformed(evt);
+            }
+        });
 
         jPanel2.setOpaque(false);
-
-        mySqlCheckBox.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        mySqlCheckBox.setForeground(new java.awt.Color(4, 109, 181));
-        mySqlCheckBox.setText("MySQL WorkBench");
 
         ipTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         softwareLbl.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         softwareLbl.setForeground(new java.awt.Color(4, 109, 181));
-        softwareLbl.setText("SOFTWARE:");
+        softwareLbl.setText("ESTATUS:");
 
         ipLbl.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         ipLbl.setForeground(new java.awt.Color(4, 109, 181));
         ipLbl.setText("IP:");
 
+        laboratorioLbl.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
+        laboratorioLbl.setForeground(new java.awt.Color(4, 109, 181));
+        laboratorioLbl.setText("TIPO:");
+
         numeroLbl.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         numeroLbl.setForeground(new java.awt.Color(4, 109, 181));
         numeroLbl.setText("NUMERO:");
 
-        AutoCadCheckBox.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        AutoCadCheckBox.setForeground(new java.awt.Color(4, 109, 181));
-        AutoCadCheckBox.setText("AutoCAD");
-
-        photoshopCheckBox.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        photoshopCheckBox.setForeground(new java.awt.Color(4, 109, 181));
-        photoshopCheckBox.setText("Photoshop");
-        photoshopCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                photoshopCheckBoxActionPerformed(evt);
-            }
-        });
-
-        wordCheckBox.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        wordCheckBox.setForeground(new java.awt.Color(4, 109, 181));
-        wordCheckBox.setText("Word");
-
-        netBeansCheckBox.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        netBeansCheckBox.setForeground(new java.awt.Color(4, 109, 181));
-        netBeansCheckBox.setText("Apache NetBeans");
-
         numeroComputadoraTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
-        laboratorioLbl.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
-        laboratorioLbl.setForeground(new java.awt.Color(4, 109, 181));
-        laboratorioLbl.setText("LABORATORIO:");
+        numeroComputadoraTxt1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
-        laboratorioComboBox.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        laboratorioComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        numeroComputadoraTxt2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -131,62 +108,42 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(laboratorioLbl)
-                        .addGap(18, 18, 18)
-                        .addComponent(laboratorioComboBox, 0, 166, Short.MAX_VALUE))
-                    .addComponent(softwareLbl)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(ipLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(170, 170, 170))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AutoCadCheckBox)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(photoshopCheckBox, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(wordCheckBox)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(mySqlCheckBox)
-                            .addComponent(netBeansCheckBox)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(numeroLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ipLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(numeroComputadoraTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                            .addComponent(ipTxt))))
-                .addGap(28, 28, 28))
+                            .addComponent(softwareLbl)
+                            .addComponent(laboratorioLbl)
+                            .addComponent(numeroLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ipTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numeroComputadoraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numeroComputadoraTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numeroComputadoraTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(laboratorioLbl)
-                    .addComponent(laboratorioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(numeroLbl)
-                    .addComponent(numeroComputadoraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(numeroComputadoraTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ipTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ipLbl))
-                .addGap(9, 9, 9)
-                .addComponent(softwareLbl)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(AutoCadCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(photoshopCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(wordCheckBox))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(netBeansCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mySqlCheckBox)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(laboratorioLbl)
+                    .addComponent(numeroComputadoraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(softwareLbl)
+                    .addComponent(numeroComputadoraTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
@@ -197,39 +154,35 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(agregarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(86, 86, 86)
-                                .addComponent(jLabel1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(211, 211, 211)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 30, Short.MAX_VALUE)))
-                .addGap(15, 15, 15))
+                        .addComponent(agregarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(45, 45, 45))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(82, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(agregarBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAnterior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                        .addComponent(agregarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAnterior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout PanelFondoLayout = new javax.swing.GroupLayout(PanelFondo);
@@ -239,7 +192,7 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
             .addGroup(PanelFondoLayout.createSequentialGroup()
                 .addGap(101, 101, 101)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         PanelFondoLayout.setVerticalGroup(
             PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,6 +215,9 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
         menuGestionBloqueos.add(menuItemBloquearAcceso);
 
         menuPanelControl.add(menuGestionBloqueos);
+
+        menuGestionComputadoras.setText("Gestión de Computadoras");
+        menuPanelControl.add(menuGestionComputadoras);
 
         menuGestionLaboratorios.setText("Gestión de Laboratorios");
 
@@ -296,9 +252,6 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
 
         menuPanelControl.add(menuGenerarReportes);
 
-        menuGestionComputadoras.setText("Gestión de Computadoras");
-        menuPanelControl.add(menuGestionComputadoras);
-
         menuBar.add(menuPanelControl);
 
         setJMenuBar(menuBar);
@@ -319,17 +272,50 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void photoshopCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_photoshopCheckBoxActionPerformed
+    private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_photoshopCheckBoxActionPerformed
+    }//GEN-LAST:event_agregarBtnActionPerformed
 
     private void menuItemModificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarLaboratorioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ModificarComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ModificarComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ModificarComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ModificarComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ModificarComputadora().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox AutoCadCheckBox;
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JButton agregarBtn;
     private javax.swing.JButton btnAnterior;
@@ -338,7 +324,6 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JComboBox<String> laboratorioComboBox;
     private javax.swing.JLabel laboratorioLbl;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuGenerarReportes;
@@ -353,12 +338,10 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemReporteCarreras;
     private javax.swing.JMenuItem menuItemReporteCentroComputo;
     private javax.swing.JMenu menuPanelControl;
-    private javax.swing.JCheckBox mySqlCheckBox;
-    private javax.swing.JCheckBox netBeansCheckBox;
     private javax.swing.JTextField numeroComputadoraTxt;
+    private javax.swing.JTextField numeroComputadoraTxt1;
+    private javax.swing.JTextField numeroComputadoraTxt2;
     private javax.swing.JLabel numeroLbl;
-    private javax.swing.JCheckBox photoshopCheckBox;
     private javax.swing.JLabel softwareLbl;
-    private javax.swing.JCheckBox wordCheckBox;
     // End of variables declaration//GEN-END:variables
 }
