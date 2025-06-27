@@ -93,6 +93,8 @@ public class EstudianteDAO implements IEstudianteDAO {
 
                 predicate.add(cb.or(nombre, apellidoP, apellidoM));
             }
+            Predicate inscrito = cb.isTrue(root.get("estatus"));
+            predicate.add(inscrito);
 
             cq.select(root).where(cb.and(predicate.toArray(Predicate[]::new)));
             TypedQuery<EstudianteDominio> query = manager.createQuery(cq);
