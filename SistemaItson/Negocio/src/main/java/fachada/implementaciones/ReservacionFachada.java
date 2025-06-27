@@ -4,10 +4,15 @@
  */
 package fachada.implementaciones;
 
+import com.mycompany.persistencia.IReservacionDAO;
+import daos.IConexionBD;
+import daos.implementaciones.ConexionBD;
+import daos.implementaciones.ReservacionDAO;
 import dominios.EstudianteReservaComputadoraDominio;
 import excepciones.NegocioException;
 import fachada.IReservacionFachada;
 import negocio.IResevarcionNegocio;
+import negocio.implementaciones.ReservacionNegocio;
 
 /**
  *
@@ -17,6 +22,11 @@ public class ReservacionFachada implements IReservacionFachada {
 
     private IResevarcionNegocio reservacionNegocio;
 
+    public ReservacionFachada (){
+        IConexionBD conexionBD = new ConexionBD();
+        IReservacionDAO reservacionDAO = new ReservacionDAO(conexionBD);
+        this.reservacionNegocio = new ReservacionNegocio(reservacionDAO);
+    }
     @Override
     public EstudianteReservaComputadoraDominio registrar(EstudianteReservaComputadoraDominio reservacion) throws NegocioException {
         return reservacionNegocio.registrar(reservacion);
