@@ -20,7 +20,7 @@ import negocio.implementaciones.ReservacionNegocio;
  */
 public class ReservacionFachada implements IReservacionFachada {
 
-    private IResevarcionNegocio reservacionNegocio;
+    private final IResevarcionNegocio reservacionNegocio;
 
     public ReservacionFachada (){
         IConexionBD conexionBD = new ConexionBD();
