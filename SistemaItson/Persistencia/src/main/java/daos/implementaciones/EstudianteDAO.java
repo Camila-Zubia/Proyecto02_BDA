@@ -6,6 +6,7 @@ package daos.implementaciones;
 
 import DTO.FiltroDTO;
 import DTO.TablaEstudiantesDTO;
+import daos.IConexionBD;
 import excepciones.PersistenciaException;
 import dominios.BloqueoDominio;
 import dominios.EstudianteDominio;
@@ -26,9 +27,16 @@ import javax.persistence.criteria.Root;
  */
 public class EstudianteDAO implements IEstudianteDAO {
 
+    private final IConexionBD conexionBD;
+
+    public EstudianteDAO(IConexionBD conexionBD) {
+        this.conexionBD = conexionBD;
+    }
+    
+    
     @Override
     public EstudianteDominio buscarPorID(String id) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             EstudianteDominio estudiante = manager.find(EstudianteDominio.class, id);
             if (estudiante == null) {
@@ -46,7 +54,7 @@ public class EstudianteDAO implements IEstudianteDAO {
 
     @Override
     public boolean estaBloqueado(String id) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             String consulta = "SELECT b FROM bloqueoDominio b WHERE b.estudiante.id = :idEstudiante AND b.estatus = true";
             TypedQuery<BloqueoDominio> query = manager.createQuery(consulta, BloqueoDominio.class);
@@ -64,7 +72,7 @@ public class EstudianteDAO implements IEstudianteDAO {
 
     @Override
     public List<EstudianteDominio> obtenerEstudiantesConBloqueosActivos() {
-        EntityManager em = ManejadorConexiones.getEntityManager();
+        EntityManager em = conexionBD.crearConexion();
 
         try {
             String consulta = "SELECT DISTINCT e FROM estudianteDominio e JOIN e.bloqueos b WHERE b.estatus = true";
@@ -77,7 +85,7 @@ public class EstudianteDAO implements IEstudianteDAO {
 
     @Override
     public List<TablaEstudiantesDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             CriteriaBuilder cb = manager.getCriteriaBuilder();
             CriteriaQuery cq = cb.createQuery(EstudianteDominio.class);

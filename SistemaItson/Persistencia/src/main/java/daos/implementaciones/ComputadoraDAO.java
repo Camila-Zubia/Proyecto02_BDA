@@ -13,6 +13,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import com.mycompany.persistencia.IComputadoraDAO;
+import daos.IConexionBD;
 import dominios.TipoComputadora;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -27,9 +28,15 @@ import javax.persistence.criteria.Root;
  */
 public class ComputadoraDAO implements IComputadoraDAO{
 
+    private final IConexionBD conexionBD;
+
+    public ComputadoraDAO(IConexionBD conexionBD) {
+        this.conexionBD = conexionBD;
+    }
+    
     @Override
     public ComputadoraDominio buscarPorId(int id) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try{
             ComputadoraDominio computadora = manager.find(ComputadoraDominio.class, id);
             if (computadora == null) {
@@ -47,7 +54,7 @@ public class ComputadoraDAO implements IComputadoraDAO{
 
     @Override
     public ComputadoraDominio agregar(ComputadoraDominio computadora) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             manager.getTransaction().begin();
             manager.persist(computadora);
@@ -67,7 +74,7 @@ public class ComputadoraDAO implements IComputadoraDAO{
 
     @Override
     public void apartarComputadora(int id) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             manager.getTransaction().begin();
             ComputadoraDominio computadora = manager.find(ComputadoraDominio.class, id);
@@ -90,7 +97,7 @@ public class ComputadoraDAO implements IComputadoraDAO{
 
     @Override
     public ComputadoraDominio modificar(ComputadoraDominio computadora) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             manager.getTransaction().begin();
             ComputadoraDominio computadoraEncontrada = manager.find(ComputadoraDominio.class, computadora.getIdComputadoras());
@@ -115,7 +122,7 @@ public class ComputadoraDAO implements IComputadoraDAO{
 
     @Override
     public void eliminar(int id) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             manager.getTransaction().begin();
             ComputadoraDominio computadora = manager.find(ComputadoraDominio.class, id);
@@ -138,7 +145,7 @@ public class ComputadoraDAO implements IComputadoraDAO{
 
     @Override
     public List<ComputadoraDominio> listarComputadoras() throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             String consulta = "SELECT c FROM computadoraDominio c";
             TypedQuery<ComputadoraDominio> query = manager.createQuery(consulta, ComputadoraDominio.class);
@@ -154,7 +161,7 @@ public class ComputadoraDAO implements IComputadoraDAO{
 
     @Override
     public void liberarComputadora(int id) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             manager.getTransaction().begin();
             ComputadoraDominio computadora = manager.find(ComputadoraDominio.class, id);
@@ -177,7 +184,7 @@ public class ComputadoraDAO implements IComputadoraDAO{
 
     @Override
     public List<TablaComputadoraDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try{
             CriteriaBuilder cb = manager.getCriteriaBuilder();
             CriteriaQuery cq = cb.createQuery(ComputadoraDominio.class);

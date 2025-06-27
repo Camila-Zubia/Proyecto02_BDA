@@ -4,28 +4,38 @@
  */
 package daos.implementaciones;
 
+import com.mycompany.persistencia.IComputadoraDAO;
 import dominios.EstudianteReservaComputadoraDominio;
 import excepciones.PersistenciaException;
 import javax.persistence.EntityManager;
 import com.mycompany.persistencia.IReservacionDAO;
+import daos.IConexionBD;
 
 /**
  *
  * @author Camila Zubía
  */
-public class ReservacionDAO implements IReservacionDAO{
+public class ReservacionDAO implements IReservacionDAO {
+
+    private final IConexionBD conexionBD;
+    private final IComputadoraDAO computadoraDAO;
+
+    public ReservacionDAO(IConexionBD conexionBD) {
+        this.conexionBD = conexionBD;
+        this.computadoraDAO = new ComputadoraDAO(conexionBD);
+        
+    }
 
     @Override
     public EstudianteReservaComputadoraDominio registrar(EstudianteReservaComputadoraDominio reservacion) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             manager.getTransaction().begin();
             manager.persist(reservacion);
-            ComputadoraDAO compuDAO = new ComputadoraDAO();
-            compuDAO.apartarComputadora(reservacion.getComputadoraReservas().getIdComputadoras());
+            computadoraDAO.apartarComputadora(reservacion.getComputadoraReservas().getIdComputadoras());
             manager.getTransaction().commit();
             return reservacion;
-        } catch (Exception ex) {
+        } catch (PersistenciaException ex) {
             if (manager != null && manager.getTransaction().isActive()) {
                 manager.getTransaction().rollback();
             }
@@ -39,7 +49,7 @@ public class ReservacionDAO implements IReservacionDAO{
 
     @Override
     public EstudianteReservaComputadoraDominio buscarPorId(int id) throws PersistenciaException {
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             EstudianteReservaComputadoraDominio reservacion = manager.find(EstudianteReservaComputadoraDominio.class, id);
             if (reservacion == null) {
@@ -54,5 +64,5 @@ public class ReservacionDAO implements IReservacionDAO{
             }
         }
     }
-    
+
 }

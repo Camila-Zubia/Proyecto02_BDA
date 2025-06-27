@@ -2,6 +2,7 @@ package daos.implementaciones;
 
 //@author SAUL ISAAC APODACA BALDENEGRO 00000252020
 
+import daos.IConexionBD;
 import daos.IUnidadAcademicaDAO;
 import dominios.UnidadAcademicaDominio;
 import excepciones.PersistenciaException;
@@ -14,9 +15,16 @@ import javax.persistence.criteria.Root;
 
 public class UnidadAcademicaDAO implements IUnidadAcademicaDAO{
 
+    private final IConexionBD conexionBD;
+
+    public UnidadAcademicaDAO(IConexionBD conexionBD) {
+        this.conexionBD = conexionBD;
+    }
+    
+    
     @Override
     public UnidadAcademicaDominio obtenerPorNombre(String nombre) throws PersistenciaException{
-        EntityManager manager = ManejadorConexiones.getEntityManager();
+        EntityManager manager = conexionBD.crearConexion();
         try{
             CriteriaBuilder cb = manager.getCriteriaBuilder();
             CriteriaQuery<UnidadAcademicaDominio> query = cb.createQuery(UnidadAcademicaDominio.class);
