@@ -5,7 +5,9 @@
 package fachada.implementaciones;
 
 import daos.IBloqueoDAO;
+import daos.IConexionBD;
 import daos.implementaciones.BloqueoDAO;
+import daos.implementaciones.ConexionBD;
 import dominios.BloqueoDominio;
 import excepciones.NegocioException;
 import fachada.IBloqueoFachada;
@@ -19,10 +21,11 @@ import negocio.implementaciones.BloqueoNegocio;
  */
 public class BloqueoFachada implements IBloqueoFachada {
 
-    private IBloqueoNegocio bloqueoNegocio;
+    private final IBloqueoNegocio bloqueoNegocio;
 
     public BloqueoFachada() {
-        IBloqueoDAO bloqueoDAO = new BloqueoDAO();
+        IConexionBD conexionBD = new ConexionBD();
+        IBloqueoDAO bloqueoDAO = new BloqueoDAO(conexionBD);
         this.bloqueoNegocio = new BloqueoNegocio(bloqueoDAO);
     }
 
