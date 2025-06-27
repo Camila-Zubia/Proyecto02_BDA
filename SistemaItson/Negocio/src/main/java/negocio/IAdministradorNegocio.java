@@ -5,6 +5,7 @@
 package negocio;
 
 import DTO.AdministradorRegistroDTO;
+import dominios.AdministradorDominio;
 import excepciones.NegocioException;
 
 /**
@@ -13,5 +14,5 @@ import excepciones.NegocioException;
  */
 public interface IAdministradorNegocio {
     
-    public boolean iniciarSesion(AdministradorRegistroDTO administradorRegistroDTO) throws NegocioException;
+    public AdministradorDominio iniciarSesion(AdministradorRegistroDTO administradorRegistroDTO) throws NegocioException;
 }
