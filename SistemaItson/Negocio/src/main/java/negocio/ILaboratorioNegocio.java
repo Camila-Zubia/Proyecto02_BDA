@@ -4,9 +4,13 @@
  */
 package negocio;
 
+import DTO.FiltroDTO;
+import DTO.LaboratorioDTO;
 import DTO.NuevoLaboratorioDTO;
+import DTO.TablaLaboratorioDTO;
 import dominios.LaboratorioDominio;
 import excepciones.NegocioException;
+import java.util.List;
 
 /**
  *
@@ -16,4 +20,9 @@ public interface ILaboratorioNegocio {
     
     public LaboratorioDominio guardar(NuevoLaboratorioDTO nuevoLaboratorio) throws NegocioException;
 
+    public LaboratorioDominio buscarPorId(int id) throws NegocioException;
+    
+    public LaboratorioDominio modificar(LaboratorioDTO laboratorio) throws NegocioException;
+    
+    public List<TablaLaboratorioDTO> buscarTabla(FiltroDTO filtro) throws NegocioException;
 }

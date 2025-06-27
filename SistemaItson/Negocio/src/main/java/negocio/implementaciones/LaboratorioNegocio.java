@@ -2,11 +2,16 @@ package negocio.implementaciones;
 
 //@author SAUL ISAAC APODACA BALDENEGRO 00000252020
 
+import DTO.FiltroDTO;
+import DTO.LaboratorioDTO;
 import DTO.NuevoLaboratorioDTO;
+import DTO.TablaLaboratorioDTO;
 import daos.ILaboratorioDAO;
 import dominios.LaboratorioDominio;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import negocio.ILaboratorioNegocio;
@@ -16,7 +21,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public class LaboratorioNegocio implements ILaboratorioNegocio{
 
     private final String UNIDAD_DEFAULT = "Selecciona...";
-    private ILaboratorioDAO laboratorioDAO;
+    private final ILaboratorioDAO laboratorioDAO;
 
     public LaboratorioNegocio(ILaboratorioDAO laboratorioDAO) {
         this.laboratorioDAO = laboratorioDAO;
@@ -35,6 +40,37 @@ public class LaboratorioNegocio implements ILaboratorioNegocio{
 
     }
 
+    @Override
+    public LaboratorioDominio buscarPorId(int id) throws NegocioException {
+        try{
+            return laboratorioDAO.buscarPorId(id);
+        }catch(PersistenciaException ex){
+            throw new NegocioException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public LaboratorioDominio modificar(LaboratorioDTO laboratorio) throws NegocioException {
+        try{
+            LaboratorioDominio laboratorioDominio = laboratorioDAO.buscarPorId(laboratorio.getIdLaboratorios());
+            if (laboratorioDominio == null)
+                throw new NegocioException("Error al buscar el Laboratorio a modificar.");
+            validarHorario(laboratorio.getHoraInicio(), laboratorio.getHoraFin());
+            return laboratorioDAO.modificar(laboratorio);
+        }catch(PersistenciaException ex){
+            throw new NegocioException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public List<TablaLaboratorioDTO> buscarTabla(FiltroDTO filtro) throws NegocioException {
+        try{
+            return laboratorioDAO.buscarTabla(filtro);
+        }catch(PersistenciaException ex){
+            throw new NegocioException(ex.getMessage());
+        }
+    }
+    
     private void existeLaboratorio(NuevoLaboratorioDTO nuevoLaboratorio) throws NegocioException{
         try{
             laboratorioDAO.existePorNombre(nuevoLaboratorio.getNombre());
@@ -43,10 +79,10 @@ public class LaboratorioNegocio implements ILaboratorioNegocio{
         }
     }
     
-    private void validarHorario(NuevoLaboratorioDTO nuevoLaboratorio) throws NegocioException{
-        if (nuevoLaboratorio.getHoraInicio() == null || nuevoLaboratorio.getHoraCierre() == null)
-        throw new NegocioException("Las horas de inicio y cierre son obligatorias.");
-        if (!nuevoLaboratorio.getHoraInicio().isBefore(nuevoLaboratorio.getHoraCierre()))
+    private void validarHorario(LocalTime horaInicio, LocalTime horaFin) throws NegocioException{
+        if (horaInicio == null || horaFin == null)
+            throw new NegocioException("Las horas de inicio y cierre son obligatorias.");
+        if (!horaInicio.isBefore(horaFin))
             throw new NegocioException("La hora de inicio debe ser anterior a la hora de cierre.");
     }
     
@@ -77,9 +113,10 @@ public class LaboratorioNegocio implements ILaboratorioNegocio{
     
     private void validarNuevoLaboratorio(NuevoLaboratorioDTO nuevoLaboratorio) throws NegocioException{
         existeLaboratorio(nuevoLaboratorio);
-        validarHorario(nuevoLaboratorio);
+        validarHorario(nuevoLaboratorio.getHoraInicio(), nuevoLaboratorio.getHoraCierre());
         validarUnidadAcademica(nuevoLaboratorio);
         validarContraseña(nuevoLaboratorio);
     }
+
 
 }
