@@ -28,7 +28,7 @@ public class EstudianteDominio implements Serializable {
     @Id()
     @Column(name = "idEstudiante")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idEstudiante;
+    private String idEstudiante;
 
     @Column(name = "nombres", nullable = false, length = 50)
     private String nombres;
@@ -69,11 +69,11 @@ public class EstudianteDominio implements Serializable {
         this.contraseña = contraseña;
     }
 
-    public int getIdEstudiante() {
+    public String getIdEstudiante() {
         return idEstudiante;
     }
 
-    public void setIdEstudiante(int idEstudiante) {
+    public void setIdEstudiante(String idEstudiante) {
         this.idEstudiante = idEstudiante;
     }
 

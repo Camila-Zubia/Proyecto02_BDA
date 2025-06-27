@@ -4,10 +4,13 @@
  */
 package daos;
 
+import DTO.FiltroDTO;
 import DTO.LaboratorioDTO;
 import DTO.NuevoLaboratorioDTO;
+import DTO.TablaLaboratorioDTO;
 import dominios.LaboratorioDominio;
 import excepciones.PersistenciaException;
+import java.util.List;
 
 /**
  *
@@ -22,4 +25,6 @@ public interface ILaboratorioDAO {
     LaboratorioDominio modificar(LaboratorioDTO laboratorio) throws PersistenciaException;
     
     boolean existePorNombre(String nombre) throws PersistenciaException;
+    
+    List<TablaLaboratorioDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException;
 }

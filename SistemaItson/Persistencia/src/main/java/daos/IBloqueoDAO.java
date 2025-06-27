@@ -4,6 +4,8 @@
  */
 package daos;
 
+import DTO.FiltroDTO;
+import DTO.TablaBloqueosDTO;
 import dominios.BloqueoDominio;
 import excepciones.PersistenciaException;
 import java.util.List;
@@ -20,7 +22,7 @@ public interface IBloqueoDAO {
     
     void liberarBloqueo(int id) throws PersistenciaException;
     
-    //List<bloqueoDominio> buscarTabla() throws PersistenciaException;
+    List<TablaBloqueosDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException;
     
     public List<BloqueoDominio> obtenerBloqueosActivos() throws PersistenciaException;
     

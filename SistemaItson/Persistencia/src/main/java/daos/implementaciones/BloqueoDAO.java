@@ -4,15 +4,22 @@
  */
 package daos.implementaciones;
 
+import DTO.FiltroDTO;
+import DTO.TablaBloqueosDTO;
 import excepciones.PersistenciaException;
 import dominios.BloqueoDominio;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import daos.IBloqueoDAO;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.stream.Collectors;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -98,4 +105,49 @@ public class BloqueoDAO implements IBloqueoDAO {
         }
     }
 
+    @Override
+    public List<TablaBloqueosDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException {
+        EntityManager manager = ManejadorConexiones.getEntityManager();
+        try {
+            CriteriaBuilder cb = manager.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery(BloqueoDominio.class);
+            List<Predicate> predicate = new ArrayList<>();
+            Root<BloqueoDominio> root = cq.from(BloqueoDominio.class);
+            if (filtro.getFiltro() != null && !filtro.getFiltro().trim().isEmpty()) {
+
+                String textoFiltro = "%" + filtro.getFiltro() + "%";
+
+                Predicate fecha = cb.like(cb.function("CAST", String.class, root.get("FechaBloqueo")), textoFiltro);
+                Predicate motivo = cb.like(cb.function("CAST", String.class, root.get("motivo")), textoFiltro);
+
+                predicate.add(cb.or(fecha, motivo));
+            }
+            Predicate bloqueosActivos = cb.isTrue(root.get("estatus"));
+            predicate.add(bloqueosActivos);
+
+            cq.select(root).where(cb.and(predicate.toArray(Predicate[]::new)));
+            TypedQuery<BloqueoDominio> query = manager.createQuery(cq);
+            query.setFirstResult(filtro.getOffset());
+            query.setMaxResults(filtro.getLimit());
+            List<BloqueoDominio> resultados = query.getResultList();
+            List<TablaBloqueosDTO> bloqueos = resultados.stream()
+                    .map(b -> convertirTabla(b)).collect(Collectors.toList());
+            return bloqueos;
+        } catch (Exception ex) {
+            throw new PersistenciaException("Error al buscar la tabla de bloqueos" + ex);
+        } finally {
+            if (manager != null) {
+                manager.close();
+            }
+        }
+    }
+
+    private TablaBloqueosDTO convertirTabla(BloqueoDominio bloqueo) {
+        int id = bloqueo.getIdBloqueo();
+        Calendar fecha = bloqueo.getFechaBloqueo();
+        String motivo = bloqueo.getMotivo();
+        boolean estatus = bloqueo.isEstatus();
+        TablaBloqueosDTO tabla = new TablaBloqueosDTO(id, fecha, motivo, estatus);
+        return tabla;
+    }
 }
