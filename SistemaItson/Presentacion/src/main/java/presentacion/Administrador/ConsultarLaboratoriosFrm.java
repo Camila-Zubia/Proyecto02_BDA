@@ -8,12 +8,12 @@ package presentacion.Administrador;
  *
  * @author adell
  */
-public class ConsultarLaboratorios extends javax.swing.JFrame {
+public class ConsultarLaboratoriosFrm extends javax.swing.JFrame {
 
     /**
      * Creates new form ConsultarLaboratorios
      */
-    public ConsultarLaboratorios() {
+    public ConsultarLaboratoriosFrm() {
         initComponents();
     }
 

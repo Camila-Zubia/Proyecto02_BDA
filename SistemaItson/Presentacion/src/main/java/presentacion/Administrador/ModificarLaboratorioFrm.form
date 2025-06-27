@@ -237,6 +237,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
+                <Property name="text" type="java.lang.String" value="MODIFICAR LABORATORIO"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
@@ -246,18 +247,17 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="b5" green="6d" red="4" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="MODIFICAR LABORATORIO"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="modificarBtn">
               <Properties>
+                <Property name="text" type="java.lang.String" value="MODIFICAR"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="99" red="0" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial Black" size="18" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="MODIFICAR"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modificarBtnActionPerformed"/>
@@ -321,35 +321,35 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="nombreLbl">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="NOMBRE"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial Black" size="18" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="6d" red="4" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="NOMBRE"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="horaInicioLbl">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="HORA INICIO:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial Black" size="18" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="6d" red="4" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="HORA INICIO:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="horaCierreLbl">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="HORA CIERRE:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial Black" size="18" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="6d" red="4" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="HORA CIERRE:"/>
                   </Properties>
                 </Component>
                 <Component class="com.github.lgooddatepicker.components.TimePicker" name="timePickerHoraCierre">
@@ -360,11 +360,11 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnAnterior">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="eb" green="d7" red="ba" type="rgb"/>
-                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/anterior.png"/>
+                </Property>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="eb" green="d7" red="ba" type="rgb"/>
                 </Property>
               </Properties>
             </Component>

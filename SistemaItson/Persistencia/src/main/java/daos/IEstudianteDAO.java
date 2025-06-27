@@ -10,20 +10,20 @@ import dominios.EstudianteDominio;
 import excepciones.PersistenciaException;
 import java.util.List;
 
-
 /**
  *
  * @author Camila Zubía
  */
 public interface IEstudianteDAO {
 
-     List<TablaEstudiantesDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException;
-     
+    List<TablaEstudiantesDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException;
+
     EstudianteDominio buscarPorID(String id) throws PersistenciaException;
-     
+
     boolean estaBloqueado(String id) throws PersistenciaException;
 
     public List<EstudianteDominio> obtenerEstudiantesConBloqueosActivos() throws PersistenciaException;
+
 
 
 }
