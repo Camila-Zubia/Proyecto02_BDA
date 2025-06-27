@@ -73,6 +73,11 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
         agregarBtn.setBackground(new java.awt.Color(0, 153, 255));
         agregarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         agregarBtn.setText("AGREGAR");
+        agregarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarBtnActionPerformed(evt);
+            }
+        });
 
         jPanel2.setOpaque(false);
 
@@ -326,6 +331,10 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
     private void menuItemModificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarLaboratorioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
+
+    private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_agregarBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
