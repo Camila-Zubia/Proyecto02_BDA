@@ -25,7 +25,7 @@ public class AdministradorDominio implements Serializable {
     @Column(name = "usuario", length = 50, nullable = false, unique = true)
     private String usuario;
     
-    @Column(name = "contraseña", length = 50, nullable = false)
+    @Column(name = "contraseña", length = 100, nullable = false)
     private String contraseña;
     
     @OneToOne(cascade = CascadeType.ALL)
