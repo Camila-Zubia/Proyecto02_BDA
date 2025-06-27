@@ -10,13 +10,13 @@ package DTO;
  */
 public class TablaEstudiantesDTO {
     
-    private int idEstudiante;
+    private String idEstudiante;
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private boolean estatus;
 
-    public TablaEstudiantesDTO(int idEstudiante, String nombres, String apellidoPaterno, String apellidoMaterno, boolean estatus) {
+    public TablaEstudiantesDTO(String idEstudiante, String nombres, String apellidoPaterno, String apellidoMaterno, boolean estatus) {
         this.idEstudiante = idEstudiante;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -24,11 +24,11 @@ public class TablaEstudiantesDTO {
         this.estatus = estatus;
     }
 
-    public int getIdEstudiante() {
+    public String getIdEstudiante() {
         return idEstudiante;
     }
 
-    public void setIdEstudiante(int idEstudiante) {
+    public void setIdEstudiante(String idEstudiante) {
         this.idEstudiante = idEstudiante;
     }
 

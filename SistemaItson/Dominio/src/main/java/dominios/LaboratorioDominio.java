@@ -6,7 +6,6 @@ package dominios;
 
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.Calendar;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

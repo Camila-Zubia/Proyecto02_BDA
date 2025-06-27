@@ -4,15 +4,21 @@
  */
 package daos.implementaciones;
 
+import DTO.FiltroDTO;
+import DTO.TablaEstudiantesDTO;
 import excepciones.PersistenciaException;
 import dominios.BloqueoDominio;
 import dominios.EstudianteDominio;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import daos.IEstudianteDAO;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -21,7 +27,7 @@ import daos.IEstudianteDAO;
 public class EstudianteDAO implements IEstudianteDAO {
 
     @Override
-    public EstudianteDominio buscarPorID(int id) throws PersistenciaException {
+    public EstudianteDominio buscarPorID(String id) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             EstudianteDominio estudiante = manager.find(EstudianteDominio.class, id);
@@ -39,7 +45,7 @@ public class EstudianteDAO implements IEstudianteDAO {
     }
 
     @Override
-    public boolean estaBloqueado(int id) throws PersistenciaException {
+    public boolean estaBloqueado(String id) throws PersistenciaException {
         EntityManager manager = ManejadorConexiones.getEntityManager();
         try {
             String consulta = "SELECT b FROM bloqueoDominio b WHERE b.estudiante.id = :idEstudiante AND b.estatus = true";
@@ -69,4 +75,51 @@ public class EstudianteDAO implements IEstudianteDAO {
         }
     }
 
+    @Override
+    public List<TablaEstudiantesDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException {
+        EntityManager manager = ManejadorConexiones.getEntityManager();
+        try {
+            CriteriaBuilder cb = manager.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery(EstudianteDominio.class);
+            List<Predicate> predicate = new ArrayList<>();
+            Root<EstudianteDominio> root = cq.from(EstudianteDominio.class);
+            if (filtro.getFiltro() != null && !filtro.getFiltro().trim().isEmpty()) {
+
+                String textoFiltro = "%" + filtro.getFiltro() + "%";
+
+                Predicate nombre = cb.like(cb.function("CAST", String.class, root.get("nombres")), textoFiltro);
+                Predicate apellidoP = cb.like(cb.function("CAST", String.class, root.get("apellidoPaterno")), textoFiltro);
+                Predicate apellidoM = cb.like(cb.function("CAST", String.class, root.get("apellidoMaterno")), textoFiltro);
+
+                predicate.add(cb.or(nombre, apellidoP, apellidoM));
+            }
+            Predicate inscrito = cb.isTrue(root.get("estatus"));
+            predicate.add(inscrito);
+
+            cq.select(root).where(cb.and(predicate.toArray(Predicate[]::new)));
+            TypedQuery<EstudianteDominio> query = manager.createQuery(cq);
+            query.setFirstResult(filtro.getOffset());
+            query.setMaxResults(filtro.getLimit());
+            List<EstudianteDominio> resultados = query.getResultList();
+            List<TablaEstudiantesDTO> estudiantes = resultados.stream()
+                    .map(e -> convertirTabla(e)).collect(Collectors.toList());
+            return estudiantes;
+        } catch (Exception ex) {
+            throw new PersistenciaException("Error al buscar la tabla de estudiantes" + ex);
+        } finally {
+            if (manager != null) {
+                manager.close();
+            }
+        }
+    }
+
+    private TablaEstudiantesDTO convertirTabla(EstudianteDominio estudiante) {
+        String id = estudiante.getIdEstudiante();
+        String nombre = estudiante.getNombres();
+        String apellidoP = estudiante.getApellidoPaterno();
+        String apellidoM = estudiante.getApellidoMaterno();
+        boolean estatus = estudiante.isEstatus();
+        TablaEstudiantesDTO tabla = new TablaEstudiantesDTO(id, nombre, apellidoP, apellidoM, estatus);
+        return tabla;
+    }
 }

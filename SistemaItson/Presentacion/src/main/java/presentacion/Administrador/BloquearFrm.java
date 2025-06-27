@@ -13,7 +13,7 @@ public class BloquearFrm extends javax.swing.JFrame {
     /**
      * Creates new form BloquearFrm
      */
-    public BloquearFrm() {
+    public BloquearFrm(BloquearAccesoFrm bloquearAccesoFrm, int id) {
         initComponents();
     }
 

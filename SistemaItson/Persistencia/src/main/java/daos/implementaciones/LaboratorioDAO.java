@@ -4,13 +4,20 @@
  */
 package daos.implementaciones;
 
+import DTO.FiltroDTO;
 import daos.ILaboratorioDAO;
 import excepciones.PersistenciaException;
 import DTO.LaboratorioDTO;
 import DTO.NuevoLaboratorioDTO;
+import DTO.TablaLaboratorioDTO;
 import daos.IUnidadAcademicaDAO;
 import dominios.LaboratorioDominio;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -114,5 +121,50 @@ public class LaboratorioDAO implements ILaboratorioDAO{
         
         Long resultado = manager.createQuery(query).getSingleResult();
         return resultado > 0;
+    }
+
+    @Override
+    public List<TablaLaboratorioDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException {
+        EntityManager manager = ManejadorConexiones.getEntityManager();
+        try {
+            CriteriaBuilder cb = manager.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery(LaboratorioDominio.class);
+            List<Predicate> predicate = new ArrayList<>();
+            Root<LaboratorioDominio> root = cq.from(LaboratorioDominio.class);
+            if (filtro.getFiltro() != null && !filtro.getFiltro().trim().isEmpty()) {
+
+                String textoFiltro = "%" + filtro.getFiltro() + "%";
+
+                Predicate nombre = cb.like(cb.function("CAST", String.class, root.get("nombre")), textoFiltro);
+                Predicate horaInicio = cb.like(cb.function("CAST", String.class, root.get("horaInicio")), textoFiltro);
+                Predicate horaFin = cb.like(cb.function("CAST", String.class, root.get("horaFin")), textoFiltro);
+
+                predicate.add(cb.or(nombre, horaInicio, horaFin));
+            }
+
+            cq.select(root).where(cb.and(predicate.toArray(Predicate[]::new)));
+            TypedQuery<LaboratorioDominio> query = manager.createQuery(cq);
+            query.setFirstResult(filtro.getOffset());
+            query.setMaxResults(filtro.getLimit());
+            List<LaboratorioDominio> resultados = query.getResultList();
+            List<TablaLaboratorioDTO> laboratorios = resultados.stream()
+                    .map(e -> convertirTabla(e)).collect(Collectors.toList());
+            return laboratorios;
+        } catch (Exception ex) {
+            throw new PersistenciaException("Error al buscar la tabla de estudiantes" + ex);
+        } finally {
+            if (manager != null) {
+                manager.close();
+            }
+        }
+    }
+
+    private TablaLaboratorioDTO convertirTabla(LaboratorioDominio lab) {
+        int id = lab.getIdLaboratorios();
+        String nombre = lab.getNombre();
+        LocalTime horaInicio = lab.getHoraInicio();
+        LocalTime horaFin = lab.getHoraFin();
+        TablaLaboratorioDTO tabla = new TablaLaboratorioDTO(id, nombre, horaInicio, horaFin);
+        return tabla;
     }
 }
