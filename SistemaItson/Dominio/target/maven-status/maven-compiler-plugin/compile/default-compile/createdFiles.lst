@@ -14,5 +14,6 @@ DTO\TablaEstudiantesDTO.class
 dominios\EstatusComputadora.class
 dominios\TipoComputadora.class
 dominios\SoftwareDominio.class
+DTO\TablaLaboratorioDTO.class
 dominios\AdministradorDominio.class
 dominios\UnidadAcademicaDominio.class

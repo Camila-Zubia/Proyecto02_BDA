@@ -4,6 +4,15 @@
  */
 package presentacion.Administrador;
 
+import excepciones.NegocioException;
+import fachada.IBloqueoFachada;
+import fachada.implementaciones.BloqueoFachada;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author adell
@@ -13,10 +22,20 @@ public class BloquearAccesoFrm extends javax.swing.JFrame {
     /**
      * Creates new form BloquearAccesoFrm
      */
+  
+    
+    private IBloqueoFachada bloqueoFachada;
+    
     public BloquearAccesoFrm() {
+        this.bloqueoFachada = new BloqueoFachada();
         initComponents();
+        
     }
-
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,7 +50,7 @@ public class BloquearAccesoFrm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnAnterior = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla = new javax.swing.JTable();
         buscadorTxt = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         cambiarAccesoBtn = new javax.swing.JButton();
@@ -69,7 +88,7 @@ public class BloquearAccesoFrm extends javax.swing.JFrame {
         btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -80,7 +99,7 @@ public class BloquearAccesoFrm extends javax.swing.JFrame {
                 "ID", "NOMBRE", "MOTIVO", "FECHA"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabla);
 
         btnBuscar.setBackground(new java.awt.Color(0, 153, 255));
         btnBuscar.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
@@ -94,6 +113,11 @@ public class BloquearAccesoFrm extends javax.swing.JFrame {
         cambiarAccesoBtn.setBackground(new java.awt.Color(0, 153, 255));
         cambiarAccesoBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         cambiarAccesoBtn.setText("CAMBIAR ACCESO");
+        cambiarAccesoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarAccesoBtnActionPerformed(evt);
+            }
+        });
 
         btnPaginadoAnterior.setBackground(new java.awt.Color(0, 153, 255));
         btnPaginadoAnterior.setText("Anterior");
@@ -115,7 +139,7 @@ public class BloquearAccesoFrm extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(7, Short.MAX_VALUE)
                 .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -140,7 +164,7 @@ public class BloquearAccesoFrm extends javax.swing.JFrame {
                                         .addGap(19, 19, 19)
                                         .addComponent(btnBuscar)))
                                 .addGap(113, 113, 113)))
-                        .addGap(172, 172, 172))))
+                        .addGap(166, 166, 166))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +189,7 @@ public class BloquearAccesoFrm extends javax.swing.JFrame {
                                 .addGap(26, 26, 26))
                             .addComponent(cambiarAccesoBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 532, Short.MAX_VALUE)
                         .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -176,7 +200,7 @@ public class BloquearAccesoFrm extends javax.swing.JFrame {
             PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelFondoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1015, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelFondoLayout.setVerticalGroup(
@@ -285,6 +309,32 @@ public class BloquearAccesoFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
 
+    private void cambiarAccesoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarAccesoBtnActionPerformed
+        // TODO add your handling code here:
+        
+        int filaSeleccionada = tabla.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Seleciona una fila");
+            return;
+        }
+        
+                if (filaSeleccionada != -1) {
+            int idBloqueo = (int) tabla.getValueAt(filaSeleccionada, 0);
+            try {
+                bloqueoFachada.buscarPorId(idBloqueo);
+                new BloquearFrm(this, idBloqueo).setVisible(true);
+            } catch (NegocioException ex) {
+                Logger.getLogger(BloquearFrm.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "error al cambiar acceso");
+            }
+        }
+    }//GEN-LAST:event_cambiarAccesoBtnActionPerformed
+
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -331,7 +381,6 @@ public class BloquearAccesoFrm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuGenerarReportes;
     private javax.swing.JMenu menuGestionBloqueos;
@@ -348,5 +397,6 @@ public class BloquearAccesoFrm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemReporteCentroComputo;
     private javax.swing.JMenu menuPanelControl;
     private javax.swing.JLabel paginaLbl;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }
