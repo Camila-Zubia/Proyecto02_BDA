@@ -4,6 +4,8 @@
  */
 package fachada.implementaciones;
 
+import DTO.FiltroDTO;
+import DTO.TablaBloqueosDTO;
 import daos.IBloqueoDAO;
 import daos.implementaciones.BloqueoDAO;
 import dominios.BloqueoDominio;
@@ -44,6 +46,11 @@ public class BloqueoFachada implements IBloqueoFachada {
     @Override
     public List<BloqueoDominio> obtenerBloqueosActivos() throws NegocioException {
         return bloqueoNegocio.obtenerBloqueosActivos();
+    }
+
+    @Override
+    public List<TablaBloqueosDTO> buscarTabla(FiltroDTO filtro) throws NegocioException {
+        return bloqueoNegocio.buscarTabla(filtro);
     }
 
 }

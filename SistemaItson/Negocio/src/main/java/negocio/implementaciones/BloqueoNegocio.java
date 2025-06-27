@@ -4,6 +4,8 @@
  */
 package negocio.implementaciones;
 
+import DTO.FiltroDTO;
+import DTO.TablaBloqueosDTO;
 import daos.IBloqueoDAO;
 import dominios.BloqueoDominio;
 import excepciones.NegocioException;
@@ -58,7 +60,7 @@ public class BloqueoNegocio implements IBloqueoNegocio {
         try {
             return bloqueoDAO.obtenerBloqueosActivos();
         } catch (PersistenciaException ex) {
-            throw new NegocioException("Ha ocurrido un error al intentar liberar un bloqeuo por id");
+            throw new NegocioException("Ha ocurrido un error al intentar obtener los bloqueos activos");
         }
     }
 
@@ -78,6 +80,15 @@ public class BloqueoNegocio implements IBloqueoNegocio {
     private void idInvalida(int id) throws NegocioException {
         if (id < 0) {
             throw new NegocioException("El id no puede ser menor a 0");
+        }
+    }
+
+    @Override
+    public List<TablaBloqueosDTO> buscarTabla(FiltroDTO filtro) throws NegocioException {
+        try {
+            return bloqueoDAO.buscarTabla(filtro);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Ha ocurrido un error al intentar buscar la tabla de bloqueos");
         }
     }
 

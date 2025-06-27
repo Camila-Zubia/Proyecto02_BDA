@@ -4,6 +4,14 @@
  */
 package presentacion.Administrador;
 
+import DTO.FiltroDTO;
+import DTO.TablaBloqueosDTO;
+import excepciones.NegocioException;
+import fachada.implementaciones.BloqueoFachada;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author saula
@@ -13,9 +21,37 @@ public class ConsultarBloqueosFrm extends javax.swing.JFrame {
     /**
      * Creates new form ConsultarBloqueosFrm
      */
-    public ConsultarBloqueosFrm() {
+    public ConsultarBloqueosFrm() throws NegocioException {
         initComponents();
+        cargarTabla();
     }
+    
+    BloqueoFachada fachada = new BloqueoFachada();
+    
+    
+    private void cargarTabla() throws NegocioException{
+        try{
+            String buscador = buscadorTxt.getText().trim();
+            FiltroDTO filtro = new FiltroDTO(5,0,buscador);
+            List<TablaBloqueosDTO> bloqueos = fachada.buscarTabla(filtro);
+            
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            modelo.setRowCount(0);
+            
+            for (TablaBloqueosDTO b : bloqueos) {
+                Object[] fila = {
+                    b.getIdBloqueo(),
+                    b.isEstatus(),
+                    b.getMotivo(),
+                    b.getFechaBloqueo()
+                };
+                modelo.addRow(fila);
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,7 +113,7 @@ public class ConsultarBloqueosFrm extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "NOMBRE", "MOTIVO", "FECHA"
+                "ID", "ESTATUS", "MOTIVO", "FECHA"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
