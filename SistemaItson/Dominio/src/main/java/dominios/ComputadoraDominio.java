@@ -128,5 +128,9 @@ public class ComputadoraDominio implements Serializable {
     public void setReservas(List<EstudianteReservaComputadoraDominio> reservas) {
         this.reservas = reservas;
     }
+
+    public EstatusComputadora getEstatus() {
+        return estatus;
+    }
     
 }

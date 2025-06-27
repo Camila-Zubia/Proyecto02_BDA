@@ -4,6 +4,8 @@
  */
 package daos.implementaciones;
 
+import DTO.FiltroDTO;
+import DTO.TablaComputadoraDTO;
 import excepciones.PersistenciaException;
 import dominios.EstatusComputadora;
 import dominios.ComputadoraDominio;
@@ -11,6 +13,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import com.mycompany.persistencia.IComputadoraDAO;
+import dominios.TipoComputadora;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -165,5 +174,50 @@ public class ComputadoraDAO implements IComputadoraDAO{
             }
         }
     }
+
+    @Override
+    public List<TablaComputadoraDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException {
+        EntityManager manager = ManejadorConexiones.getEntityManager();
+        try{
+            CriteriaBuilder cb = manager.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery(ComputadoraDominio.class);
+            List<Predicate> predicate = new ArrayList<>();
+            Root<ComputadoraDominio> root = cq.from(ComputadoraDominio.class);
+            if (filtro.getFiltro() != null && !filtro.getFiltro().trim().isEmpty()) {
+           
+                String textoFiltro = "%" + filtro.getFiltro() + "%";
+
+                Predicate numero = cb.like(cb.function("CAST", String.class, root.get("numero")), textoFiltro);
+                Predicate ip = cb.like(cb.function("CAST", String.class, root.get("direccionIp")), textoFiltro);
+
+                predicate.add(cb.or(numero, ip));
+            }
+            
+            cq.select(root).where(cb.and(predicate.toArray(Predicate[]::new)));
+            TypedQuery<ComputadoraDominio> query = manager.createQuery(cq);
+            query.setFirstResult(filtro.getOffset());
+            query.setMaxResults(filtro.getLimit());
+            List<ComputadoraDominio> resultados = query.getResultList();
+            List<TablaComputadoraDTO> computadoras = resultados.stream()
+                    .map(c ->convertirTabla(c)).collect(Collectors.toList());
+            return computadoras;
+        }catch(Exception ex){
+            throw new PersistenciaException("Error al buscar la tabla de computadoras" + ex);
+        }finally {
+            if (manager != null) {
+                manager.close();
+            }
+        }
+    }
     
+    
+    private TablaComputadoraDTO convertirTabla(ComputadoraDominio compu){
+        int id = compu.getIdComputadoras();
+        String numero = compu.getNumero();
+        String ip = compu.getDireccionIp();
+        EstatusComputadora estatus = compu.getEstatus();
+        TipoComputadora tipo = compu.getTipo();
+        TablaComputadoraDTO tabla = new TablaComputadoraDTO(id, numero, ip, estatus, tipo);
+        return tabla;
+    }
 }

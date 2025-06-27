@@ -4,6 +4,8 @@
  */
 package com.mycompany.persistencia;
 
+import DTO.FiltroDTO;
+import DTO.TablaComputadoraDTO;
 import dominios.ComputadoraDominio;
 import excepciones.PersistenciaException;
 import java.util.List;
@@ -27,5 +29,7 @@ public interface IComputadoraDAO {
     List<ComputadoraDominio> listarComputadoras() throws PersistenciaException;
     
     void liberarComputadora(int id) throws PersistenciaException;
+    
+    List<TablaComputadoraDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException;
     
 }

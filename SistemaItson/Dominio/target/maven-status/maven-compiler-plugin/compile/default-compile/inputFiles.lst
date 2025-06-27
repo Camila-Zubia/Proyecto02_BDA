@@ -1,16 +1,18 @@
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\AdministradorDominio.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\BloqueoDominio.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\CarreraDominio.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\ComputadoraDominio.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\ComputadoraSoftwareDominio.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\EstatusComputadora.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\EstudianteDominio.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\EstudianteReservaComputadoraDominio.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\LaboratorioDominio.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\SoftwareDominio.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\UnidadAcademicaDominio.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\FiltroDTO.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\LaboratorioDTO.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\NuevoLaboratorioDTO.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\TablaBloqueosDTO.java
-C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\TablaEstudiantesDTO.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\AdministradorDominio.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\BloqueoDominio.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\CarreraDominio.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\ComputadoraDominio.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\ComputadoraSoftwareDominio.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\EstatusComputadora.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\EstudianteDominio.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\EstudianteReservaComputadoraDominio.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\LaboratorioDominio.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\SoftwareDominio.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\TipoComputadora.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\dominios\UnidadAcademicaDominio.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\FiltroDTO.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\LaboratorioDTO.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\NuevoLaboratorioDTO.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\TablaBloqueosDTO.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\TablaComputadoraDTO.java
+C:\Users\Camila Zubía\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\TablaEstudiantesDTO.java
