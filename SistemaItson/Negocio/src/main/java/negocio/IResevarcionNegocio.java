@@ -13,7 +13,27 @@ import excepciones.NegocioException;
  */
 public interface IResevarcionNegocio {
 
+    /**
+     * Registra una nueva reservación de computadora para un estudiante.
+     *
+     * @param reservacion Entidad EstudianteReservaComputadoraDominio con los
+     * datos de la reservación a registrar.
+     * @return La entidad EstudianteReservaComputadoraDominio recién creada y
+     * persistida.
+     * @throws NegocioException Si ocurre algún error durante el registro.
+     */
     EstudianteReservaComputadoraDominio registrar(EstudianteReservaComputadoraDominio reservacion) throws NegocioException;
 
+    /**
+     * Busca una reservación de computadora para estudiante por su identificador
+     * único.
+     *
+     * @param id El identificador único de la reservación.
+     * @return La entidad EstudianteReservaComputadoraDominio correspondiente al
+     * ID proporcionado.
+     * @throws NegocioException Si la reservación no existe o ocurre un error
+     * durante la búsqueda.
+     */
     EstudianteReservaComputadoraDominio buscarPorId(int id) throws NegocioException;
+
 }

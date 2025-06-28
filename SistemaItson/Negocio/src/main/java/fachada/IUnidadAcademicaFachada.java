@@ -13,5 +13,14 @@ import java.util.List;
  * @author saula
  */
 public interface IUnidadAcademicaFachada {
+
+    /**
+     * Obtiene una lista con todas las unidades académicas registradas en el
+     * sistema.
+     *
+     * @return Lista de entidades UnidadAcademicaDominio disponibles.
+     * @throws NegocioException Si ocurre algún error al recuperar la lista.
+     */
     public List<UnidadAcademicaDominio> obtenerUnidadesAcademicas() throws NegocioException;
+
 }

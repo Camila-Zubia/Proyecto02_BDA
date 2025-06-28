@@ -24,6 +24,14 @@ public class ReservacionNegocio implements IResevarcionNegocio {
         this.reservacionDAO = reservacionDAO;
     }
 
+    /**
+     * Registra una nueva reservación de computadora para un estudiante.
+     *
+     * @param reservacion Objeto dominio con los datos de la reservación.
+     * @return El objeto dominio registrado.
+     * @throws NegocioException Si ocurre un error en la persistencia al
+     * registrar.
+     */
     @Override
     public EstudianteReservaComputadoraDominio registrar(EstudianteReservaComputadoraDominio reservacion) throws NegocioException {
         try {
@@ -33,6 +41,13 @@ public class ReservacionNegocio implements IResevarcionNegocio {
         }
     }
 
+    /**
+     * Busca una reservación de computadora por su ID.
+     *
+     * @param id Identificador único de la reservación.
+     * @return El objeto dominio de la reservación encontrada.
+     * @throws NegocioException Si ocurre un error en la persistencia al buscar.
+     */
     @Override
     public EstudianteReservaComputadoraDominio buscarPorId(int id) throws NegocioException {
         try {

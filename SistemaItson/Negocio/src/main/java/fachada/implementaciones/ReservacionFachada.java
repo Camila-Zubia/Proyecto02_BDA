@@ -22,16 +22,36 @@ public class ReservacionFachada implements IReservacionFachada {
 
     private final IResevarcionNegocio reservacionNegocio;
 
-    public ReservacionFachada (){
+    public ReservacionFachada() {
         IConexionBD conexionBD = new ConexionBD();
         IReservacionDAO reservacionDAO = new ReservacionDAO(conexionBD);
         this.reservacionNegocio = new ReservacionNegocio(reservacionDAO);
     }
+
+    /**
+     * Registra una nueva reservación de computadora realizada por un
+     * estudiante.
+     *
+     * @param reservacion Entidad EstudianteReservaComputadoraDominio con los
+     * datos de la reservación.
+     * @return La entidad EstudianteReservaComputadoraDominio registrada.
+     * @throws NegocioException Si ocurre un error durante el registro de la
+     * reservación.
+     */
     @Override
     public EstudianteReservaComputadoraDominio registrar(EstudianteReservaComputadoraDominio reservacion) throws NegocioException {
         return reservacionNegocio.registrar(reservacion);
     }
 
+    /**
+     * Busca una reservación de computadora por su identificador único.
+     *
+     * @param id El identificador único de la reservación.
+     * @return La entidad EstudianteReservaComputadoraDominio correspondiente al
+     * ID proporcionado.
+     * @throws NegocioException Si no se encuentra la reservación o si ocurre un
+     * error durante la búsqueda.
+     */
     @Override
     public EstudianteReservaComputadoraDominio buscarPorId(int id) throws NegocioException {
         return reservacionNegocio.buscarPorId(id);

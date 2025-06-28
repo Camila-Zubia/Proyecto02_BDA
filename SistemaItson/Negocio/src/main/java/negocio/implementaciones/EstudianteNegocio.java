@@ -30,6 +30,15 @@ public class EstudianteNegocio implements IEstudianteNegocio {
         this.estudianteDAO = estudianteDAO;
     }
 
+    /**
+     * Busca estudiantes según el filtro y devuelve una lista en formato tabla.
+     *
+     * @param filtro DTO con criterios para filtrar estudiantes.
+     * @return Lista de estudiantes en formato TablaEstudiantesDTO, o null si
+     * ocurre un error.
+     * @throws NegocioException No se lanza directamente; se registra el error
+     * internamente.
+     */
     @Override
     public List<TablaEstudiantesDTO> buscarTabla(FiltroDTO filtro) throws NegocioException {
         try {
@@ -40,6 +49,14 @@ public class EstudianteNegocio implements IEstudianteNegocio {
         return null;
     }
 
+    /**
+     * Busca un estudiante por su ID tras validar que el ID sea válido.
+     *
+     * @param id Identificador del estudiante.
+     * @return EstudianteDominio encontrado, o null si no existe o hay error.
+     * @throws NegocioException No se lanza directamente; se registra el error
+     * internamente.
+     */
     @Override
     public EstudianteDominio buscarPorID(int id) throws NegocioException {
         try {
@@ -51,6 +68,14 @@ public class EstudianteNegocio implements IEstudianteNegocio {
         return null;
     }
 
+    /**
+     * Verifica si un estudiante está bloqueado.
+     *
+     * @param id Identificador o matrícula del estudiante.
+     * @return true si está bloqueado, false si no o si ocurre un error.
+     * @throws NegocioException No se lanza directamente; se registra el error
+     * internamente.
+     */
     @Override
     public boolean estaBloqueado(String id) throws NegocioException {
         try {
@@ -61,6 +86,13 @@ public class EstudianteNegocio implements IEstudianteNegocio {
         return false;
     }
 
+    /**
+     * Obtiene la lista de estudiantes que tienen bloqueos activos.
+     *
+     * @return Lista de estudiantes bloqueados o null si ocurre un error.
+     * @throws NegocioException No se lanza directamente; se registra el error
+     * internamente.
+     */
     @Override
     public List<EstudianteDominio> obtenerEstudiantesConBloqueosActivos() throws NegocioException {
         try {
@@ -71,16 +103,27 @@ public class EstudianteNegocio implements IEstudianteNegocio {
         return null;
     }
 
-     @Override
+    /**
+     * Inicia sesión de un estudiante validando las credenciales.
+     *
+     * - Si la contraseña almacenada no está hasheada con bcrypt, compara texto
+     * plano y actualiza el hash. - Luego valida el usuario y la contraseña
+     * usando bcrypt. - Limpia la contraseña en memoria tras la operación.
+     *
+     * @param dto DTO con usuario y contraseña para login.
+     * @return El estudiante si las credenciales son correctas; null si no.
+     * @throws NegocioException Si ocurre un error durante la autenticación.
+     */
+    @Override
     public EstudianteDominio iniciarSesion(EstudianteRegistroDTO dto) throws NegocioException {
         try {
             EstudianteDominio estudiante = estudianteDAO.buscarPorUsuario(dto);
 
-            if (estudiante == null) return null;
-            System.out.println(estudiante.getIdEstudiante());
-            
+            if (estudiante == null) {
+                return null;
+            }
+
             String contrasenaIngresada = new String(dto.getContrasena());
-            System.out.println(contrasenaIngresada);
             String contraseñaBD = estudiante.getContraseña();
 
             if (!contraseñaBD.startsWith("$2a$")) {
@@ -93,9 +136,9 @@ public class EstudianteNegocio implements IEstudianteNegocio {
                     return null;
                 }
             }
-            
+
             validarCredenciales(dto);
-            
+
             if (BCrypt.checkpw(contrasenaIngresada, contraseñaBD)) {
                 return estudiante;
             }
@@ -108,11 +151,11 @@ public class EstudianteNegocio implements IEstudianteNegocio {
         }
     }
 
-    
-
     /**
-     * VALIDACIONES
+     * Valida que el ID del estudiante sea válido (mayor que cero).
      *
+     * @param id ID a validar.
+     * @throws NegocioException Si el ID es menor o igual a cero.
      */
     private void validarId(int id) throws NegocioException {
         if (id <= 0) {
@@ -120,11 +163,18 @@ public class EstudianteNegocio implements IEstudianteNegocio {
         }
     }
 
+    /**
+     * Valida que el DTO de registro contenga usuario y contraseña.
+     *
+     * @param dto DTO con credenciales.
+     * @throws NegocioException Si el DTO, usuario o contraseña son nulos.
+     */
     private void validarCredenciales(EstudianteRegistroDTO dto) throws NegocioException {
         if (dto == null || dto.getUsuario() == null || dto.getContrasena() == null) {
             throw new NegocioException("Matrícula y contraseña son obligatorias.");
         }
     }
+
 
     @Override
     public EstudianteDominio buscarPorUsuario(EstudianteRegistroDTO estudianteRegistroDTO) throws NegocioException {
@@ -136,5 +186,6 @@ public class EstudianteNegocio implements IEstudianteNegocio {
         }
     }
     
+
 
 }

@@ -18,6 +18,19 @@ public class AdministradorNegocio implements IAdministradorNegocio {
         this.administradorDAO = administradorDAO;
     }
 
+    /**
+     * Inicia sesión de un administrador validando sus credenciales.
+     *
+     * Primero valida que los datos de login no sean nulos o vacíos, luego busca
+     * al administrador por su usuario y verifica que la contraseña coincida
+     * mediante bcrypt. Limpia la contraseña en memoria por seguridad.
+     *
+     * @param administradorRegistroDTO DTO con usuario y contraseña para login.
+     * @return La entidad AdministradorDominio si las credenciales son
+     * correctas; null si el usuario no existe o la contraseña es incorrecta.
+     * @throws NegocioException Si ocurre un error durante la validación o
+     * consulta.
+     */
     @Override
     public AdministradorDominio iniciarSesion(AdministradorRegistroDTO administradorRegistroDTO) throws NegocioException {
         validarCredencialesLogin(administradorRegistroDTO); // Validación básica
@@ -29,13 +42,24 @@ public class AdministradorNegocio implements IAdministradorNegocio {
             }
             String contrasenaPlano = new String(administradorRegistroDTO.getContrasena());
             boolean contrasenaValida = BCrypt.checkpw(contrasenaPlano, admin.getContraseña());
-            Arrays.fill(administradorRegistroDTO.getContrasena(), '\0'); 
+            Arrays.fill(administradorRegistroDTO.getContrasena(), '\0');
             return contrasenaValida ? admin : null;
         } catch (PersistenciaException ex) {
             throw new NegocioException(ex.getMessage());
         }
     }
 
+    /**
+     * Encripta la contraseña proporcionada en el DTO usando bcrypt.
+     *
+     * Limpia la contraseña en memoria después de la encriptación para evitar
+     * posibles fugas.
+     *
+     * @param administradorRegistroDTO DTO que contiene la contraseña en texto
+     * plano.
+     * @return La contraseña encriptada (hash).
+     * @throws NegocioException Si ocurre un error durante la encriptación.
+     */
     private String encriptarContrasena(AdministradorRegistroDTO administradorRegistroDTO) throws NegocioException {
         try {
             String textoPlano = new String(administradorRegistroDTO.getContrasena());
@@ -49,6 +73,13 @@ public class AdministradorNegocio implements IAdministradorNegocio {
         }
     }
 
+    /**
+     * Valida que las credenciales del administrador para el inicio de sesión no
+     * sean nulas ni vacías.
+     *
+     * @param dto DTO con las credenciales a validar.
+     * @throws NegocioException Si algún dato obligatorio es nulo o vacío.
+     */
     private void validarCredencialesLogin(AdministradorRegistroDTO dto) throws NegocioException {
         if (dto == null) {
             throw new NegocioException("No se recibieron datos del administrador.");

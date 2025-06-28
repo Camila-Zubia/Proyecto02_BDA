@@ -1,7 +1,6 @@
 package daos.implementaciones;
 
 //@author SAUL ISAAC APODACA BALDENEGRO 00000252020
-
 import DTO.FiltroReporteBloqueoDTO;
 import DTO.FiltroReporteCarrerasDTO;
 import DTO.FiltrosReporteCentroComputoDTO;
@@ -15,7 +14,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-public class ReporteDAO implements IReporteDAO{
+public class ReporteDAO implements IReporteDAO {
 
     private final IConexionBD conexionBD;
 
@@ -28,11 +27,14 @@ public class ReporteDAO implements IReporteDAO{
         EntityManager manager = conexionBD.crearConexion();
         try {
             StringBuilder codigoJPQL = new StringBuilder();
-            codigoJPQL.append("SELECT new dto.ReporteCentroComputoDTO(")
-                    .append("lab.nombre, comp.numeroComputadora, ")
-                    .append("COUNT(DISTINCT est.id), SUM(res.tiempoReserva), ")
-                    .append("(TIMESTAMPDIFF(MINUTE, lab.horaApertura, lab.horaCierre) - SUM(res.tiempoReserva)), ")
-                    .append("DATE(res.fechaInicio)) ")
+            codigoJPQL.append("SELECT new DTO.ReporteCentroComputoDTO(")
+                    .append("lab.nombre, comp.numero, ")
+                    .append("COUNT(DISTINCT est.idEstudiante), ")
+                    .append("SUM(res.tiempoReserva), ")
+                    .append("FUNCTION('TIMESTAMPDIFF', ''MINUTE'', lab.horaInicio, lab.horaFin), ")
+
+                    .append("FUNCTION('DATE', res.fechaInicio) ") 
+                    .append(") ") 
                     .append("FROM EstudianteReservaComputadoraDominio res ")
                     .append("JOIN res.computadoraReservas comp ")
                     .append("JOIN comp.laboratorio lab ")
@@ -48,7 +50,7 @@ public class ReporteDAO implements IReporteDAO{
                 codigoJPQL.append("AND car.nombre IN :nombresCarreras ");
             }
 
-            codigoJPQL.append("GROUP BY lab.nombre, comp.numeroComputadora, DATE(res.fechaInicio) ");
+            codigoJPQL.append("GROUP BY lab.nombre, comp.numero, FUNCTION('DATE', res.fechaInicio) ");
 
             TypedQuery<ReporteCentroComputoDTO> query = manager.createQuery(codigoJPQL.toString(), ReporteCentroComputoDTO.class);
 
@@ -65,6 +67,7 @@ public class ReporteDAO implements IReporteDAO{
 
             return query.getResultList();
         } catch (Exception ex) {
+            ex.printStackTrace();
             throw new PersistenciaException("Error al consultar el reporte.");
         } finally {
             manager.close();
@@ -74,7 +77,7 @@ public class ReporteDAO implements IReporteDAO{
     @Override
     public List<ReporteCarrerasDTO> generarReporteCarreras(FiltroReporteCarrerasDTO filtro) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
-        try{
+        try {
             StringBuilder codigoJPQL = new StringBuilder();
             codigoJPQL.append("SELECT new dto.ReporteCarrerasDTO(")
                     .append("c.nombre, ")
@@ -85,7 +88,7 @@ public class ReporteDAO implements IReporteDAO{
                     .append("JOIN res.estudianteReserva est ")
                     .append("JOIN est.carrera car ")
                     .append("WHERE res.fechaInicio BETWEEN :inicio AND :fin ");
-            
+
             if (filtro.getCarreras() != null && !filtro.getCarreras().isEmpty()) {
                 codigoJPQL.append("AND car.nombre IN :nombresCarreras ");
             }
@@ -96,7 +99,7 @@ public class ReporteDAO implements IReporteDAO{
                 query.setParameter("nombresCarreras", filtro.getCarreras());
             }
             return query.getResultList();
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             throw new PersistenciaException("Error al consultar el reporte.");
         } finally {
             manager.close();
@@ -127,6 +130,5 @@ public class ReporteDAO implements IReporteDAO{
             manager.close();
         }
     }
-    
-    
+
 }

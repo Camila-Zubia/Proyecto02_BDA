@@ -27,6 +27,14 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         this.computadoraDAO = computadoraDAO;
     }
 
+    /**
+     * Busca una computadora por su identificador único.
+     *
+     * @param id Identificador de la computadora a buscar.
+     * @return La entidad ComputadoraDominio correspondiente al ID.
+     * @throws NegocioException Si el ID es inválido o si ocurre un error
+     * durante la búsqueda.
+     */
     @Override
     public ComputadoraDominio buscarPorId(int id) throws NegocioException {
         try {
@@ -37,6 +45,14 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         }
     }
 
+    /**
+     * Registra una nueva computadora después de validar sus datos.
+     *
+     * @param computadoraDTO DTO con los datos para crear la computadora.
+     * @return La entidad ComputadoraDominio creada.
+     * @throws NegocioException Si los datos no son válidos o hay un error en el
+     * registro.
+     */
     @Override
     public ComputadoraDominio agregar(NuevaComputadoraDTO computadoraDTO) throws NegocioException {
         try {
@@ -50,6 +66,13 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         }
     }
 
+    /**
+     * Aparta (reserva) una computadora por su ID.
+     *
+     * @param id Identificador de la computadora a apartar.
+     * @throws NegocioException Si el ID es inválido o hay error en la
+     * operación.
+     */
     @Override
     public void apartarComputadora(int id) throws NegocioException {
         try {
@@ -60,6 +83,13 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         }
     }
 
+    /**
+     * Modifica la información de una computadora.
+     *
+     * @param computadora Entidad con los datos actualizados.
+     * @return La entidad ComputadoraDominio modificada.
+     * @throws NegocioException Si ocurre un error durante la modificación.
+     */
     @Override
     public ComputadoraDominio modificar(ComputadoraDominio computadora) throws NegocioException {
         try {
@@ -69,6 +99,12 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         }
     }
 
+    /**
+     * Elimina una computadora por su ID.
+     *
+     * @param id Identificador de la computadora a eliminar.
+     * @throws NegocioException Si ocurre un error durante la eliminación.
+     */
     @Override
     public void eliminar(int id) throws NegocioException {
         try {
@@ -78,6 +114,12 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         }
     }
 
+    /**
+     * Lista todas las computadoras registradas.
+     *
+     * @return Lista de entidades ComputadoraDominio.
+     * @throws NegocioException Si ocurre un error al obtener la lista.
+     */
     @Override
     public List<ComputadoraDominio> listarComputadoras() throws NegocioException {
         try {
@@ -88,6 +130,12 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         }
     }
 
+    /**
+     * Libera una computadora apartada por su ID.
+     *
+     * @param id Identificador de la computadora a liberar.
+     * @throws NegocioException Si ocurre un error al liberar la computadora.
+     */
     @Override
     public void liberarComputadora(int id) throws NegocioException {
         try {
@@ -97,6 +145,14 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         }
     }
 
+    /**
+     * Busca computadoras según filtro y devuelve datos en formato tabla.
+     *
+     * @param filtro DTO con criterios para filtrar.
+     * @return Lista de TablaComputadoraDTO que cumplen el filtro.
+     * @throws NegocioException Si el filtro es nulo o ocurre un error durante
+     * la búsqueda.
+     */
     @Override
     public List<TablaComputadoraDTO> buscarTabla(FiltroDTO filtro) throws NegocioException {
         try {
@@ -107,9 +163,14 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         }
     }
 
+    /* ====================
+   VALIDACIONES PRIVADAS
+   ==================== */
     /**
+     * Valida que el ID sea mayor que cero.
      *
-     * VALIDACIONES
+     * @param id ID a validar.
+     * @throws NegocioException Si el ID es menor o igual a cero.
      */
     private void validarId(int id) throws NegocioException {
         if (id <= 0) {
@@ -117,12 +178,24 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         }
     }
 
+    /**
+     * Valida que el filtro no sea nulo.
+     *
+     * @param filtro Filtro a validar.
+     * @throws NegocioException Si el filtro es nulo.
+     */
     private void validarFiltro(FiltroDTO filtro) throws NegocioException {
         if (filtro == null) {
             throw new NegocioException("El filtro no puede ser nulo.");
         }
     }
 
+    /**
+     * Valida que la dirección IP esté presente y tenga formato válido.
+     *
+     * @param dto DTO con la dirección IP a validar.
+     * @throws NegocioException Si la IP es nula, vacía o formato inválido.
+     */
     private void validarIp(NuevaComputadoraDTO dto) throws NegocioException {
         if (dto.getDireccionIp() == null || dto.getDireccionIp().isBlank()) {
             throw new NegocioException("La dirección IP es obligatoria.");
@@ -131,37 +204,48 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         }
     }
 
+    /**
+     * Valida los datos básicos de una nueva computadora.
+     *
+     * @param dto DTO con los datos a validar.
+     * @throws NegocioException Si algún dato obligatorio es nulo o inválido.
+     */
     private void validarNuevaComputadora(NuevaComputadoraDTO dto) throws NegocioException {
         if (dto == null) {
             throw new NegocioException("La computadora no puede ser nula.");
         }
-
         if (dto.getNumero() == null || dto.getNumero().isBlank()) {
             throw new NegocioException("El número de la computadora es obligatorio.");
         }
-
         if (dto.getTipo() == null) {
             throw new NegocioException("El tipo de computadora es obligatorio.");
         }
-
         if (dto.getLaboratorio() == null || dto.getLaboratorio().isBlank()) {
             throw new NegocioException("El nombre del laboratorio es obligatorio.");
         }
     }
 
+    /**
+     * Valida que el número de computadora no supere los 50 caracteres.
+     *
+     * @param computadoraDTO DTO con el número a validar.
+     * @throws NegocioException Si el número es mayor a 50 caracteres.
+     */
     private void validarNumeroComputadora(NuevaComputadoraDTO computadoraDTO) throws NegocioException {
-
         if (computadoraDTO.getNumero().length() > 50) {
-            throw new NegocioException("El numero de la computadora no puede ser mayor a 50 caracteres");
-
+            throw new NegocioException("El número de la computadora no puede ser mayor a 50 caracteres");
         }
     }
 
+    /**
+     * Valida que la dirección IP no supere los 50 caracteres.
+     *
+     * @param computadoraDTO DTO con la IP a validar.
+     * @throws NegocioException Si la IP es mayor a 50 caracteres.
+     */
     private void validarIpComputadora(NuevaComputadoraDTO computadoraDTO) throws NegocioException {
-
         if (computadoraDTO.getDireccionIp().length() > 50) {
-            throw new NegocioException("El numero de la computadora no puede ser mayor a 50 caracteres");
-
+            throw new NegocioException("La dirección IP no puede ser mayor a 50 caracteres");
         }
     }
 

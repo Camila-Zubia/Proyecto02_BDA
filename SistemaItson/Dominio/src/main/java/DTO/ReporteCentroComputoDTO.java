@@ -13,14 +13,15 @@ public class ReporteCentroComputoDTO {
     private Long minutosInactividad;
     private Date fecha;
 
-    public ReporteCentroComputoDTO(String nombreLaboratorio, String numeroComputadora, Long cantidadAlumnos, Long minutosUsos, Long minutosInactividad, Date fecha) {
-        this.nombreLaboratorio = nombreLaboratorio;
-        this.numeroComputadora = numeroComputadora;
-        this.cantidadAlumnos = cantidadAlumnos;
-        this.minutosUsos = minutosUsos;
-        this.minutosInactividad = minutosInactividad;
-        this.fecha = fecha;
-    }
+    public ReporteCentroComputoDTO(String nombreLaboratorio, String numeroComputadora, Long cantidadAlumnos,Long minutosUsos, Long minutosDisponibles, Date fecha) {
+    this.nombreLaboratorio = nombreLaboratorio;
+    this.numeroComputadora = numeroComputadora;
+    this.cantidadAlumnos = cantidadAlumnos;
+    this.minutosUsos = (minutosUsos != null) ? minutosUsos : 0L;
+    this.minutosInactividad = (minutosDisponibles != null ? minutosDisponibles : 0L) - this.minutosUsos;
+    this.fecha = fecha;
+}
+
 
     public String getNombreLaboratorio() {
         return nombreLaboratorio;

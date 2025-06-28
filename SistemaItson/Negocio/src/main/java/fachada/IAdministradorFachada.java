@@ -13,6 +13,11 @@ import excepciones.NegocioException;
  * @author saula
  */
 public interface IAdministradorFachada {
-    
+    /**
+     * Metodo de iniciar sesion de administrador
+     * @param administradorRegistroDTO dto del administrador
+     * @return devuelve un admnistrador dominio
+     * @throws NegocioException tipo de excepcion a lanzar en caso de error
+     */
     public AdministradorDominio iniciarSesion(AdministradorRegistroDTO administradorRegistroDTO) throws NegocioException;
 }
