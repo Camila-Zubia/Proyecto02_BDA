@@ -6,6 +6,7 @@ package dominios;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,11 +36,11 @@ public class EstudianteReservaComputadoraDominio implements Serializable {
     
     @Column(name = "fechaInicio", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalTime fechaInicio;
+    private Date fechaInicio;
 
     @Column(name = "fechaLiberacion")
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalTime fechaLiberacion;
+    private Date fechaLiberacion;
 
     
     /**
@@ -56,7 +57,7 @@ public class EstudianteReservaComputadoraDominio implements Serializable {
     public EstudianteReservaComputadoraDominio() {
     }
 
-    public EstudianteReservaComputadoraDominio(int tiempoReserva, LocalTime fechaInicio, LocalTime fechaLiberacion) {
+    public EstudianteReservaComputadoraDominio(int tiempoReserva, Date fechaInicio, Date fechaLiberacion) {
         this.tiempoReserva = tiempoReserva;
         this.fechaInicio = fechaInicio;
         this.fechaLiberacion = fechaLiberacion;
@@ -78,19 +79,19 @@ public class EstudianteReservaComputadoraDominio implements Serializable {
         this.tiempoReserva = tiempoReserva;
     }
 
-    public LocalTime getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(LocalTime fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public LocalTime getFechaLiberacion() {
+    public Date getFechaLiberacion() {
         return fechaLiberacion;
     }
 
-    public void setFechaLiberacion(LocalTime fechaLiberacion) {
+    public void setFechaLiberacion(Date fechaLiberacion) {
         this.fechaLiberacion = fechaLiberacion;
     }
 

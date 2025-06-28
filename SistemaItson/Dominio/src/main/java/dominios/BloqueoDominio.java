@@ -6,6 +6,7 @@ package dominios;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,11 +34,11 @@ public class BloqueoDominio implements Serializable {
 
     @Column(name = "FechaBloqueo", nullable = false, length = 50)
     @Temporal(TemporalType.DATE)
-    private Calendar fechaBloqueo;
+    private Date fechaBloqueo;
     
     @Column(name = "FechaLiberacion", length = 50)
     @Temporal(TemporalType.DATE)
-    private Calendar fechaLiberacion;
+    private Date fechaLiberacion;
 
     @Column(name = "motivo", nullable = false, length = 50)
     private String motivo;
@@ -60,7 +61,7 @@ public class BloqueoDominio implements Serializable {
     public BloqueoDominio() {
     }
 
-    public BloqueoDominio(Calendar fechaBloqueo, Calendar fechaLiberacion, String motivo, boolean estatus) {
+    public BloqueoDominio(Date fechaBloqueo, Date fechaLiberacion, String motivo, boolean estatus) {
         this.fechaBloqueo = fechaBloqueo;
         this.fechaLiberacion = fechaLiberacion;
         this.motivo = motivo;
@@ -75,19 +76,19 @@ public class BloqueoDominio implements Serializable {
         this.idBloqueo = idBloqueo;
     }
 
-    public Calendar getFechaBloqueo() {
+    public Date getFechaBloqueo() {
         return fechaBloqueo;
     }
 
-    public void setFechaBloqueo(Calendar FechaBloqueo) {
+    public void setFechaBloqueo(Date FechaBloqueo) {
         this.fechaBloqueo = FechaBloqueo;
     }
 
-    public Calendar getFechaLiberacion() {
+    public Date getFechaLiberacion() {
         return fechaLiberacion;
     }
 
-    public void setFechaLiberacion(Calendar fechaLiberacion) {
+    public void setFechaLiberacion(Date fechaLiberacion) {
         this.fechaLiberacion = fechaLiberacion;
     }
 

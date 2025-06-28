@@ -9,6 +9,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,9 +38,11 @@ public class ComputadoraDominio implements Serializable {
     @Column(name = "direccionIp", nullable = false, length = 50)
     private String direccionIp;
     
+    @Enumerated(EnumType.STRING)
     @Column(name = "estatus", nullable = false)
     private EstatusComputadora estatus;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false)
     private TipoComputadora tipo;
 

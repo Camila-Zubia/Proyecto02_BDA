@@ -6,6 +6,7 @@ package dominios;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -41,11 +42,11 @@ public class LaboratorioDominio implements Serializable {
     
     @Column(name = "horaInicio", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalTime horaInicio;
+    private Date horaInicio;
     
     @Column(name = "horaFin", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalTime horaFin;
+    private Date horaFin;
     
     /**
      * CONEXIONES
@@ -61,7 +62,7 @@ public class LaboratorioDominio implements Serializable {
     public LaboratorioDominio() {
     }
 
-    public LaboratorioDominio(String nombre, String contraseña, LocalTime horaInicio, LocalTime horaFin) {
+    public LaboratorioDominio(String nombre, String contraseña, Date horaInicio, Date horaFin) {
         this.nombre = nombre;
         this.contraseña = contraseña;
         this.horaInicio = horaInicio;
@@ -92,19 +93,19 @@ public class LaboratorioDominio implements Serializable {
         this.contraseña = contraseña;
     }
 
-    public LocalTime getHoraInicio() {
+    public Date getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(LocalTime horaInicio) {
+    public void setHoraInicio(Date horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public LocalTime getHoraFin() {
+    public Date getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(LocalTime horaFin) {
+    public void setHoraFin(Date horaFin) {
         this.horaFin = horaFin;
     }
 
@@ -123,8 +124,5 @@ public class LaboratorioDominio implements Serializable {
     public void setComputadoras(List<ComputadoraDominio> computadoras) {
         this.computadoras = computadoras;
     }
-    
-    
-    
-    
+
 }

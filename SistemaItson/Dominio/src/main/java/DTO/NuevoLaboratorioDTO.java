@@ -4,12 +4,13 @@ package DTO;
 
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Date;
 
 
 public class NuevoLaboratorioDTO {
     private String nombre;
-    private LocalTime horaInicio;
-    private LocalTime horaCierre;
+    private Date horaInicio;
+    private Date horaCierre;
     private char[] contrasena;
     private String unidad;
     private String contrasenaHash;
@@ -17,7 +18,7 @@ public class NuevoLaboratorioDTO {
     public NuevoLaboratorioDTO() {
     }
 
-    public NuevoLaboratorioDTO(String nombre, LocalTime horaInicio, LocalTime horaCierre, char[] contrasena, String unidad) {
+    public NuevoLaboratorioDTO(String nombre, Date horaInicio, Date horaCierre, char[] contrasena, String unidad) {
         this.nombre = nombre;
         this.horaInicio = horaInicio;
         this.horaCierre = horaCierre;
@@ -41,19 +42,19 @@ public class NuevoLaboratorioDTO {
         this.nombre = nombre;
     }
 
-    public LocalTime getHoraInicio() {
+    public Date getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(LocalTime horaInicio) {
+    public void setHoraInicio(Date horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public LocalTime getHoraCierre() {
+    public Date getHoraCierre() {
         return horaCierre;
     }
 
-    public void setHoraCierre(LocalTime horaCierre) {
+    public void setHoraCierre(Date horaCierre) {
         this.horaCierre = horaCierre;
     }
 

@@ -5,6 +5,7 @@
 package DTO;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -13,11 +14,11 @@ import java.util.Calendar;
 public class TablaBloqueosDTO {
     
     private int idBloqueo;
-    private Calendar fechaBloqueo;
+    private Date fechaBloqueo;
     private String motivo;
     private boolean estatus;
 
-    public TablaBloqueosDTO(int idBloqueo, Calendar fechaBloqueo, String motivo, boolean estatus) {
+    public TablaBloqueosDTO(int idBloqueo, Date fechaBloqueo, String motivo, boolean estatus) {
         this.idBloqueo = idBloqueo;
         this.fechaBloqueo = fechaBloqueo;
         this.motivo = motivo;
@@ -32,11 +33,11 @@ public class TablaBloqueosDTO {
         this.idBloqueo = idBloqueo;
     }
 
-    public Calendar getFechaBloqueo() {
+    public Date getFechaBloqueo() {
         return fechaBloqueo;
     }
 
-    public void setFechaBloqueo(Calendar fechaBloqueo) {
+    public void setFechaBloqueo(Date fechaBloqueo) {
         this.fechaBloqueo = fechaBloqueo;
     }
 

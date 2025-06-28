@@ -5,6 +5,7 @@
 package DTO;
 
 import java.time.LocalTime;
+import java.util.Date;
 
 /**
  *
@@ -13,10 +14,10 @@ import java.time.LocalTime;
 public class TablaLaboratorioDTO {
     private int idLaboratorios;
     private String nombre;
-    private LocalTime horaInicio;
-    private LocalTime horaFin;
+    private Date horaInicio;
+    private Date horaFin;
 
-    public TablaLaboratorioDTO(int idLaboratorios, String nombre, LocalTime horaInicio, LocalTime horaFin) {
+    public TablaLaboratorioDTO(int idLaboratorios, String nombre, Date horaInicio, Date horaFin) {
         this.idLaboratorios = idLaboratorios;
         this.nombre = nombre;
         this.horaInicio = horaInicio;
@@ -39,19 +40,19 @@ public class TablaLaboratorioDTO {
         this.nombre = nombre;
     }
 
-    public LocalTime getHoraInicio() {
+    public Date getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(LocalTime horaInicio) {
+    public void setHoraInicio(Date horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public LocalTime getHoraFin() {
+    public Date getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(LocalTime horaFin) {
+    public void setHoraFin(Date horaFin) {
         this.horaFin = horaFin;
     }
 

@@ -28,7 +28,10 @@ public class EstudianteDominio implements Serializable {
     @Id()
     @Column(name = "idEstudiante")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String idEstudiante;
+    private int idEstudiante;
+    
+    @Column(name = "idEscolar", nullable = false, length = 10)
+    private String idEscolar;
 
     @Column(name = "nombres", nullable = false, length = 50)
     private String nombres;
@@ -61,19 +64,43 @@ public class EstudianteDominio implements Serializable {
     public EstudianteDominio() {
     }
 
-    public EstudianteDominio(String nombres, String apellidoPaterno, String apellidoMaterno, boolean estatus, String contraseña) {
+    public String getIdEscolar() {
+        return idEscolar;
+    }
+
+    public void setIdEscolar(String idEscolar) {
+        this.idEscolar = idEscolar;
+    }
+
+    public int getIdEstudiante() {
+        return idEstudiante;
+    }
+
+    public EstudianteDominio(String idEscolar, String nombres, String apellidoPaterno, String apellidoMaterno, boolean estatus, String contraseña, List<BloqueoDominio> bloqueos, CarreraDominio carrera, List<EstudianteReservaComputadoraDominio> reservas) {
+        this.idEscolar = idEscolar;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.estatus = estatus;
         this.contraseña = contraseña;
+        this.bloqueos = bloqueos;
+        this.carrera = carrera;
+        this.reservas = reservas;
     }
 
-    public String getIdEstudiante() {
-        return idEstudiante;
+    public EstudianteDominio(String idEscolar, String nombres, String apellidoPaterno, String apellidoMaterno, boolean estatus, String contraseña, CarreraDominio carrera) {
+        this.idEscolar = idEscolar;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.estatus = estatus;
+        this.contraseña = contraseña;
+        this.carrera = carrera;
     }
+    
+    
 
-    public void setIdEstudiante(String idEstudiante) {
+    public void setIdEstudiante(int idEstudiante) {
         this.idEstudiante = idEstudiante;
     }
 
