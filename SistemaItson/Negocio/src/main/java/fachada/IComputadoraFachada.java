@@ -5,6 +5,7 @@
 package fachada;
 
 import DTO.FiltroDTO;
+import DTO.NuevaComputadoraDTO;
 import DTO.TablaComputadoraDTO;
 import dominios.ComputadoraDominio;
 import excepciones.NegocioException;
@@ -17,7 +18,7 @@ import java.util.List;
 public interface IComputadoraFachada {
     ComputadoraDominio buscarPorId(int id) throws NegocioException;
     
-    ComputadoraDominio agregar(ComputadoraDominio computadora) throws NegocioException;
+    ComputadoraDominio agregar(NuevaComputadoraDTO computadoraDTO) throws NegocioException;
     
     void apartarComputadora(int id) throws NegocioException;
     

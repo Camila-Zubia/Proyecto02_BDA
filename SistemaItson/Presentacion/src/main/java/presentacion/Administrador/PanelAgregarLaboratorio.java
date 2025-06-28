@@ -12,6 +12,7 @@ import fachada.ILaboratorioFachada;
 import fachada.IUnidadAcademicaFachada;
 import fachada.implementaciones.LaboratorioFachada;
 import fachada.implementaciones.UnidadAcademicaFachada;
+import java.awt.BorderLayout;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -19,7 +20,9 @@ import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -178,6 +181,11 @@ public class PanelAgregarLaboratorio extends javax.swing.JPanel {
 
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
         btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -260,6 +268,16 @@ public class PanelAgregarLaboratorio extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_agregarBtnActionPerformed
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        PanelConsultarLaboratorios panelAnterior = new PanelConsultarLaboratorios();
+
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(panelAnterior, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+    }//GEN-LAST:event_btnAnteriorActionPerformed
 
 
     private boolean validarCampos() {

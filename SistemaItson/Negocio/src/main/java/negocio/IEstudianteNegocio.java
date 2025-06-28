@@ -18,7 +18,7 @@ import java.util.List;
 public interface IEstudianteNegocio {
     List<TablaEstudiantesDTO> buscarTabla(FiltroDTO filtro) throws NegocioException;
 
-    EstudianteDominio buscarPorID(String id) throws NegocioException;
+    EstudianteDominio buscarPorID(int id) throws NegocioException;
 
     boolean estaBloqueado(String id) throws NegocioException;
 

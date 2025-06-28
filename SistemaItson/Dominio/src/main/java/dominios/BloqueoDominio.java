@@ -61,6 +61,18 @@ public class BloqueoDominio implements Serializable {
     public BloqueoDominio() {
     }
 
+    public BloqueoDominio(Date fechaBloqueo, String motivo, boolean estatus, EstudianteDominio estudiante) {
+        this.fechaBloqueo = fechaBloqueo;
+        this.motivo = motivo;
+        this.estatus = estatus;
+        this.estudiante = estudiante;
+    }
+
+    
+    
+    
+    
+    
     public BloqueoDominio(Date fechaBloqueo, Date fechaLiberacion, String motivo, boolean estatus) {
         this.fechaBloqueo = fechaBloqueo;
         this.fechaLiberacion = fechaLiberacion;

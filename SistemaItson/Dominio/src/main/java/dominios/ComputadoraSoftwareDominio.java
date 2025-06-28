@@ -42,7 +42,7 @@ public class ComputadoraSoftwareDominio implements Serializable {
     public ComputadoraSoftwareDominio() {
     }
 
-    public ComputadoraSoftwareDominio(int id, SoftwareDominio software, ComputadoraDominio computadora) {
+    public ComputadoraSoftwareDominio(SoftwareDominio software, ComputadoraDominio computadora) {
         this.id = id;
         this.software = software;
         this.computadora = computadora;

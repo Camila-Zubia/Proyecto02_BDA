@@ -1,5 +1,21 @@
 package presentacion.Administrador;
 
+import DTO.LaboratorioDTO;
+import excepciones.NegocioException;
+import fachada.ILaboratorioFachada;
+import fachada.implementaciones.LaboratorioFachada;
+import java.awt.BorderLayout;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -10,12 +26,15 @@ package presentacion.Administrador;
  * @author saula
  */
 public class PanelModificarLaboratorio extends javax.swing.JPanel {
-
+    private final ILaboratorioFachada fachada;
+    private int id;
     /**
      * Creates new form PanelModificarLaboratorio
      */
-    public PanelModificarLaboratorio() {
+    public PanelModificarLaboratorio(int id) {
         initComponents();
+        this.fachada = new LaboratorioFachada();
+        this.id = id;
     }
 
     /**
@@ -45,14 +64,14 @@ public class PanelModificarLaboratorio extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(186, 215, 235));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray));
 
-        jLabel1.setText("MODIFICAR LABORATORIO");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(4, 109, 181));
+        jLabel1.setText("MODIFICAR LABORATORIO");
 
-        modificarBtn.setText("MODIFICAR");
         modificarBtn.setBackground(new java.awt.Color(0, 153, 255));
         modificarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        modificarBtn.setText("MODIFICAR");
         modificarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modificarBtnActionPerformed(evt);
@@ -63,17 +82,17 @@ public class PanelModificarLaboratorio extends javax.swing.JPanel {
 
         nombreTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
-        nombreLbl.setText("NOMBRE");
         nombreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         nombreLbl.setForeground(new java.awt.Color(4, 109, 181));
+        nombreLbl.setText("NOMBRE");
 
-        horaInicioLbl.setText("HORA INICIO:");
         horaInicioLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         horaInicioLbl.setForeground(new java.awt.Color(4, 109, 181));
+        horaInicioLbl.setText("HORA INICIO:");
 
-        horaCierreLbl.setText("HORA CIERRE:");
         horaCierreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         horaCierreLbl.setForeground(new java.awt.Color(4, 109, 181));
+        horaCierreLbl.setText("HORA CIERRE:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -112,6 +131,11 @@ public class PanelModificarLaboratorio extends javax.swing.JPanel {
 
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
         btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -179,10 +203,59 @@ public class PanelModificarLaboratorio extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void modificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarBtnActionPerformed
-
+        LaboratorioDTO lab = null;
+        LocalTime horaInicio = timePickerHoraInicio.getTime();
+        LocalTime horaFin = timePickerHoraCierre.getTime();
+        
+        try {
+            lab = fachada.buscarPorId(id);
+        } catch (NegocioException ex) {
+            Logger.getLogger(PanelModificarComputadoras.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "No se pudo buscar la computadora.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!nombreTxt.getText().trim().isEmpty()) {
+            lab.setNombre(nombreTxt.getText().trim());
+        }
+        if (horaInicio != null){
+            Date hi = convertirLocalTimeADate(horaInicio);
+            lab.setHoraInicio(hi);
+        }
+        if (horaFin != null) {
+            Date hf = convertirLocalTimeADate(horaFin);
+            lab.setHoraFin(hf);
+        }
+        try {
+            fachada.modificar(lab);
+            JOptionPane.showMessageDialog(this, "Laboratorio modificado correctamente.");
+            limpiarCampos();
+        } catch (NegocioException ex) {
+            Logger.getLogger(PanelModificarComputadoras.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "No se pudo modificar el laboratorio", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_modificarBtnActionPerformed
 
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        PanelConsultarLaboratorios panelAnterior = new PanelConsultarLaboratorios();
 
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(panelAnterior, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+
+    private Date convertirLocalTimeADate(LocalTime time) {
+        LocalDateTime ldt = LocalDateTime.of(LocalDate.now(), time);
+        return Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+    }
+    
+    private void limpiarCampos() {
+        nombreTxt.setText("");
+        timePickerHoraInicio.setTime(null);
+        timePickerHoraCierre.setTime(null);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JButton btnAnterior;

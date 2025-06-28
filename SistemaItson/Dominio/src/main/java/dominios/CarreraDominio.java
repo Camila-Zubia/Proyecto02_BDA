@@ -100,6 +100,11 @@ public class CarreraDominio implements Serializable {
     public void setUnidadAcademica(UnidadAcademicaDominio unidadAcademica) {
         this.unidadAcademica = unidadAcademica;
     }
+
+    @Override
+    public String toString() {
+        return  nombre;
+    }
     
     
 }

@@ -42,7 +42,7 @@ public class LaboratorioNegocio implements ILaboratorioNegocio{
     }
 
     @Override
-    public LaboratorioDominio buscarPorId(int id) throws NegocioException {
+    public LaboratorioDTO buscarPorId(int id) throws NegocioException {
         try{
             return laboratorioDAO.buscarPorId(id);
         }catch(PersistenciaException ex){
@@ -53,8 +53,8 @@ public class LaboratorioNegocio implements ILaboratorioNegocio{
     @Override
     public LaboratorioDominio modificar(LaboratorioDTO laboratorio) throws NegocioException {
         try{
-            LaboratorioDominio laboratorioDominio = laboratorioDAO.buscarPorId(laboratorio.getIdLaboratorios());
-            if (laboratorioDominio == null)
+            LaboratorioDTO lab = laboratorioDAO.buscarPorId(laboratorio.getIdLaboratorios());
+            if (lab == null)
                 throw new NegocioException("Error al buscar el Laboratorio a modificar.");
             validarHorario(laboratorio.getHoraInicio(), laboratorio.getHoraFin());
             return laboratorioDAO.modificar(laboratorio);
@@ -117,6 +117,25 @@ public class LaboratorioNegocio implements ILaboratorioNegocio{
         validarHorario(nuevoLaboratorio.getHoraInicio(), nuevoLaboratorio.getHoraCierre());
         validarUnidadAcademica(nuevoLaboratorio);
         validarContraseña(nuevoLaboratorio);
+    }
+
+    @Override
+    public List<LaboratorioDominio> obtenerLaboratorios() throws NegocioException {
+        try {
+            return laboratorioDAO.obtenerLaboratorios();
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public LaboratorioDominio obtenerPorNombre(String nombre) throws NegocioException {
+        try {
+            return laboratorioDAO.obtenerPorNombre(nombre);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(LaboratorioNegocio.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioException("Ocurrió un error al buscar el laboratorio por nombre");
+        }
     }
 
 

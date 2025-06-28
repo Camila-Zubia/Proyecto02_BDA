@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface ILaboratorioDAO {
     
-    LaboratorioDominio buscarPorId(int id) throws PersistenciaException;
+    LaboratorioDTO buscarPorId(int id) throws PersistenciaException;
 
     LaboratorioDominio guardar(NuevoLaboratorioDTO laboratorio) throws PersistenciaException;
     
@@ -27,4 +27,8 @@ public interface ILaboratorioDAO {
     boolean existePorNombre(String nombre) throws PersistenciaException;
     
     List<TablaLaboratorioDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException;
+    
+    List<LaboratorioDominio> obtenerLaboratorios() throws PersistenciaException;
+    
+    public LaboratorioDominio obtenerPorNombre(String nombre) throws PersistenciaException;
 }

@@ -4,6 +4,20 @@
  */
 package presentacion.Administrador;
 
+import dominios.BloqueoDominio;
+import dominios.EstudianteDominio;
+import excepciones.NegocioException;
+import fachada.IBloqueoFachada;
+import fachada.IEstudianteFachada;
+import fachada.implementaciones.BloqueoFachada;
+import fachada.implementaciones.EstudianteFachada;
+import java.awt.BorderLayout;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author saula
@@ -13,9 +27,20 @@ public class PanelBloquear extends javax.swing.JPanel {
     /**
      * Creates new form PanelBloquear
      */
-    public PanelBloquear() {
+    public int id;
+
+    public PanelBloquear(int id) {
+
         initComponents();
+        this.estudianteFachada = new EstudianteFachada();
+        this.bloqueoFachada = new BloqueoFachada();
+        this.id = id;
+        llenarCampos();
+
     }
+
+    private IEstudianteFachada estudianteFachada;
+    private IBloqueoFachada bloqueoFachada;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,55 +74,69 @@ public class PanelBloquear extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(186, 215, 235));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray));
 
-        jLabel1.setText("ADMINISTRAR ACCESO");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(4, 109, 181));
+        jLabel1.setText("ADMINISTRAR ACCESO");
 
-        btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
         btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
+        btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
 
-        consultarBtn.setText("BLOQUEAR");
         consultarBtn.setBackground(new java.awt.Color(0, 153, 255));
         consultarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        consultarBtn.setText("BLOQUEAR");
+        consultarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarBtnActionPerformed(evt);
+            }
+        });
 
         jPanel2.setOpaque(false);
 
-        idLbl.setText("ID:");
         idLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         idLbl.setForeground(new java.awt.Color(4, 109, 181));
+        idLbl.setText("ID:");
 
-        nombreLbl.setText("NOMBRE:");
         nombreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         nombreLbl.setForeground(new java.awt.Color(4, 109, 181));
+        nombreLbl.setText("NOMBRE:");
 
-        carreraLbl.setText("CARRERA:");
         carreraLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         carreraLbl.setForeground(new java.awt.Color(4, 109, 181));
+        carreraLbl.setText("CARRERA:");
 
-        unidadLbl.setText("UNIDAD:");
         unidadLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         unidadLbl.setForeground(new java.awt.Color(4, 109, 181));
+        unidadLbl.setText("UNIDAD:");
 
-        motivoLbl.setText("MOTIVO:");
         motivoLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         motivoLbl.setForeground(new java.awt.Color(4, 109, 181));
+        motivoLbl.setText("MOTIVO:");
 
-        mostrarNombreLbl.setText("X");
         mostrarNombreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarNombreLbl.setForeground(new java.awt.Color(4, 109, 181));
+        mostrarNombreLbl.setToolTipText("");
+        mostrarNombreLbl.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        mostrarIdLbl.setText("X");
         mostrarIdLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarIdLbl.setForeground(new java.awt.Color(4, 109, 181));
+        mostrarIdLbl.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        mostrarCarreraLbl.setText("X");
+        mostrarCarreraLbl.setBackground(new java.awt.Color(255, 255, 255));
         mostrarCarreraLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        mostrarCarreraLbl.setForeground(new java.awt.Color(4, 109, 181));
+        mostrarCarreraLbl.setForeground(new java.awt.Color(255, 255, 255));
+        mostrarCarreraLbl.setToolTipText("");
+        mostrarCarreraLbl.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        mostrarUnidadLbl.setText("X");
         mostrarUnidadLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarUnidadLbl.setForeground(new java.awt.Color(4, 109, 181));
+        mostrarUnidadLbl.setToolTipText("");
+        mostrarUnidadLbl.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         motivoTxt.setColumns(20);
         motivoTxt.setRows(5);
@@ -120,35 +159,35 @@ public class PanelBloquear extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(carreraLbl))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(mostrarNombreLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(mostrarIdLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(mostrarUnidadLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mostrarCarreraLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(mostrarUnidadLbl, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(mostrarCarreraLbl, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE))
+                    .addComponent(mostrarNombreLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mostrarIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idLbl)
-                    .addComponent(mostrarIdLbl))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(idLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mostrarIdLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nombreLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mostrarNombreLbl))
+                    .addComponent(mostrarNombreLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(carreraLbl)
-                    .addComponent(mostrarCarreraLbl))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(carreraLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mostrarCarreraLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(unidadLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mostrarUnidadLbl))
+                    .addComponent(mostrarUnidadLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(motivoLbl)
@@ -168,13 +207,12 @@ public class PanelBloquear extends javax.swing.JPanel {
                         .addGap(735, 735, 735)
                         .addComponent(consultarBtn))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(172, 172, 172)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(190, 190, 190)
+                                .addGap(6, 6, 6)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(172, 172, 172)
-                                .addComponent(jLabel1)))
+                            .addComponent(jLabel1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -183,12 +221,11 @@ public class PanelBloquear extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(consultarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(consultarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -207,7 +244,7 @@ public class PanelBloquear extends javax.swing.JPanel {
             .addGroup(PanelFondoLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -221,6 +258,44 @@ public class PanelBloquear extends javax.swing.JPanel {
             .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void llenarCampos() {
+        try {
+
+            EstudianteDominio estudiante = estudianteFachada.buscarPorID(id);
+            mostrarIdLbl.setText(estudiante.getIdEscolar());
+            mostrarCarreraLbl.setText(estudiante.getCarrera().toString());
+            mostrarNombreLbl.setText(estudiante.getNombres());
+            mostrarUnidadLbl.setText(estudiante.getCarrera().getUnidadAcademica().getNombres());
+        } catch (NegocioException ex) {
+            Logger.getLogger(PanelBloquear.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        PanelAdministrarAcceso panelAnterior = new PanelAdministrarAcceso();
+
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(panelAnterior, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+
+    private void consultarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarBtnActionPerformed
+
+        Date fechaActual = new Date();
+        String motivo = motivoTxt.getText();
+        boolean estatus = true;
+        try {
+            EstudianteDominio estudiante = estudianteFachada.buscarPorID(id);
+            BloqueoDominio bloqueo = new BloqueoDominio(fechaActual, motivo, estatus, estudiante);
+            bloqueoFachada.registrarBloqueo(bloqueo);
+        } catch (NegocioException ex) {
+            Logger.getLogger(PanelBloquear.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_consultarBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

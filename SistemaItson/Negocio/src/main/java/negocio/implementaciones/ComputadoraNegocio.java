@@ -5,6 +5,7 @@
 package negocio.implementaciones;
 
 import DTO.FiltroDTO;
+import DTO.NuevaComputadoraDTO;
 import DTO.TablaComputadoraDTO;
 import com.mycompany.persistencia.IComputadoraDAO;
 import dominios.ComputadoraDominio;
@@ -38,9 +39,9 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
     }
 
     @Override
-    public ComputadoraDominio agregar(ComputadoraDominio computadora) throws NegocioException {
+    public ComputadoraDominio agregar(NuevaComputadoraDTO computadoraDTO) throws NegocioException {
         try {
-            return computadoraDAO.agregar(computadora);
+            return computadoraDAO.agregar(computadoraDTO);
         } catch (PersistenciaException ex) {
             throw new NegocioException("Ha ocurrido un error al registrar una computadora");
         }

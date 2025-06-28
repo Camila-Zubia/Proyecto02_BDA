@@ -5,6 +5,7 @@
 package com.mycompany.persistencia;
 
 import DTO.FiltroDTO;
+import DTO.NuevaComputadoraDTO;
 import DTO.TablaComputadoraDTO;
 import dominios.ComputadoraDominio;
 import excepciones.PersistenciaException;
@@ -18,7 +19,7 @@ public interface IComputadoraDAO {
     
     ComputadoraDominio buscarPorId(int id) throws PersistenciaException;
     
-    ComputadoraDominio agregar(ComputadoraDominio computadora) throws PersistenciaException;
+    ComputadoraDominio agregar(NuevaComputadoraDTO computadoraDTO) throws PersistenciaException;
     
     void apartarComputadora(int id) throws PersistenciaException;
     

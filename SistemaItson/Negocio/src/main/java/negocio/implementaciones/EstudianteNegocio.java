@@ -41,7 +41,7 @@ public class EstudianteNegocio implements IEstudianteNegocio {
     }
 
     @Override
-    public EstudianteDominio buscarPorID(String id) throws NegocioException {
+    public EstudianteDominio buscarPorID(int id) throws NegocioException {
          try {
              return estudianteDAO.buscarPorID(id);
          } catch (PersistenciaException ex) {
