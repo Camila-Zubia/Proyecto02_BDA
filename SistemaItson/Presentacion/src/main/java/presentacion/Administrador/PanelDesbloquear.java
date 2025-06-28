@@ -98,19 +98,15 @@ public class PanelDesbloquear extends javax.swing.JPanel {
 
         mostrarNombreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarNombreLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarNombreLbl.setText("X");
 
         mostrarIdLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarIdLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarIdLbl.setText("X");
 
         mostrarCarreraLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarCarreraLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarCarreraLbl.setText("X");
 
         mostrarUnidadLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarUnidadLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarUnidadLbl.setText("X");
 
         motivoTxt.setColumns(20);
         motivoTxt.setRows(5);
@@ -118,7 +114,6 @@ public class PanelDesbloquear extends javax.swing.JPanel {
 
         mostrarFechaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarFechaLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarFechaLbl.setText("X");
 
         fechaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         fechaLbl.setForeground(new java.awt.Color(4, 109, 181));
@@ -180,7 +175,7 @@ public class PanelDesbloquear extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(motivoLbl)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -234,7 +229,7 @@ public class PanelDesbloquear extends javax.swing.JPanel {
         PanelFondoLayout.setVerticalGroup(
             PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoLayout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );

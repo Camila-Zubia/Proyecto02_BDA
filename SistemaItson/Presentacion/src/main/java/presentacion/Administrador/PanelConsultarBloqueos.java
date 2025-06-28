@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
@@ -265,7 +265,6 @@ public class PanelConsultarBloqueos extends javax.swing.JPanel {
     private void abrirPanelDesbloquear(){
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         PanelDesbloquear panel = new PanelDesbloquear();
-
         frame.getContentPane().removeAll();
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         frame.revalidate();

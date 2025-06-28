@@ -300,13 +300,22 @@ public class PanelConsultarLaboratorios extends javax.swing.JPanel {
     }
 
     public void abrirPanelModificar() {
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        PanelModificarLaboratorio panel = new PanelModificarLaboratorio();
+        int filaSeleccionada = jTable1.getSelectedRow();
 
-        frame.getContentPane().removeAll();
-        frame.getContentPane().add(panel, BorderLayout.CENTER);
-        frame.revalidate();
-        frame.repaint();
+        if (filaSeleccionada != -1) {
+            int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+            try {
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                PanelModificarLaboratorio panel = new PanelModificarLaboratorio(id);
+
+                frame.getContentPane().removeAll();
+                frame.getContentPane().add(panel, BorderLayout.CENTER);
+                frame.revalidate();
+                frame.repaint();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al cargar la siguiente ventana: " + ex.getMessage());
+            }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

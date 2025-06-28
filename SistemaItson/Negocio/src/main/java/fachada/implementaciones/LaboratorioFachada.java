@@ -34,7 +34,7 @@ public class LaboratorioFachada implements ILaboratorioFachada{
     }
 
     @Override
-    public LaboratorioDominio buscarPorId(int id) throws NegocioException {
+    public LaboratorioDTO buscarPorId(int id) throws NegocioException {
         return laboratorioNegocio.buscarPorId(id);
     }
 

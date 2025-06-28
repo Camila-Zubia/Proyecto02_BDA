@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface ILaboratorioDAO {
     
-    LaboratorioDominio buscarPorId(int id) throws PersistenciaException;
+    LaboratorioDTO buscarPorId(int id) throws PersistenciaException;
 
     LaboratorioDominio guardar(NuevoLaboratorioDTO laboratorio) throws PersistenciaException;
     

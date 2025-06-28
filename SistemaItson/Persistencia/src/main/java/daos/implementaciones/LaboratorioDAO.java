@@ -41,10 +41,10 @@ public class LaboratorioDAO implements ILaboratorioDAO{
     }
     
     @Override
-    public LaboratorioDominio buscarPorId(int id) throws PersistenciaException {
+    public LaboratorioDTO buscarPorId(int id) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
         try {
-            LaboratorioDominio laboratorio = manager.find(LaboratorioDominio.class, id);
+            LaboratorioDTO laboratorio = manager.find(LaboratorioDTO.class, id);
             if (laboratorio == null) {
                 throw new PersistenciaException("No se encontró el laboratorio con ID: " + id);
             }

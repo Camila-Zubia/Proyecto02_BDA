@@ -20,7 +20,7 @@ public interface ILaboratorioNegocio {
     
     public LaboratorioDominio guardar(NuevoLaboratorioDTO nuevoLaboratorio) throws NegocioException;
 
-    public LaboratorioDominio buscarPorId(int id) throws NegocioException;
+    public LaboratorioDTO buscarPorId(int id) throws NegocioException;
     
     public LaboratorioDominio modificar(LaboratorioDTO laboratorio) throws NegocioException;
     
