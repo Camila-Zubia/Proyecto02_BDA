@@ -4,6 +4,7 @@
  */
 package fachada.implementaciones;
 
+import DTO.EstudianteRegistroDTO;
 import DTO.FiltroDTO;
 import DTO.TablaEstudiantesDTO;
 import daos.IConexionBD;
@@ -49,6 +50,11 @@ public class EstudianteFachada implements IEstudianteFachada {
     @Override
     public List<EstudianteDominio> obtenerEstudiantesConBloqueosActivos() throws NegocioException {
         return estudianteNegocio.obtenerEstudiantesConBloqueosActivos();
+    }
+
+    @Override
+    public EstudianteDominio iniciarSesion(EstudianteRegistroDTO estudianteRegistroDTO) throws NegocioException {
+        return estudianteNegocio.iniciarSesion(estudianteRegistroDTO);
     }
 
 }

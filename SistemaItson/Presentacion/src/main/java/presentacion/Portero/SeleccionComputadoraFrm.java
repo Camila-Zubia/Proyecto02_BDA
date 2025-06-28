@@ -4,17 +4,81 @@
  */
 package presentacion.Portero;
 
+import DTO.EstudianteRegistroDTO;
+import dominios.ComputadoraDominio;
+import dominios.EstatusComputadora;
+import excepciones.NegocioException;
+import fachada.IComputadoraFachada;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.util.List;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Camila Zubía
  */
 public class SeleccionComputadoraFrm extends javax.swing.JFrame {
 
+    IComputadoraFachada fachada;
+    List<ComputadoraDominio> computadoras;
+    InicioSesionFrm iniciarSesion;
+    EstudianteRegistroDTO estudianteRegistrado;
+    
     /**
      * Creates new form SeleccionComputadoraFrm
+     * @throws excepciones.NegocioException
      */
-    public SeleccionComputadoraFrm() {
+    public SeleccionComputadoraFrm(InicioSesionFrm iniciarSesion, EstudianteRegistroDTO estudianteRegistrado) throws NegocioException {
+        this.computadoras = fachada.listarComputadoras();
+        this.iniciarSesion = iniciarSesion;
+        this.estudianteRegistrado = estudianteRegistrado;
         initComponents();
+        listarComputadoras(computadoras);
+    }
+    
+    
+    private void listarComputadoras(List<ComputadoraDominio> computadoras){
+        panelComputadoras.removeAll();
+        panelComputadoras.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        
+        for (ComputadoraDominio c : computadoras) {
+           JPanel panelCompu = new JPanel();
+           panelCompu.setLayout(new BoxLayout(panelCompu, BoxLayout.Y_AXIS));
+           panelCompu.setPreferredSize(new Dimension(50, 80));
+           panelCompu.setBackground(Color.WHITE);
+           String rutaImagen = null;
+            if (c.getEstatus() == EstatusComputadora.DISPONIBLE) {
+                rutaImagen = "/compuVerde.png";
+            }else if (c.getEstatus() == EstatusComputadora.APARTADA) {
+                rutaImagen = "/compuRoja.png";
+            }
+            ImageIcon icono = new ImageIcon(getClass().getResource(rutaImagen));
+            Image imagenEscalada = icono.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+            JLabel lblImagen = new JLabel(new ImageIcon(imagenEscalada));
+            lblImagen.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel lblNumero = new JLabel(c.getNumero());
+            lblNumero.setFont(new Font("Arial", Font.BOLD, 14));
+            lblNumero.setForeground(Color.BLACK);
+            lblNumero.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            panelCompu.add(lblImagen);
+            panelCompu.add(Box.createVerticalStrut(5));
+            panelCompu.add(lblNumero);
+            
+            panelComputadoras.add(panelCompu);
+        }
+        panelComputadoras.revalidate();
+        panelComputadoras.repaint();
     }
 
     /**
@@ -71,6 +135,11 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
         comboBoxTiempo.setForeground(new java.awt.Color(4, 109, 181));
         comboBoxTiempo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboBoxTiempo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        comboBoxTiempo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxTiempoActionPerformed(evt);
+            }
+        });
 
         panelComputadoras.setBackground(new java.awt.Color(255, 255, 255));
         panelComputadoras.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -106,25 +175,22 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
             panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(panelFondoLayout.createSequentialGroup()
-                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(panelFondoLayout.createSequentialGroup()
-                        .addGap(273, 273, 273)
-                        .addComponent(lblNumero))
+                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFondoLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(267, 267, 267)
-                        .addComponent(lblTiempo)))
-                .addGap(84, 84, 84)
-                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelFondoLayout.createSequentialGroup()
-                        .addComponent(comboBoxTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(130, 130, 130)
-                        .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(panelFondoLayout.createSequentialGroup()
-                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblNumero)
+                            .addGroup(panelFondoLayout.createSequentialGroup()
+                                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(267, 267, 267)
+                                .addComponent(lblTiempo)))
+                        .addGap(84, 84, 84)
+                        .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelFondoLayout.createSequentialGroup()
+                                .addComponent(comboBoxTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(130, 130, 130)
+                                .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelFondoLayout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(lblTitulo))
@@ -194,12 +260,20 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-        // TODO add your handling code here:
+        String texto = txtFieldNumero.getText();
+        int numero = Integer.parseInt(texto);
+        String tiempo = (String) comboBoxTiempo.getSelectedItem();
+        new ConfirmarReservacionFrm(this, estudianteRegistrado, numero, tiempo).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void comboBoxTiempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTiempoActionPerformed
+        comboBoxTiempo.getSelectedItem();
+    }//GEN-LAST:event_comboBoxTiempoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

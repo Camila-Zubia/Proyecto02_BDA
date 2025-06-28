@@ -1,17 +1,28 @@
 package presentacion.Portero;
 
+import DTO.EstudianteRegistroDTO;
+import dominios.EstudianteDominio;
+import excepciones.NegocioException;
+import fachada.IEstudianteFachada;
+import fachada.implementaciones.EstudianteFachada;
+import javax.swing.JOptionPane;
+import presentacion.Administrador.FrameControl;
+
 /**
  *
  * @author saula
  */
 public class InicioSesionFrm extends javax.swing.JFrame {
-
+    
+    private IEstudianteFachada fachada;
 
     /**
      * Creates new form InicioSesionFrm
      */
     public InicioSesionFrm() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.fachada = new EstudianteFachada();
     }
 
     /**
@@ -162,9 +173,25 @@ public class InicioSesionFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_FieldUsuarioActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        // TODO add your handling code here:
-        
+        String usuario = FieldUsuario.getText();
+        char[] contrasena = fieldContraseña.getPassword();
 
+        EstudianteRegistroDTO estudianteRegistrado = new EstudianteRegistroDTO(usuario, contrasena);
+        try {
+            EstudianteDominio estudiante = fachada.iniciarSesion(estudianteRegistrado);
+            if (estudiante != null) {
+                SesionEstudiante.iniciarSesion(estudiante);
+
+                JOptionPane.showMessageDialog(this, "¡Bienvenido, " + estudiante.getNombres() + "!");
+                new SeleccionComputadoraFrm(this, estudianteRegistrado).setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Credenciales incorrectas.");
+            }
+
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void fieldContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldContraseñaActionPerformed
