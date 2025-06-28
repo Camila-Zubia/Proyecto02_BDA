@@ -5,7 +5,10 @@
 package presentacion.Administrador;
 
 import DTO.FiltrosReporteCentroComputoDTO;
+import dominios.LaboratorioDominio;
 import excepciones.NegocioException;
+import fachada.ILaboratorioFachada;
+import fachada.implementaciones.LaboratorioFachada;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -20,9 +23,12 @@ import presentacion.reportes.Reporte;
  */
 public class PanelReporteCentroComputo extends javax.swing.JPanel {
 
+    private final ILaboratorioFachada laboratorioFachada;
    
     public PanelReporteCentroComputo() {
         initComponents();
+        this.laboratorioFachada = new LaboratorioFachada();
+        cargarLaboratorios();
     }
 
     /**
@@ -84,7 +90,6 @@ public class PanelReporteCentroComputo extends javax.swing.JPanel {
         laboratorioLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         laboratorioLbl.setForeground(new java.awt.Color(4, 109, 181));
 
-        laboratorioComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         laboratorioComboBox.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         fechaFinLbl.setText("FECHA FIN:");
@@ -282,6 +287,18 @@ public class PanelReporteCentroComputo extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_agregarBtnActionPerformed
+    
+    private void cargarLaboratorios() {
+        List<LaboratorioDominio> laboratorios;
+        try {
+            laboratorios = laboratorioFachada.obtenerLaboratorios();
+            for (LaboratorioDominio l : laboratorios) {
+                laboratorioComboBox.addItem(l.getNombre());
+            }
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR);
+        }
+    }
     
     private Date convertirLocalDateADate(LocalDate localDate) {
         return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
