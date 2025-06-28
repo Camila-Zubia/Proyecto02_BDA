@@ -7,6 +7,8 @@ package presentacion.Portero;
 import DTO.EstudianteRegistroDTO;
 import dominios.ComputadoraDominio;
 import dominios.EstatusComputadora;
+import dominios.LaboratorioDominio;
+import dominios.TipoComputadora;
 import excepciones.NegocioException;
 import fachada.IComputadoraFachada;
 import fachada.implementaciones.ComputadoraFachada;
@@ -16,11 +18,16 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -30,7 +37,6 @@ import javax.swing.JPanel;
 public class SeleccionComputadoraFrm extends javax.swing.JFrame {
 
     IComputadoraFachada fachada;
-    List<ComputadoraDominio> computadoras;
     InicioSesionFrm iniciarSesion;
     EstudianteRegistroDTO estudianteRegistrado;
     
@@ -38,46 +44,62 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
      * Creates new form SeleccionComputadoraFrm
      * @throws excepciones.NegocioException
      */
-    public SeleccionComputadoraFrm(InicioSesionFrm iniciarSesion, EstudianteRegistroDTO estudianteRegistrado) throws NegocioException {
+    public SeleccionComputadoraFrm(InicioSesionFrm iniciarSesion, EstudianteRegistroDTO estudianteRegistrado) throws NegocioException, UnknownHostException {
         this.fachada = new ComputadoraFachada();
-        this.computadoras = fachada.listarComputadoras();
         this.iniciarSesion = iniciarSesion;
         this.estudianteRegistrado = estudianteRegistrado;
         initComponents();
-        imprimirComputadoras(computadoras);
+        imprimirComputadoras();
+    }
+    
+    public LaboratorioDominio obtenerLaboratorioDeEstaComputadora() throws NegocioException, UnknownHostException {
+        try {
+            String ip = InetAddress.getLocalHost().getHostAddress();
+            return fachada.buscarLaboratorioPorIp(ip);
+        } catch (UnknownHostException e) {
+            throw new NegocioException("No fue posible obtener el laboratorio de esta computadora.", e);
+        }
     }
     
     
-    private void imprimirComputadoras(List<ComputadoraDominio> computadoras){
+    private void imprimirComputadoras() throws NegocioException, UnknownHostException{
+        LaboratorioDominio lab = obtenerLaboratorioDeEstaComputadora();
+        
+        List<ComputadoraDominio> computadoras = lab.getComputadoras();
+        
         panelComputadoras.removeAll();
         panelComputadoras.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        panelComputadoras.setSize(750, 250);
         
         for (ComputadoraDominio c : computadoras) {
-           JPanel panelCompu = new JPanel();
-           panelCompu.setLayout(new BoxLayout(panelCompu, BoxLayout.Y_AXIS));
-           panelCompu.setPreferredSize(new Dimension(50, 80));
-           panelCompu.setBackground(Color.WHITE);
-           String rutaImagen = null;
-            if (c.getEstatus() == EstatusComputadora.DISPONIBLE) {
-                rutaImagen = "/compuVerde.png";
-            }else if (c.getEstatus() == EstatusComputadora.APARTADA) {
-                rutaImagen = "/compuRoja.png";
+            if (c.getTipo() == TipoComputadora.ESTUDIANTE) {
+                JPanel panelCompu = new JPanel();
+                panelCompu.setLayout(new BoxLayout(panelCompu, BoxLayout.Y_AXIS));
+                panelCompu.setPreferredSize(new Dimension(50, 60));
+                panelCompu.setBackground(Color.WHITE);
+                String rutaImagen = null;
+                if (c.getEstatus() == EstatusComputadora.DISPONIBLE) {
+                    rutaImagen = "/compuVerde.png";
+                } else if (c.getEstatus() == EstatusComputadora.APARTADA) {
+                    rutaImagen = "/compuRoja.png";
+                }
+                ImageIcon icono = new ImageIcon(getClass().getResource(rutaImagen));
+                Image imagenEscalada = icono.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+                JLabel lblImagen = new JLabel(new ImageIcon(imagenEscalada));
+                lblImagen.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                JLabel lblNumero = new JLabel(c.getNumero());
+                lblNumero.setFont(new Font("Arial", Font.BOLD, 14));
+                lblNumero.setForeground(Color.BLACK);
+                lblNumero.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                panelCompu.add(lblImagen);
+                panelCompu.add(Box.createVerticalStrut(5));
+                panelCompu.add(lblNumero);
+
+                panelComputadoras.add(panelCompu);
             }
-            ImageIcon icono = new ImageIcon(getClass().getResource(rutaImagen));
-            Image imagenEscalada = icono.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-            JLabel lblImagen = new JLabel(new ImageIcon(imagenEscalada));
-            lblImagen.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            JLabel lblNumero = new JLabel(c.getNumero());
-            lblNumero.setFont(new Font("Arial", Font.BOLD, 14));
-            lblNumero.setForeground(Color.BLACK);
-            lblNumero.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            panelCompu.add(lblImagen);
-            panelCompu.add(Box.createVerticalStrut(5));
-            panelCompu.add(lblNumero);
-            
-            panelComputadoras.add(panelCompu);
+           
         }
         panelComputadoras.revalidate();
         panelComputadoras.repaint();
@@ -126,6 +148,7 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
 
         txtFieldNumero.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         txtFieldNumero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtFieldNumero.setPreferredSize(new java.awt.Dimension(130, 28));
 
         lblTiempo.setBackground(new java.awt.Color(255, 255, 255));
         lblTiempo.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
@@ -134,7 +157,7 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
 
         comboBoxTiempo.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         comboBoxTiempo.setForeground(new java.awt.Color(4, 109, 181));
-        comboBoxTiempo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxTiempo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "30", "60", "90", "120" }));
         comboBoxTiempo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         comboBoxTiempo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,7 +172,7 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
         panelComputadoras.setLayout(panelComputadorasLayout);
         panelComputadorasLayout.setHorizontalGroup(
             panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 737, Short.MAX_VALUE)
+            .addGap(0, 748, Short.MAX_VALUE)
         );
         panelComputadorasLayout.setVerticalGroup(
             panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,16 +210,16 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
                                 .addComponent(lblTiempo)))
                         .addGap(84, 84, 84)
                         .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelFondoLayout.createSequentialGroup()
                                 .addComponent(comboBoxTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(130, 130, 130)
-                                .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelFondoLayout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(lblTitulo))
                     .addGroup(panelFondoLayout.createSequentialGroup()
-                        .addGap(97, 97, 97)
+                        .addGap(86, 86, 86)
                         .addComponent(panelComputadoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -210,9 +233,9 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelComputadoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblNumero)
-                    .addComponent(txtFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,11 +284,18 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-        String texto = txtFieldNumero.getText();
-        int numero = Integer.parseInt(texto);
-        String tiempo = (String) comboBoxTiempo.getSelectedItem();
-        new ConfirmarReservacionFrm(this, estudianteRegistrado, numero, tiempo).setVisible(true);
-        this.dispose();
+        String numero = txtFieldNumero.getText().trim();
+        try {
+            if (validarComputadora(numero)) {
+                String tiempo = (String) comboBoxTiempo.getSelectedItem();
+                ComputadoraDominio compu = fachada.buscarPorNumero(numero);
+                new ConfirmarReservacionFrm(this, estudianteRegistrado, compu, tiempo).setVisible(true);
+                this.dispose();
+            }
+        } catch (NegocioException | UnknownHostException ex) {
+            Logger.getLogger(SeleccionComputadoraFrm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,"error al validar la computadora");
+        }
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -277,6 +307,19 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
         comboBoxTiempo.getSelectedItem();
     }//GEN-LAST:event_comboBoxTiempoActionPerformed
 
+    private boolean validarComputadora(String numero) throws NegocioException, UnknownHostException{
+        try{
+            ComputadoraDominio compu = fachada.buscarPorNumero(numero);
+
+            if (compu.getEstatus() == EstatusComputadora.DISPONIBLE) {
+                return true;
+            }
+        }catch(NegocioException ex){
+            JOptionPane.showMessageDialog(this,"error al validar la computadora");
+        }
+        JOptionPane.showMessageDialog(this,"esta computadora ya esta apartada");
+        return false;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;

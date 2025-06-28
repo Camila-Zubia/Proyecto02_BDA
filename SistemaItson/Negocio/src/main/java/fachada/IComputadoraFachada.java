@@ -8,6 +8,7 @@ import DTO.FiltroDTO;
 import DTO.NuevaComputadoraDTO;
 import DTO.TablaComputadoraDTO;
 import dominios.ComputadoraDominio;
+import dominios.LaboratorioDominio;
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -31,4 +32,8 @@ public interface IComputadoraFachada {
     void liberarComputadora(int id) throws NegocioException;
     
     List<TablaComputadoraDTO> buscarTabla(FiltroDTO filtro) throws NegocioException;
+    
+    public LaboratorioDominio buscarLaboratorioPorIp(String ip) throws NegocioException;
+    
+    ComputadoraDominio buscarPorNumero(String numero) throws NegocioException;
 }

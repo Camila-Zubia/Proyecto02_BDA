@@ -57,4 +57,9 @@ public class EstudianteFachada implements IEstudianteFachada {
         return estudianteNegocio.iniciarSesion(estudianteRegistroDTO);
     }
 
+    @Override
+    public EstudianteDominio buscarPorUsuario(EstudianteRegistroDTO estudianteRegistroDTO) throws NegocioException {
+        return estudianteNegocio.buscarPorUsuario(estudianteRegistroDTO);
+    }
+
 }

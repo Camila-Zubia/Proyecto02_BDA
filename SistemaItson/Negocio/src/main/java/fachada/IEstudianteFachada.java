@@ -25,4 +25,6 @@ public interface IEstudianteFachada {
     public List<EstudianteDominio> obtenerEstudiantesConBloqueosActivos() throws NegocioException;
     
     public EstudianteDominio iniciarSesion(EstudianteRegistroDTO estudianteRegistroDTO) throws NegocioException;
+    
+    public EstudianteDominio buscarPorUsuario(EstudianteRegistroDTO estudianteRegistroDTO) throws NegocioException;
 }

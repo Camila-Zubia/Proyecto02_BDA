@@ -16,9 +16,11 @@ import javax.persistence.TypedQuery;
 import com.mycompany.persistencia.IComputadoraDAO;
 import daos.IConexionBD;
 import daos.ILaboratorioDAO;
+import dominios.LaboratorioDominio;
 import dominios.TipoComputadora;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -159,9 +161,8 @@ public class ComputadoraDAO implements IComputadoraDAO{
     public List<ComputadoraDominio> listarComputadoras() throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
         try {
-            String consulta = "SELECT c FROM computadoraDominio c WHERE c.tipo = :tipo";
+            String consulta = "SELECT c FROM ComputadoraDominio c";
             TypedQuery<ComputadoraDominio> query = manager.createQuery(consulta, ComputadoraDominio.class);
-            query.setParameter("tipo", TipoComputadora.ESTUDIANTE);
             return query.getResultList();
         }catch (Exception ex) {
             throw new PersistenciaException("Error al eliminar la computadora: " + ex.getMessage());
@@ -240,4 +241,42 @@ public class ComputadoraDAO implements IComputadoraDAO{
         TablaComputadoraDTO tabla = new TablaComputadoraDTO(id, numero, ip, estatus, tipo);
         return tabla;
     }
+
+    @Override
+    public LaboratorioDominio buscarLaboratorioPorIp(String ip) throws PersistenciaException {
+       EntityManager manager = conexionBD.crearConexion();
+        try {
+            String jpql = "SELECT c.laboratorio FROM ComputadoraDominio c WHERE c.direccionIp = :ip";
+            return manager.createQuery(jpql, LaboratorioDominio.class)
+                    .setParameter("ip", ip)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            throw new PersistenciaException("No se encontró una computadora con esa IP.");
+        } finally {
+            manager.close();
+        }
+    }
+    
+    @Override
+    public ComputadoraDominio buscarPorNumero(String numero) throws PersistenciaException {
+        EntityManager manager = conexionBD.crearConexion();
+        try {
+            String consulta = "SELECT c FROM ComputadoraDominio c WHERE c.numero = :numero";
+            TypedQuery<ComputadoraDominio> query = manager.createQuery(consulta, ComputadoraDominio.class);
+            query.setParameter("numero", numero);
+            List<ComputadoraDominio> resultado = query.getResultList();
+
+            if (resultado.isEmpty()) {
+                throw new PersistenciaException("No se encontró la computadora con número: " + numero);
+            }
+            return resultado.get(0);
+        } catch (Exception ex) {
+            throw new PersistenciaException("Error al buscar la computadora por número: " + ex.getMessage());
+        } finally {
+            if (manager != null) {
+                manager.close();
+            }
+        }
+    }
+
 }

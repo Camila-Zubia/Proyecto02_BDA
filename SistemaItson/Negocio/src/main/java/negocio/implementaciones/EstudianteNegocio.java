@@ -126,6 +126,15 @@ public class EstudianteNegocio implements IEstudianteNegocio {
         }
     }
 
-   
+    @Override
+    public EstudianteDominio buscarPorUsuario(EstudianteRegistroDTO estudianteRegistroDTO) throws NegocioException {
+        try {
+            return estudianteDAO.buscarPorUsuario(estudianteRegistroDTO);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(EstudianteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioException("Error al buscar por usuario: " + ex.getMessage());
+        }
+    }
+    
 
 }

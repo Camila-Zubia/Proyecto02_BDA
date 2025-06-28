@@ -8,6 +8,7 @@ import DTO.FiltroDTO;
 import DTO.NuevaComputadoraDTO;
 import DTO.TablaComputadoraDTO;
 import dominios.ComputadoraDominio;
+import dominios.LaboratorioDominio;
 import excepciones.PersistenciaException;
 import java.util.List;
 
@@ -18,6 +19,8 @@ import java.util.List;
 public interface IComputadoraDAO {
     
     ComputadoraDominio buscarPorId(int id) throws PersistenciaException;
+    
+    ComputadoraDominio buscarPorNumero(String numero) throws PersistenciaException;
     
     ComputadoraDominio agregar(NuevaComputadoraDTO computadoraDTO) throws PersistenciaException;
     
@@ -32,5 +35,7 @@ public interface IComputadoraDAO {
     void liberarComputadora(int id) throws PersistenciaException;
     
     List<TablaComputadoraDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException;
+    
+    LaboratorioDominio buscarLaboratorioPorIp(String ip) throws PersistenciaException;
     
 }

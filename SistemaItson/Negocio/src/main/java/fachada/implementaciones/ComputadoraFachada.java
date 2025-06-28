@@ -12,6 +12,7 @@ import daos.IConexionBD;
 import daos.implementaciones.ComputadoraDAO;
 import daos.implementaciones.ConexionBD;
 import dominios.ComputadoraDominio;
+import dominios.LaboratorioDominio;
 import excepciones.NegocioException;
 import fachada.IComputadoraFachada;
 import java.util.List;
@@ -70,6 +71,16 @@ public class ComputadoraFachada implements IComputadoraFachada{
     @Override
     public List<TablaComputadoraDTO> buscarTabla(FiltroDTO filtro) throws NegocioException {
         return computadoraNegocio.buscarTabla(filtro);
+    }
+
+    @Override
+    public LaboratorioDominio buscarLaboratorioPorIp(String ip) throws NegocioException {
+        return computadoraNegocio.buscarLaboratorioPorIp(ip);
+    }
+
+    @Override
+    public ComputadoraDominio buscarPorNumero(String numero) throws NegocioException {
+        return computadoraNegocio.buscarPorNumero(numero);
     }
     
 }

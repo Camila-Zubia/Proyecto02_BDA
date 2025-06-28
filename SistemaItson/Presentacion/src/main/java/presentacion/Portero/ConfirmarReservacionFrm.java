@@ -5,6 +5,16 @@
 package presentacion.Portero;
 
 import DTO.EstudianteRegistroDTO;
+import dominios.ComputadoraDominio;
+import dominios.EstudianteDominio;
+import dominios.EstudianteReservaComputadoraDominio;
+import excepciones.NegocioException;
+import fachada.IEstudianteFachada;
+import fachada.IReservacionFachada;
+import fachada.implementaciones.EstudianteFachada;
+import fachada.implementaciones.ReservacionFachada;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,27 +24,32 @@ public class ConfirmarReservacionFrm extends javax.swing.JFrame {
     
     SeleccionComputadoraFrm seleccionar;
     EstudianteRegistroDTO estudianteRegistrado;
-    int numero;
+    IReservacionFachada fachada;
+    IEstudianteFachada fachadaEst;
+    ComputadoraDominio compu;
     String tiempo;
     
     /**
      * Creates new form SeleccionComputadoraFrm
      * @param seleccionar
      * @param estudianteRegistrado
-     * @param numero
+     * @param compu
+     * @param tiempo
      */
-    public ConfirmarReservacionFrm(SeleccionComputadoraFrm seleccionar, EstudianteRegistroDTO estudianteRegistrado, int numero, String tiempo) {
+    public ConfirmarReservacionFrm(SeleccionComputadoraFrm seleccionar, EstudianteRegistroDTO estudianteRegistrado, ComputadoraDominio compu, String tiempo) {
+        this.fachada = new ReservacionFachada();
+        this.fachadaEst = new EstudianteFachada();
         initComponents();
         this.seleccionar = seleccionar;
         this.estudianteRegistrado = estudianteRegistrado;
-        this.numero = numero;
+        this.compu = compu;
         this.tiempo = tiempo;
         cargarDatos();
     }
     
     private void cargarDatos(){
         txtFieldNumero1.setText(estudianteRegistrado.getUsuario());
-        txtFieldNumero.setText(String.valueOf(numero));
+        txtFieldNumero.setText(compu.getNumero());
         txtFieldNumero2.setText(tiempo);
     }
     
@@ -204,8 +219,20 @@ public class ConfirmarReservacionFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        // TODO add your handling code here:
-
+        try{
+            Date fechaInicio = new Date();
+            EstudianteReservaComputadoraDominio reserva = new EstudianteReservaComputadoraDominio();
+            EstudianteDominio estudiante = fachadaEst.buscarPorUsuario(estudianteRegistrado);
+            reserva.setEstudianteReserva(estudiante);
+            reserva.setComputadoraReservas(compu);
+            reserva.setFechaInicio(fechaInicio);
+            reserva.setTiempoReserva(Integer.parseInt(tiempo));
+            fachada.registrar(reserva);
+            
+            JOptionPane.showMessageDialog(this, "Reserva registrada con éxito.");
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed

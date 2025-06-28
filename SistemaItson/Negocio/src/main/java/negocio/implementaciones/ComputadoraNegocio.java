@@ -9,11 +9,10 @@ import DTO.NuevaComputadoraDTO;
 import DTO.TablaComputadoraDTO;
 import com.mycompany.persistencia.IComputadoraDAO;
 import dominios.ComputadoraDominio;
+import dominios.LaboratorioDominio;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import negocio.IComputadoraNegocio;
 
 /**
@@ -84,6 +83,7 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         try {
             return computadoraDAO.listarComputadoras();
         } catch (PersistenciaException ex) {
+            ex.printStackTrace(); 
             throw new NegocioException("Ha ocurrido un error al obtener la lista de computadoras");
         }
     }
@@ -162,6 +162,24 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         if (computadoraDTO.getDireccionIp().length() > 50) {
             throw new NegocioException("El numero de la computadora no puede ser mayor a 50 caracteres");
 
+        }
+    }
+
+    @Override
+    public LaboratorioDominio buscarLaboratorioPorIp(String ip) throws NegocioException {
+        try {
+            return computadoraDAO.buscarLaboratorioPorIp(ip);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Ha ocurrido un error buscar de que laboratorio es una computadora");
+        }
+    }
+
+    @Override
+    public ComputadoraDominio buscarPorNumero(String numero) throws NegocioException {
+        try {
+            return computadoraDAO.buscarPorNumero(numero);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Ha ocurrido un error buscar la computadora por numero");
         }
     }
 

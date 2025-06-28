@@ -1,10 +1,19 @@
 package presentacion.Portero;
 
 import DTO.EstudianteRegistroDTO;
+import dominios.ComputadoraDominio;
 import dominios.EstudianteDominio;
+import dominios.TipoComputadora;
 import excepciones.NegocioException;
+import fachada.IComputadoraFachada;
 import fachada.IEstudianteFachada;
+import fachada.implementaciones.ComputadoraFachada;
 import fachada.implementaciones.EstudianteFachada;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import presentacion.Administrador.FrameControl;
 
@@ -14,15 +23,20 @@ import presentacion.Administrador.FrameControl;
  */
 public class InicioSesionFrm extends javax.swing.JFrame {
     
-    private IEstudianteFachada fachada;
+    IComputadoraFachada fachada;
+    private IEstudianteFachada fachadaEst;
+    List<ComputadoraDominio> computadoras;
 
     /**
      * Creates new form InicioSesionFrm
      */
-    public InicioSesionFrm() {
+    public InicioSesionFrm() throws NegocioException, UnknownHostException {
+        this.fachada = new ComputadoraFachada();
+        this.computadoras = fachada.listarComputadoras();
+        esComputadoraValida(computadoras);
         initComponents();
         this.setLocationRelativeTo(null);
-        this.fachada = new EstudianteFachada();
+        this.fachadaEst = new EstudianteFachada();
     }
 
     /**
@@ -178,7 +192,7 @@ public class InicioSesionFrm extends javax.swing.JFrame {
 
         EstudianteRegistroDTO estudianteRegistrado = new EstudianteRegistroDTO(usuario, contrasena);
         try {
-            EstudianteDominio estudiante = fachada.iniciarSesion(estudianteRegistrado);
+            EstudianteDominio estudiante = fachadaEst.iniciarSesion(estudianteRegistrado);
             if (estudiante != null) {
                 SesionEstudiante.iniciarSesion(estudiante);
 
@@ -191,6 +205,8 @@ public class InicioSesionFrm extends javax.swing.JFrame {
 
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(InicioSesionFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
@@ -198,6 +214,23 @@ public class InicioSesionFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldContraseñaActionPerformed
 
+    
+    public static boolean esComputadoraValida(List<ComputadoraDominio> computadoras) throws UnknownHostException{
+        try{
+            String ipLocal = InetAddress.getLocalHost().getHostAddress();
+            for (ComputadoraDominio c : computadoras) {
+                System.out.println("IP: [" + c.getDireccionIp().trim() + "] - Tipo: [" + c.getTipo() + "]");
+                if (c.getDireccionIp().trim().equals(ipLocal) && c.getTipo() == TipoComputadora.PORTERO) {
+                    return true;
+                }
+            }
+            JOptionPane.showMessageDialog(null, "Esta computadora no es valida" + ipLocal, "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }catch(UnknownHostException ex){
+            JOptionPane.showMessageDialog(null, "Esta computadora no es valida"  + InetAddress.getLocalHost().getHostAddress(), "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -225,7 +258,13 @@ public class InicioSesionFrm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new InicioSesionFrm().setVisible(true);
+            try {
+                new InicioSesionFrm().setVisible(true);
+            } catch (NegocioException ex) {
+                Logger.getLogger(InicioSesionFrm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(InicioSesionFrm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
     
