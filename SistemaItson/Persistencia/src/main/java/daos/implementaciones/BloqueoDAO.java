@@ -16,6 +16,7 @@ import daos.IBloqueoDAO;
 import daos.IConexionBD;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.stream.Collectors;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -151,7 +152,7 @@ public class BloqueoDAO implements IBloqueoDAO {
 
     private TablaBloqueosDTO convertirTabla(BloqueoDominio bloqueo) {
         int id = bloqueo.getIdBloqueo();
-        Calendar fecha = bloqueo.getFechaBloqueo();
+        Date fecha = bloqueo.getFechaBloqueo();
         String motivo = bloqueo.getMotivo();
         boolean estatus = bloqueo.isEstatus();
         TablaBloqueosDTO tabla = new TablaBloqueosDTO(id, fecha, motivo, estatus);

@@ -122,7 +122,7 @@ public class EstudianteDAO implements IEstudianteDAO {
     }
 
     private TablaEstudiantesDTO convertirTabla(EstudianteDominio estudiante) {
-        String id = estudiante.getIdEstudiante();
+        String id = estudiante.getIdEscolar();
         String nombre = estudiante.getNombres();
         String apellidoP = estudiante.getApellidoPaterno();
         String apellidoM = estudiante.getApellidoMaterno();

@@ -15,6 +15,7 @@ import daos.IUnidadAcademicaDAO;
 import dominios.LaboratorioDominio;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
@@ -165,8 +166,8 @@ public class LaboratorioDAO implements ILaboratorioDAO{
     private TablaLaboratorioDTO convertirTabla(LaboratorioDominio lab) {
         int id = lab.getIdLaboratorios();
         String nombre = lab.getNombre();
-        LocalTime horaInicio = lab.getHoraInicio();
-        LocalTime horaFin = lab.getHoraFin();
+        Date horaInicio = lab.getHoraInicio();
+        Date horaFin = lab.getHoraFin();
         TablaLaboratorioDTO tabla = new TablaLaboratorioDTO(id, nombre, horaInicio, horaFin);
         return tabla;
     }

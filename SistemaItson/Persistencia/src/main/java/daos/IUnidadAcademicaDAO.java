@@ -6,6 +6,7 @@ package daos;
 
 import dominios.UnidadAcademicaDominio;
 import excepciones.PersistenciaException;
+import java.util.List;
 
 /**
  *
@@ -13,4 +14,5 @@ import excepciones.PersistenciaException;
  */
 public interface IUnidadAcademicaDAO {
     public UnidadAcademicaDominio obtenerPorNombre(String nombre) throws PersistenciaException;
+    public List<UnidadAcademicaDominio> obtenerUnidadesAcademicas() throws PersistenciaException;
 }
