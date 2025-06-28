@@ -11,6 +11,8 @@ import fachada.IEstudianteFachada;
 import fachada.implementaciones.EstudianteFachada;
 import java.awt.BorderLayout;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -25,6 +27,7 @@ public class PanelAdministrarAcceso extends javax.swing.JPanel {
     private final IEstudianteFachada estudianteFachada;
     private int offset = 0;
     private final int limite = 5;
+    public int id;
 
     public PanelAdministrarAcceso() {
         initComponents();
@@ -64,13 +67,13 @@ public class PanelAdministrarAcceso extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "NOMBRE", "A. PATERNO", "A. MATERNO "
+                "ID", "IDESTUDIANTE", "NOMBRE", "A. PATERNO", "A. MATERNO "
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -207,9 +210,11 @@ public class PanelAdministrarAcceso extends javax.swing.JPanel {
         if (filaSeleccionada != -1) {
             int idEstudiante = (int) jTable1.getValueAt(filaSeleccionada, 0);
 
+            id = idEstudiante;
+
             try {
                 abrirPanelBloquear();
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error al cargar la ventana de bloqueo: " + ex.getMessage());
             }
             this.setVisible(false);
@@ -251,6 +256,7 @@ public class PanelAdministrarAcceso extends javax.swing.JPanel {
 
             for (TablaEstudiantesDTO e : estudiantes) {
                 Object[] fila = {
+                    e.getId(),
                     e.getIdEstudiante(),
                     e.getNombres(),
                     e.getApellidoPaterno(),
@@ -262,10 +268,10 @@ public class PanelAdministrarAcceso extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error al cargar los estudiantes: " + ex.getMessage());
         }
     }
-    
-    private void abrirPanelBloquear(){
+
+    private void abrirPanelBloquear() {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        PanelBloquear panel = new PanelBloquear();
+        PanelBloquear panel = new PanelBloquear( id);
 
         frame.getContentPane().removeAll();
         frame.getContentPane().add(panel, BorderLayout.CENTER);
