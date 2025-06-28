@@ -258,6 +258,7 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
         try {
             computadoraFachada.modificar(compu);
             JOptionPane.showMessageDialog(this, "Computadora modificada correctamente.");
+            limpiarCampos();
         } catch (NegocioException ex) {
             Logger.getLogger(PanelModificarComputadoras.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "No se pudo modificar la computadora", "Error", JOptionPane.ERROR_MESSAGE);
@@ -282,6 +283,13 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_EstatusComboBox2ActionPerformed
 
+    
+    private void limpiarCampos() {
+        numeroComputadoraTxt1.setText("");
+        ipTxt.setText("");
+        tipoComboBox1.setSelectedIndex(0);
+        EstatusComboBox2.setSelectedIndex(0);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> EstatusComboBox2;

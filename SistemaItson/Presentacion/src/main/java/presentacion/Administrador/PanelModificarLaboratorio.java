@@ -228,6 +228,7 @@ public class PanelModificarLaboratorio extends javax.swing.JPanel {
         try {
             fachada.modificar(lab);
             JOptionPane.showMessageDialog(this, "Laboratorio modificado correctamente.");
+            limpiarCampos();
         } catch (NegocioException ex) {
             Logger.getLogger(PanelModificarComputadoras.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "No se pudo modificar el laboratorio", "Error", JOptionPane.ERROR_MESSAGE);
@@ -248,7 +249,13 @@ public class PanelModificarLaboratorio extends javax.swing.JPanel {
         LocalDateTime ldt = LocalDateTime.of(LocalDate.now(), time);
         return Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
     }
-
+    
+    private void limpiarCampos() {
+        nombreTxt.setText("");
+        timePickerHoraInicio.setTime(null);
+        timePickerHoraCierre.setTime(null);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JButton btnAnterior;
