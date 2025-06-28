@@ -39,7 +39,7 @@ public class EstudianteDominio implements Serializable {
     @Column(name = "apellidoPaterno", nullable = false, length = 50)
     private String apellidoPaterno;
 
-    @Column(name = "apellidoMaterno", nullable = false, length = 50)
+    @Column(name = "apellidoMaterno", nullable = true, length = 50)
     private String apellidoMaterno;
 
     @Column(name = "estatus", nullable = false)
