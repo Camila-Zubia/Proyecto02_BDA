@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -170,5 +171,39 @@ public class LaboratorioDAO implements ILaboratorioDAO{
         Date horaFin = lab.getHoraFin();
         TablaLaboratorioDTO tabla = new TablaLaboratorioDTO(id, nombre, horaInicio, horaFin);
         return tabla;
+    }
+
+    @Override
+    public List<LaboratorioDominio> obtenerLaboratorios() throws PersistenciaException {
+        EntityManager manager = conexionBD.crearConexion();
+        try {
+            CriteriaBuilder cb = manager.getCriteriaBuilder();
+            CriteriaQuery<LaboratorioDominio> query = cb.createQuery(LaboratorioDominio.class);
+            Root<LaboratorioDominio> root = query.from(LaboratorioDominio.class);
+            query.select(root);
+            return manager.createQuery(query).getResultList();
+        } catch (NoResultException ex) {
+            throw new PersistenciaException("Ocurrió un error al obtener los laboratorios");
+        } finally {
+            manager.close();
+        }
+    }
+
+    @Override
+    public LaboratorioDominio obtenerPorNombre(String nombre) throws PersistenciaException {
+        EntityManager manager = conexionBD.crearConexion();
+        try {
+            CriteriaBuilder cb = manager.getCriteriaBuilder();
+            CriteriaQuery<LaboratorioDominio> query = cb.createQuery(LaboratorioDominio.class);
+            Root<LaboratorioDominio> root = query.from(LaboratorioDominio.class);
+            query.select(root).where(cb.equal(
+                    cb.lower(root.get("nombre")),
+                    nombre.toLowerCase()));
+            return manager.createQuery(query).getSingleResult();
+        } catch (NoResultException ex) {
+            throw new PersistenciaException("Ocurrió un error al obtener el laboratorio");
+        } finally {
+            manager.close();
+        }
     }
 }

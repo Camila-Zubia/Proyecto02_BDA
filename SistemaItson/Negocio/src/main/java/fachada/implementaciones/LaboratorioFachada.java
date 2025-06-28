@@ -47,4 +47,14 @@ public class LaboratorioFachada implements ILaboratorioFachada{
     public List<TablaLaboratorioDTO> buscarTabla(FiltroDTO filtro) throws NegocioException {
         return laboratorioNegocio.buscarTabla(filtro);
     }
+
+    @Override
+    public List<LaboratorioDominio> obtenerLaboratorios() throws NegocioException {
+        return laboratorioNegocio.obtenerLaboratorios();
+    }
+
+    @Override
+    public LaboratorioDominio obtenerPorNombre(String nombre) throws NegocioException {
+        return laboratorioNegocio.obtenerPorNombre(nombre);
+    }
 }

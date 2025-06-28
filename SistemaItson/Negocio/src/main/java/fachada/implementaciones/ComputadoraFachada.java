@@ -5,6 +5,7 @@
 package fachada.implementaciones;
 
 import DTO.FiltroDTO;
+import DTO.NuevaComputadoraDTO;
 import DTO.TablaComputadoraDTO;
 import dominios.ComputadoraDominio;
 import excepciones.NegocioException;
@@ -26,8 +27,8 @@ public class ComputadoraFachada implements IComputadoraFachada{
     }
 
     @Override
-    public ComputadoraDominio agregar(ComputadoraDominio computadora) throws NegocioException {
-        return computadoraNegocio.agregar(computadora);
+    public ComputadoraDominio agregar(NuevaComputadoraDTO computadoraDTO) throws NegocioException {
+        return computadoraNegocio.agregar(computadoraDTO);
     }
 
     @Override

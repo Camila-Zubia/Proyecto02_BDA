@@ -4,10 +4,20 @@
  */
 package presentacion.Administrador;
 
+import DTO.NuevaComputadoraDTO;
+import dominios.ComputadoraDominio;
+import dominios.EstatusComputadora;
+import dominios.LaboratorioDominio;
+import dominios.TipoComputadora;
+import excepciones.NegocioException;
 import fachada.IComputadoraFachada;
+import fachada.ILaboratorioFachada;
 import fachada.implementaciones.ComputadoraFachada;
+import fachada.implementaciones.LaboratorioFachada;
 import java.awt.BorderLayout;
+import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -17,10 +27,13 @@ import javax.swing.SwingUtilities;
 public class PanelAgregarComputadoras extends javax.swing.JPanel {
 
     private final IComputadoraFachada computadoraFachada;
+    private final ILaboratorioFachada laboratorioFachada;
     
     public PanelAgregarComputadoras() {
         initComponents();
         this.computadoraFachada = new ComputadoraFachada();
+        this.laboratorioFachada = new LaboratorioFachada();
+        cargarLaboratorios();
     }
 
     /**
@@ -49,6 +62,8 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
         numeroComputadoraTxt = new javax.swing.JTextField();
         laboratorioLbl = new javax.swing.JLabel();
         laboratorioComboBox = new javax.swing.JComboBox<>();
+        laboratorioLbl1 = new javax.swing.JLabel();
+        tipoComboBox1 = new javax.swing.JComboBox<>();
         btnAnterior = new javax.swing.JButton();
 
         PanelFondo.setBackground(new java.awt.Color(0, 109, 182));
@@ -75,6 +90,11 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
         mySqlCheckBox.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mySqlCheckBox.setForeground(new java.awt.Color(4, 109, 181));
         mySqlCheckBox.setText("MySQL WorkBench");
+        mySqlCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mySqlCheckBoxActionPerformed(evt);
+            }
+        });
 
         ipTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
@@ -93,6 +113,11 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
         AutoCadCheckBox.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         AutoCadCheckBox.setForeground(new java.awt.Color(4, 109, 181));
         AutoCadCheckBox.setText("AutoCAD");
+        AutoCadCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AutoCadCheckBoxActionPerformed(evt);
+            }
+        });
 
         photoshopCheckBox.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         photoshopCheckBox.setForeground(new java.awt.Color(4, 109, 181));
@@ -106,10 +131,20 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
         wordCheckBox.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         wordCheckBox.setForeground(new java.awt.Color(4, 109, 181));
         wordCheckBox.setText("Word");
+        wordCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wordCheckBoxActionPerformed(evt);
+            }
+        });
 
         netBeansCheckBox.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         netBeansCheckBox.setForeground(new java.awt.Color(4, 109, 181));
         netBeansCheckBox.setText("Apache NetBeans");
+        netBeansCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                netBeansCheckBoxActionPerformed(evt);
+            }
+        });
 
         numeroComputadoraTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
@@ -118,7 +153,19 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
         laboratorioLbl.setText("LABORATORIO:");
 
         laboratorioComboBox.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        laboratorioComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        laboratorioLbl1.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
+        laboratorioLbl1.setForeground(new java.awt.Color(4, 109, 181));
+        laboratorioLbl1.setText("TIPO:");
+
+        tipoComboBox1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        tipoComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PORTERO", "ESTUDIANTE" }));
+        tipoComboBox1.setToolTipText("");
+        tipoComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -128,28 +175,35 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(laboratorioLbl1)
+                        .addGap(152, 152, 152)
+                        .addComponent(tipoComboBox1, 0, 194, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(ipLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ipTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(laboratorioLbl)
                         .addGap(18, 18, 18)
-                        .addComponent(laboratorioComboBox, 0, 166, Short.MAX_VALUE))
-                    .addComponent(softwareLbl)
+                        .addComponent(laboratorioComboBox, 0, 194, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AutoCadCheckBox)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(photoshopCheckBox, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(wordCheckBox)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(mySqlCheckBox)
-                            .addComponent(netBeansCheckBox)))
+                            .addComponent(softwareLbl)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(wordCheckBox)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(photoshopCheckBox, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(AutoCadCheckBox)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(mySqlCheckBox)
+                                    .addComponent(netBeansCheckBox))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(numeroLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ipLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(numeroLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(numeroComputadoraTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                            .addComponent(ipTxt))))
+                        .addComponent(numeroComputadoraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28))
         );
         jPanel2Layout.setVerticalGroup(
@@ -159,30 +213,31 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(laboratorioLbl)
                     .addComponent(laboratorioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(laboratorioLbl1)
+                    .addComponent(tipoComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(numeroLbl)
                     .addComponent(numeroComputadoraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ipTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ipLbl))
-                .addGap(9, 9, 9)
+                    .addComponent(ipLbl)
+                    .addComponent(ipTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(softwareLbl)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(AutoCadCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(photoshopCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(wordCheckBox))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(netBeansCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mySqlCheckBox)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AutoCadCheckBox)
+                    .addComponent(netBeansCheckBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(photoshopCheckBox)
+                    .addComponent(mySqlCheckBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(wordCheckBox)
+                .addContainerGap())
         );
 
         btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
@@ -247,7 +302,7 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
             .addGroup(PanelFondoLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -263,7 +318,19 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
-        
+        try {
+            if (!validarCampos()) {
+                return;
+            }
+
+            NuevaComputadoraDTO compu = construirNuevaComputadora();
+            computadoraFachada.agregar(compu);
+            JOptionPane.showMessageDialog(this, "Laboratorio registrado con éxito.");
+            limpiarCampos();
+
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_agregarBtnActionPerformed
 
     private void photoshopCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_photoshopCheckBoxActionPerformed
@@ -280,6 +347,86 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
         frame.repaint();
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
+    private void AutoCadCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoCadCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AutoCadCheckBoxActionPerformed
+
+    private void wordCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wordCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_wordCheckBoxActionPerformed
+
+    private void netBeansCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_netBeansCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_netBeansCheckBoxActionPerformed
+
+    private void mySqlCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mySqlCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mySqlCheckBoxActionPerformed
+
+    private void tipoComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipoComboBox1ActionPerformed
+
+    
+    private void cargarLaboratorios() {
+        List<LaboratorioDominio> laboratorios;
+        try {
+            laboratorios = laboratorioFachada.obtenerLaboratorios();
+            for (LaboratorioDominio l : laboratorios) {
+                laboratorioComboBox.addItem(l.getNombre());
+            }
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR);
+        }
+    }
+    
+    private void limpiarCampos() {
+        ipTxt.setText("");
+        numeroComputadoraTxt.setText("");
+        laboratorioComboBox.setSelectedIndex(0);
+        tipoComboBox1.setSelectedIndex(0);
+        wordCheckBox.setSelected(false);
+        mySqlCheckBox.setSelected(false);
+        netBeansCheckBox.setSelected(false);
+        photoshopCheckBox.setSelected(false);
+        AutoCadCheckBox.setSelected(false);
+    }
+    
+    private void mostrarError(String mensaje){
+        JOptionPane.showMessageDialog(this, mensaje, "Validacion", JOptionPane.WARNING_MESSAGE);
+    }
+    
+    private boolean validarCampos() {
+        if (ipTxt.getText().trim().isEmpty()) {
+            mostrarError("debes ingresar una direccion ip");
+            return false;
+        }
+        if (numeroComputadoraTxt.getText().trim().isEmpty()) {
+            mostrarError("debes ingresar un numero de computadora");
+            return false;
+        }
+        if (laboratorioComboBox.getSelectedItem() == null
+                || laboratorioComboBox.getSelectedItem().toString().equals("Selecciona...")) {
+            mostrarError("Debes seleccionar un laboratorio");
+            return false;
+        }
+        if (tipoComboBox1.getSelectedItem() == null
+                || laboratorioComboBox.getSelectedItem().toString().equals("Selecciona...")) {
+            mostrarError("Debes seleccionar un laboratorio");
+            return false;
+        }
+        return true;
+    }
+    
+    private NuevaComputadoraDTO construirNuevaComputadora() {
+        String numero = numeroComputadoraTxt.getText().trim();
+        String ip = ipTxt.getText().trim();
+        EstatusComputadora estatus = EstatusComputadora.DISPONIBLE;
+        String t = tipoComboBox1.getSelectedItem().toString();
+        TipoComputadora tipo = TipoComputadora.fromString(t);
+        String lab = laboratorioComboBox.getSelectedItem().toString();
+        return new NuevaComputadoraDTO(numero, ip, estatus, tipo, lab);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox AutoCadCheckBox;
@@ -293,12 +440,14 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JComboBox<String> laboratorioComboBox;
     private javax.swing.JLabel laboratorioLbl;
+    private javax.swing.JLabel laboratorioLbl1;
     private javax.swing.JCheckBox mySqlCheckBox;
     private javax.swing.JCheckBox netBeansCheckBox;
     private javax.swing.JTextField numeroComputadoraTxt;
     private javax.swing.JLabel numeroLbl;
     private javax.swing.JCheckBox photoshopCheckBox;
     private javax.swing.JLabel softwareLbl;
+    private javax.swing.JComboBox<String> tipoComboBox1;
     private javax.swing.JCheckBox wordCheckBox;
     // End of variables declaration//GEN-END:variables
 }

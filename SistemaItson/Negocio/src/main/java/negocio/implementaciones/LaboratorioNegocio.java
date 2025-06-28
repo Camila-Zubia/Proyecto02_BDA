@@ -119,5 +119,24 @@ public class LaboratorioNegocio implements ILaboratorioNegocio{
         validarContraseña(nuevoLaboratorio);
     }
 
+    @Override
+    public List<LaboratorioDominio> obtenerLaboratorios() throws NegocioException {
+        try {
+            return laboratorioDAO.obtenerLaboratorios();
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public LaboratorioDominio obtenerPorNombre(String nombre) throws NegocioException {
+        try {
+            return laboratorioDAO.obtenerPorNombre(nombre);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(LaboratorioNegocio.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioException("Ocurrió un error al buscar el laboratorio por nombre");
+        }
+    }
+
 
 }

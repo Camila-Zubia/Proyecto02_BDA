@@ -25,4 +25,8 @@ public interface ILaboratorioNegocio {
     public LaboratorioDominio modificar(LaboratorioDTO laboratorio) throws NegocioException;
     
     public List<TablaLaboratorioDTO> buscarTabla(FiltroDTO filtro) throws NegocioException;
+    
+    public List<LaboratorioDominio> obtenerLaboratorios() throws NegocioException;
+    
+    public LaboratorioDominio obtenerPorNombre(String nombre) throws NegocioException;
 }

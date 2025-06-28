@@ -27,4 +27,8 @@ public interface ILaboratorioDAO {
     boolean existePorNombre(String nombre) throws PersistenciaException;
     
     List<TablaLaboratorioDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException;
+    
+    List<LaboratorioDominio> obtenerLaboratorios() throws PersistenciaException;
+    
+    public LaboratorioDominio obtenerPorNombre(String nombre) throws PersistenciaException;
 }

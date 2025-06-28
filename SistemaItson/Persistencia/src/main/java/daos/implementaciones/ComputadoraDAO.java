@@ -5,6 +5,7 @@
 package daos.implementaciones;
 
 import DTO.FiltroDTO;
+import DTO.NuevaComputadoraDTO;
 import DTO.TablaComputadoraDTO;
 import excepciones.PersistenciaException;
 import dominios.EstatusComputadora;
@@ -14,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import com.mycompany.persistencia.IComputadoraDAO;
 import daos.IConexionBD;
+import daos.ILaboratorioDAO;
 import dominios.TipoComputadora;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -28,10 +30,12 @@ import javax.persistence.criteria.Root;
  */
 public class ComputadoraDAO implements IComputadoraDAO{
 
+    private final ILaboratorioDAO labDAO;
     private final IConexionBD conexionBD;
 
     public ComputadoraDAO(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
+        this.labDAO = new LaboratorioDAO(this.conexionBD);
     }
     
     @Override
@@ -53,10 +57,16 @@ public class ComputadoraDAO implements IComputadoraDAO{
     }
 
     @Override
-    public ComputadoraDominio agregar(ComputadoraDominio computadora) throws PersistenciaException {
+    public ComputadoraDominio agregar(NuevaComputadoraDTO computadoraDTO) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
         try {
             manager.getTransaction().begin();
+            ComputadoraDominio computadora = new ComputadoraDominio();
+            computadora.setNumero(computadoraDTO.getNumero());
+            computadora.setDireccionIp(computadoraDTO.getDireccionIp());
+            computadora.setEstatus(computadoraDTO.getEstatus());
+            computadora.setTipo(computadoraDTO.getTipo());
+            computadora.setLaboratorio(labDAO.obtenerPorNombre(computadoraDTO.getLaboratorio()));
             manager.persist(computadora);
             manager.getTransaction().commit();
             return computadora;
