@@ -11,6 +11,7 @@ import dominios.LaboratorioDominio;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,10 +80,10 @@ public class LaboratorioNegocio implements ILaboratorioNegocio{
         }
     }
     
-    private void validarHorario(LocalTime horaInicio, LocalTime horaFin) throws NegocioException{
+    private void validarHorario(Date horaInicio, Date horaFin) throws NegocioException{
         if (horaInicio == null || horaFin == null)
             throw new NegocioException("Las horas de inicio y cierre son obligatorias.");
-        if (!horaInicio.isBefore(horaFin))
+        if (!horaInicio.before(horaFin))
             throw new NegocioException("La hora de inicio debe ser anterior a la hora de cierre.");
     }
     
