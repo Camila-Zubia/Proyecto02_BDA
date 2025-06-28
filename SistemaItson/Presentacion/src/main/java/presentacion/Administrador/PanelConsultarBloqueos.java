@@ -25,6 +25,7 @@ public class PanelConsultarBloqueos extends javax.swing.JPanel {
     private final IBloqueoFachada bloqueoFachada;
     private int offset = 0;
     private final int limite = 5;
+    public int id;
 
     public PanelConsultarBloqueos() {
         initComponents();
@@ -207,6 +208,7 @@ public class PanelConsultarBloqueos extends javax.swing.JPanel {
 
         if (filaSeleccionada != -1) {
             int idBloqueo = (int) jTable1.getValueAt(filaSeleccionada, 0);
+            id = idBloqueo;
             try {
                 bloqueoFachada.buscarPorId(idBloqueo);
                 abrirPanelDesbloquear();
@@ -220,11 +222,12 @@ public class PanelConsultarBloqueos extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (offset - limite >= 0) {
             offset -= limite;
-        }else{
+        } else {
             offset = 0;
-        }try{
+        }
+        try {
             cargarTabla();
-        }catch(NegocioException ex){
+        } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnPaginadoAnteriorActionPerformed
@@ -232,22 +235,22 @@ public class PanelConsultarBloqueos extends javax.swing.JPanel {
     private void btnPaginadoSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaginadoSiguienteActionPerformed
         // TODO add your handling code here:
         offset += limite;
-        try{
+        try {
             cargarTabla();
-        }catch(NegocioException ex){
+        } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnPaginadoSiguienteActionPerformed
 
-    private void cargarTabla() throws NegocioException{
-        try{
+    private void cargarTabla() throws NegocioException {
+        try {
             String buscador = buscadorTxt.getText().trim();
-            FiltroDTO filtro = new FiltroDTO(limite,offset,buscador);
+            FiltroDTO filtro = new FiltroDTO(limite, offset, buscador);
             List<TablaBloqueosDTO> bloqueos = bloqueoFachada.buscarTabla(filtro);
-            
+
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);
-            
+
             for (TablaBloqueosDTO b : bloqueos) {
                 Object[] fila = {
                     b.getIdBloqueo(),
@@ -257,14 +260,14 @@ public class PanelConsultarBloqueos extends javax.swing.JPanel {
                 };
                 modelo.addRow(fila);
             }
-        }catch(NegocioException ex){
+        } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
         }
     }
-    
-    private void abrirPanelDesbloquear(){
+
+    private void abrirPanelDesbloquear() {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        PanelDesbloquear panel = new PanelDesbloquear();
+        PanelDesbloquear panel = new PanelDesbloquear(id);
 
         frame.getContentPane().removeAll();
         frame.getContentPane().add(panel, BorderLayout.CENTER);

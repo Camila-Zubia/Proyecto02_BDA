@@ -4,9 +4,16 @@
  */
 package presentacion.Administrador;
 
+import dominios.BloqueoDominio;
+import dominios.EstudianteDominio;
+import excepciones.NegocioException;
 import fachada.IBloqueoFachada;
 import fachada.implementaciones.BloqueoFachada;
 import java.awt.BorderLayout;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -17,9 +24,33 @@ import javax.swing.SwingUtilities;
 public class PanelDesbloquear extends javax.swing.JPanel {
 
     private final IBloqueoFachada bloqueoFachada;
-    public PanelDesbloquear() {
+    public int id;
+
+    public PanelDesbloquear(int id) {
         initComponents();
+        this.id = id;
         this.bloqueoFachada = new BloqueoFachada();
+        llenarCampos();
+    }
+
+    private void llenarCampos() {
+        try {
+
+            BloqueoDominio bloqueo = bloqueoFachada.buscarPorId(id);
+
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            String fechaFormateada = formato.format(bloqueo.getFechaBloqueo());
+
+            EstudianteDominio estudiante = bloqueo.getEstudiante();
+            mostrarIdLbl.setText(estudiante.getIdEscolar());
+            mostrarCarreraLbl.setText(estudiante.getCarrera().toString());
+            mostrarNombreLbl.setText(estudiante.getNombres());
+            mostrarUnidadLbl.setText(estudiante.getCarrera().getUnidadAcademica().getNombres());
+            mostrarFechaLbl.setText(fechaFormateada);
+        } catch (NegocioException ex) {
+            Logger.getLogger(PanelBloquear.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -41,13 +72,10 @@ public class PanelDesbloquear extends javax.swing.JPanel {
         nombreLbl = new javax.swing.JLabel();
         carreraLbl = new javax.swing.JLabel();
         unidadLbl = new javax.swing.JLabel();
-        motivoLbl = new javax.swing.JLabel();
         mostrarNombreLbl = new javax.swing.JLabel();
         mostrarIdLbl = new javax.swing.JLabel();
         mostrarCarreraLbl = new javax.swing.JLabel();
         mostrarUnidadLbl = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        motivoTxt = new javax.swing.JTextArea();
         mostrarFechaLbl = new javax.swing.JLabel();
         fechaLbl = new javax.swing.JLabel();
 
@@ -72,8 +100,12 @@ public class PanelDesbloquear extends javax.swing.JPanel {
         consultarBtn.setBackground(new java.awt.Color(0, 153, 255));
         consultarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         consultarBtn.setText("DESBLOQUEAR");
+        consultarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarBtnActionPerformed(evt);
+            }
+        });
 
-        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.setOpaque(false);
 
         idLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
@@ -92,33 +124,26 @@ public class PanelDesbloquear extends javax.swing.JPanel {
         unidadLbl.setForeground(new java.awt.Color(4, 109, 181));
         unidadLbl.setText("UNIDAD:");
 
-        motivoLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        motivoLbl.setForeground(new java.awt.Color(4, 109, 181));
-        motivoLbl.setText("MOTIVO:");
-
         mostrarNombreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarNombreLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarNombreLbl.setText("X");
+        mostrarNombreLbl.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         mostrarIdLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarIdLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarIdLbl.setText("X");
+        mostrarIdLbl.setToolTipText("");
+        mostrarIdLbl.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         mostrarCarreraLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarCarreraLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarCarreraLbl.setText("X");
+        mostrarCarreraLbl.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         mostrarUnidadLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarUnidadLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarUnidadLbl.setText("X");
-
-        motivoTxt.setColumns(20);
-        motivoTxt.setRows(5);
-        jScrollPane1.setViewportView(motivoTxt);
+        mostrarUnidadLbl.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         mostrarFechaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarFechaLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarFechaLbl.setText("X");
+        mostrarFechaLbl.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         fechaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         fechaLbl.setForeground(new java.awt.Color(4, 109, 181));
@@ -131,7 +156,6 @@ public class PanelDesbloquear extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(fechaLbl)
-                    .addComponent(motivoLbl)
                     .addComponent(unidadLbl)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -144,43 +168,37 @@ public class PanelDesbloquear extends javax.swing.JPanel {
                             .addComponent(carreraLbl))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(mostrarNombreLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(mostrarIdLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(mostrarUnidadLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mostrarCarreraLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mostrarFechaLbl))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(mostrarIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mostrarNombreLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mostrarCarreraLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mostrarUnidadLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mostrarFechaLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idLbl)
-                    .addComponent(mostrarIdLbl))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(idLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mostrarIdLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nombreLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mostrarNombreLbl))
+                    .addComponent(mostrarNombreLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(carreraLbl)
-                    .addComponent(mostrarCarreraLbl))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(carreraLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mostrarCarreraLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(unidadLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mostrarUnidadLbl))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fechaLbl)
-                    .addComponent(mostrarFechaLbl))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(motivoLbl)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                    .addComponent(mostrarUnidadLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(fechaLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mostrarFechaLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -197,26 +215,26 @@ public class PanelDesbloquear extends javax.swing.JPanel {
                         .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(consultarBtn)
-                                .addGap(201, 201, 201))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(98, 98, 98)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(109, Short.MAX_VALUE))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(consultarBtn)
+                                .addGap(170, 170, 170)))))
+                .addContainerGap(254, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(consultarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(75, 75, 75))))
@@ -227,16 +245,16 @@ public class PanelDesbloquear extends javax.swing.JPanel {
         PanelFondoLayout.setHorizontalGroup(
             PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelFondoLayout.createSequentialGroup()
-                .addGap(87, 87, 87)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         PanelFondoLayout.setVerticalGroup(
             PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoLayout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -261,6 +279,17 @@ public class PanelDesbloquear extends javax.swing.JPanel {
         frame.repaint();
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
+    private void consultarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarBtnActionPerformed
+        try {
+            // TODO add your handling code here:  
+
+            bloqueoFachada.liberarBloqueo(id);
+
+        } catch (NegocioException ex) {
+            Logger.getLogger(PanelDesbloquear.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_consultarBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;
@@ -272,14 +301,11 @@ public class PanelDesbloquear extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel mostrarCarreraLbl;
     private javax.swing.JLabel mostrarFechaLbl;
     private javax.swing.JLabel mostrarIdLbl;
     private javax.swing.JLabel mostrarNombreLbl;
     private javax.swing.JLabel mostrarUnidadLbl;
-    private javax.swing.JLabel motivoLbl;
-    private javax.swing.JTextArea motivoTxt;
     private javax.swing.JLabel nombreLbl;
     private javax.swing.JLabel unidadLbl;
     // End of variables declaration//GEN-END:variables

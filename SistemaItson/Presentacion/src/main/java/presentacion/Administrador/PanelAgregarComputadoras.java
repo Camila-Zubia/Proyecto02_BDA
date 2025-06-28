@@ -30,7 +30,7 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
 
     private final IComputadoraFachada computadoraFachada;
     private final ILaboratorioFachada laboratorioFachada;
-    
+
     public PanelAgregarComputadoras() {
         initComponents();
         this.computadoraFachada = new ComputadoraFachada();
@@ -376,7 +376,6 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tipoComboBox1ActionPerformed
 
-    
     private void cargarLaboratorios() {
         List<LaboratorioDominio> laboratorios;
         try {
@@ -388,7 +387,7 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR);
         }
     }
-    
+
     private void limpiarCampos() {
         ipTxt.setText("");
         numeroComputadoraTxt.setText("");
@@ -400,11 +399,11 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
         photoshopCheckBox.setSelected(false);
         AutoCadCheckBox.setSelected(false);
     }
-    
-    private void mostrarError(String mensaje){
+
+    private void mostrarError(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Validacion", JOptionPane.WARNING_MESSAGE);
     }
-    
+
     private boolean validarCampos() {
         if (ipTxt.getText().trim().isEmpty()) {
             mostrarError("debes ingresar una direccion ip");
@@ -426,7 +425,7 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
         }
         return true;
     }
-    
+
     private NuevaComputadoraDTO construirNuevaComputadora() {
         String numero = numeroComputadoraTxt.getText().trim();
         String ip = ipTxt.getText().trim();
@@ -436,8 +435,8 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
         String lab = laboratorioComboBox.getSelectedItem().toString();
         return new NuevaComputadoraDTO(numero, ip, estatus, tipo, lab);
     }
-    
-    private List<SoftwareDominio> construirSoftwares(){
+
+    private List<SoftwareDominio> construirSoftwares() {
         List<SoftwareDominio> softwares = null;
         if (wordCheckBox.isSelected()) {
             SoftwareDominio word = new SoftwareDominio(wordCheckBox.getText(), "v1.5.4");
@@ -461,7 +460,7 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
         }
         return softwares;
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox AutoCadCheckBox;
