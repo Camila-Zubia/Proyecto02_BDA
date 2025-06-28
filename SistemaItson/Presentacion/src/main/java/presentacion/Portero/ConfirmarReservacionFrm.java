@@ -27,8 +27,6 @@ public class ConfirmarReservacionFrm extends javax.swing.JFrame {
     private void initComponents() {
 
         panelFondo = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
-        lblTitulo = new javax.swing.JLabel();
         panelComputadoras = new javax.swing.JPanel();
         lblNumero = new javax.swing.JLabel();
         txtFieldNumero = new javax.swing.JTextField();
@@ -38,96 +36,44 @@ public class ConfirmarReservacionFrm extends javax.swing.JFrame {
         txtFieldNumero2 = new javax.swing.JTextField();
         btnConfirmar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
+        lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelFondo.setBackground(new java.awt.Color(255, 255, 255));
+        panelFondo.setBackground(new java.awt.Color(0, 109, 182));
         panelFondo.setForeground(new java.awt.Color(255, 255, 255));
         panelFondo.setPreferredSize(new java.awt.Dimension(1077, 630));
 
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-
-        lblTitulo.setBackground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(0, 0, 0));
-        lblTitulo.setText("RESERVACIÓN");
-
-        panelComputadoras.setBackground(new java.awt.Color(255, 255, 255));
+        panelComputadoras.setBackground(new java.awt.Color(186, 215, 235));
         panelComputadoras.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        panelComputadoras.setForeground(new java.awt.Color(0, 0, 0));
 
         lblNumero.setBackground(new java.awt.Color(255, 255, 255));
         lblNumero.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        lblNumero.setForeground(new java.awt.Color(0, 0, 0));
+        lblNumero.setForeground(new java.awt.Color(0, 109, 182));
         lblNumero.setText("Número de computadora:");
 
-        txtFieldNumero.setBackground(new java.awt.Color(255, 255, 255));
         txtFieldNumero.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        txtFieldNumero.setForeground(new java.awt.Color(0, 0, 0));
         txtFieldNumero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblNumero1.setBackground(new java.awt.Color(255, 255, 255));
         lblNumero1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        lblNumero1.setForeground(new java.awt.Color(0, 0, 0));
+        lblNumero1.setForeground(new java.awt.Color(0, 109, 182));
         lblNumero1.setText("Usuario:");
 
-        txtFieldNumero1.setBackground(new java.awt.Color(255, 255, 255));
         txtFieldNumero1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        txtFieldNumero1.setForeground(new java.awt.Color(0, 0, 0));
         txtFieldNumero1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblTiempo.setBackground(new java.awt.Color(255, 255, 255));
         lblTiempo.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        lblTiempo.setForeground(new java.awt.Color(0, 0, 0));
+        lblTiempo.setForeground(new java.awt.Color(0, 109, 182));
         lblTiempo.setText("Tiempo de uso:");
 
-        txtFieldNumero2.setBackground(new java.awt.Color(255, 255, 255));
         txtFieldNumero2.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        txtFieldNumero2.setForeground(new java.awt.Color(0, 0, 0));
         txtFieldNumero2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout panelComputadorasLayout = new javax.swing.GroupLayout(panelComputadoras);
-        panelComputadoras.setLayout(panelComputadorasLayout);
-        panelComputadorasLayout.setHorizontalGroup(
-            panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelComputadorasLayout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addGroup(panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelComputadorasLayout.createSequentialGroup()
-                        .addComponent(lblTiempo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtFieldNumero2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelComputadorasLayout.createSequentialGroup()
-                        .addComponent(lblNumero)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelComputadorasLayout.createSequentialGroup()
-                        .addComponent(lblNumero1)
-                        .addGap(41, 41, 41)
-                        .addComponent(txtFieldNumero1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(151, Short.MAX_VALUE))
-        );
-        panelComputadorasLayout.setVerticalGroup(
-            panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelComputadorasLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNumero1)
-                    .addComponent(txtFieldNumero1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNumero)
-                    .addComponent(txtFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTiempo)
-                    .addComponent(txtFieldNumero2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(88, Short.MAX_VALUE))
-        );
-
-        btnConfirmar.setBackground(new java.awt.Color(255, 255, 255));
+        btnConfirmar.setBackground(new java.awt.Color(0, 109, 182));
         btnConfirmar.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
-        btnConfirmar.setForeground(new java.awt.Color(0, 0, 0));
+        btnConfirmar.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirmar.setText("CONFIRMAR");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +81,6 @@ public class ConfirmarReservacionFrm extends javax.swing.JFrame {
             }
         });
 
-        btnRegresar.setBackground(new java.awt.Color(255, 255, 255));
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,53 +88,94 @@ public class ConfirmarReservacionFrm extends javax.swing.JFrame {
             }
         });
 
+        lblTitulo.setBackground(new java.awt.Color(0, 109, 182));
+        lblTitulo.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(0, 109, 182));
+        lblTitulo.setText("RESERVACIÓN");
+
+        javax.swing.GroupLayout panelComputadorasLayout = new javax.swing.GroupLayout(panelComputadoras);
+        panelComputadoras.setLayout(panelComputadorasLayout);
+        panelComputadorasLayout.setHorizontalGroup(
+            panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelComputadorasLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelComputadorasLayout.createSequentialGroup()
+                .addGap(168, 168, 168)
+                .addComponent(lblTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelComputadorasLayout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addGroup(panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNumero1)
+                    .addComponent(lblTiempo)
+                    .addComponent(lblNumero))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addGroup(panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtFieldNumero2, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                        .addComponent(txtFieldNumero1, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(txtFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(174, 174, 174))
+        );
+        panelComputadorasLayout.setVerticalGroup(
+            panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelComputadorasLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addGroup(panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFieldNumero1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNumero1))
+                .addGap(18, 18, 18)
+                .addGroup(panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNumero)
+                    .addComponent(txtFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelComputadorasLayout.createSequentialGroup()
+                        .addGap(179, 179, 179)
+                        .addGroup(panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelComputadorasLayout.createSequentialGroup()
+                                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelComputadorasLayout.createSequentialGroup()
+                                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))
+                    .addGroup(panelComputadorasLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(panelComputadorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTiempo)
+                            .addComponent(txtFieldNumero2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+        );
+
         javax.swing.GroupLayout panelFondoLayout = new javax.swing.GroupLayout(panelFondo);
         panelFondo.setLayout(panelFondoLayout);
         panelFondoLayout.setHorizontalGroup(
             panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFondoLayout.createSequentialGroup()
-                .addGap(0, 232, Short.MAX_VALUE)
+            .addGroup(panelFondoLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
                 .addComponent(panelComputadoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(213, 213, 213))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFondoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTitulo)
-                .addGap(331, 331, 331))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFondoLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         panelFondoLayout.setVerticalGroup(
             panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFondoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addComponent(panelComputadoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
-                .addGroup(panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 1087, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -212,7 +198,6 @@ public class ConfirmarReservacionFrm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblNumero1;
     private javax.swing.JLabel lblTiempo;
