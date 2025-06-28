@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -296,7 +297,7 @@ public class PanelDesbloquear extends javax.swing.JPanel {
             // TODO add your handling code here:  
 
             bloqueoFachada.liberarBloqueo(id);
-
+            JOptionPane.showMessageDialog(this, "Desbloqueo registrado con éxito.");
         } catch (NegocioException ex) {
             Logger.getLogger(PanelDesbloquear.class.getName()).log(Level.SEVERE, null, ex);
         }

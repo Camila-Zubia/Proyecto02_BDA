@@ -41,6 +41,7 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
     @Override
     public ComputadoraDominio agregar(NuevaComputadoraDTO computadoraDTO) throws NegocioException {
         try {
+            validarIp(computadoraDTO);
             validarIpComputadora(computadoraDTO);
             validarNumeroComputadora(computadoraDTO);
             validarNuevaComputadora(computadoraDTO);
@@ -106,14 +107,10 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         }
     }
 
-    
-    
     /**
-     * 
+     *
      * VALIDACIONES
      */
-    
-    
     private void validarId(int id) throws NegocioException {
         if (id <= 0) {
             throw new NegocioException("El ID debe ser mayor que cero.");
@@ -126,6 +123,14 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
         }
     }
 
+    private void validarIp(NuevaComputadoraDTO dto) throws NegocioException {
+        if (dto.getDireccionIp() == null || dto.getDireccionIp().isBlank()) {
+            throw new NegocioException("La dirección IP es obligatoria.");
+        } else if (!dto.getDireccionIp().matches("^\\d{1,3}(\\.\\d{1,3}){3}$")) {
+            throw new NegocioException("La dirección IP no tiene un formato válido.");
+        }
+    }
+
     private void validarNuevaComputadora(NuevaComputadoraDTO dto) throws NegocioException {
         if (dto == null) {
             throw new NegocioException("La computadora no puede ser nula.");
@@ -133,12 +138,6 @@ public class ComputadoraNegocio implements IComputadoraNegocio {
 
         if (dto.getNumero() == null || dto.getNumero().isBlank()) {
             throw new NegocioException("El número de la computadora es obligatorio.");
-        }
-
-        if (dto.getDireccionIp() == null || dto.getDireccionIp().isBlank()) {
-            throw new NegocioException("La dirección IP es obligatoria.");
-        } else if (!dto.getDireccionIp().matches("^\\d{1,3}(\\.\\d{1,3}){3}$")) {
-            throw new NegocioException("La dirección IP no tiene un formato válido.");
         }
 
         if (dto.getTipo() == null) {

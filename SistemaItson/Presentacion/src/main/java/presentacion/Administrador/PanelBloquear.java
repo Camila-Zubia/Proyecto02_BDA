@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -295,6 +296,7 @@ public class PanelBloquear extends javax.swing.JPanel {
             EstudianteDominio estudiante = estudianteFachada.buscarPorID(id);
             BloqueoDominio bloqueo = new BloqueoDominio(fechaActual, motivo, estatus, estudiante);
             bloqueoFachada.registrarBloqueo(bloqueo);
+            JOptionPane.showMessageDialog(this, "Bloqueo registrado con éxito.");
         } catch (NegocioException ex) {
             Logger.getLogger(PanelBloquear.class.getName()).log(Level.SEVERE, null, ex);
         }

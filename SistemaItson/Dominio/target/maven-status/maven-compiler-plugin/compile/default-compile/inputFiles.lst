@@ -13,8 +13,15 @@ C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\sr
 C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\AdministradorRegistroDTO.java
 C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\EstudianteRegistroDTO.java
 C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\FiltroDTO.java
+C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\FiltroReporteBloqueoDTO.java
+C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\FiltroReporteCarrerasDTO.java
+C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\FiltrosReporteCentroComputoDTO.java
 C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\LaboratorioDTO.java
+C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\NuevaComputadoraDTO.java
 C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\NuevoLaboratorioDTO.java
+C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\ReporteBloqueoDTO.java
+C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\ReporteCarrerasDTO.java
+C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\ReporteCentroComputoDTO.java
 C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\TablaBloqueosDTO.java
 C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\TablaComputadoraDTO.java
 C:\Users\adell\OneDrive\Documentos\GitHub\Proyecto02_BDA\SistemaItson\Dominio\src\main\java\DTO\TablaEstudiantesDTO.java
