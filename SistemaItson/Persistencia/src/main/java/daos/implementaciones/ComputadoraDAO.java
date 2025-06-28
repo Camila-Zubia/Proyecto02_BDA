@@ -116,6 +116,8 @@ public class ComputadoraDAO implements IComputadoraDAO{
             }
             computadoraEncontrada.setNumero(computadora.getNumero());
             computadoraEncontrada.setDireccionIp(computadora.getDireccionIp());
+            computadoraEncontrada.setTipo(computadora.getTipo());
+            computadoraEncontrada.setEstatus(computadora.getEstatus());
             manager.getTransaction().commit();
             return computadoraEncontrada;
         } catch (PersistenciaException ex) {

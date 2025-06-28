@@ -17,6 +17,7 @@ import fachada.ILaboratorioFachada;
 import fachada.implementaciones.ComputadoraFachada;
 import fachada.implementaciones.LaboratorioFachada;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -327,7 +328,7 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
 
             NuevaComputadoraDTO compu = construirNuevaComputadora();
             ComputadoraDominio computadora = computadoraFachada.agregar(compu);
-            List<ComputadoraSoftwareDominio> detalles = null;
+            List<ComputadoraSoftwareDominio> detalles = new ArrayList<>();
             List<SoftwareDominio> lista = construirSoftwares();
             for (SoftwareDominio s : lista) {
                 ComputadoraSoftwareDominio csd = new ComputadoraSoftwareDominio(s, computadora);
@@ -437,7 +438,7 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
     }
 
     private List<SoftwareDominio> construirSoftwares() {
-        List<SoftwareDominio> softwares = null;
+        List<SoftwareDominio> softwares = new ArrayList<>();
         if (wordCheckBox.isSelected()) {
             SoftwareDominio word = new SoftwareDominio(wordCheckBox.getText(), "v1.5.4");
             softwares.add(word);
