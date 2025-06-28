@@ -209,7 +209,8 @@ public class ConfirmarReservacionFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+       seleccionar.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

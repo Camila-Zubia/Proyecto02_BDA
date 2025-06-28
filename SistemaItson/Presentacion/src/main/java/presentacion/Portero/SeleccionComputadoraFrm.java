@@ -103,7 +103,6 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1070, 650));
 
         jPanel1.setBackground(new java.awt.Color(0, 109, 182));
 
@@ -268,7 +267,8 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+        iniciarSesion.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void comboBoxTiempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTiempoActionPerformed

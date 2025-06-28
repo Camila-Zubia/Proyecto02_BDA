@@ -6,6 +6,9 @@ package presentacion.Administrador;
 
 import fachada.IComputadoraFachada;
 import fachada.implementaciones.ComputadoraFachada;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -136,6 +139,11 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
 
         btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -202,6 +210,16 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
     private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_agregarBtnActionPerformed
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        PanelConsultarComputadoras panelAnterior = new PanelConsultarComputadoras();
+
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(panelAnterior, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+    }//GEN-LAST:event_btnAnteriorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

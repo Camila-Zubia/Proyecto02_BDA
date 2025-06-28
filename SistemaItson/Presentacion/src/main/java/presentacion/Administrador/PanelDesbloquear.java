@@ -6,6 +6,9 @@ package presentacion.Administrador;
 
 import fachada.IBloqueoFachada;
 import fachada.implementaciones.BloqueoFachada;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -53,68 +56,73 @@ public class PanelDesbloquear extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(186, 215, 235));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray));
 
-        jLabel1.setText("ADMINISTRAR ACCESO");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(4, 109, 181));
+        jLabel1.setText("ADMINISTRAR ACCESO");
 
         btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
 
-        consultarBtn.setText("DESBLOQUEAR");
         consultarBtn.setBackground(new java.awt.Color(0, 153, 255));
         consultarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        consultarBtn.setText("DESBLOQUEAR");
 
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.setOpaque(false);
 
-        idLbl.setText("ID:");
         idLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         idLbl.setForeground(new java.awt.Color(4, 109, 181));
+        idLbl.setText("ID:");
 
-        nombreLbl.setText("NOMBRE:");
         nombreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         nombreLbl.setForeground(new java.awt.Color(4, 109, 181));
+        nombreLbl.setText("NOMBRE:");
 
-        carreraLbl.setText("CARRERA:");
         carreraLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         carreraLbl.setForeground(new java.awt.Color(4, 109, 181));
+        carreraLbl.setText("CARRERA:");
 
-        unidadLbl.setText("UNIDAD:");
         unidadLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         unidadLbl.setForeground(new java.awt.Color(4, 109, 181));
+        unidadLbl.setText("UNIDAD:");
 
-        motivoLbl.setText("MOTIVO:");
         motivoLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         motivoLbl.setForeground(new java.awt.Color(4, 109, 181));
+        motivoLbl.setText("MOTIVO:");
 
-        mostrarNombreLbl.setText("X");
         mostrarNombreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarNombreLbl.setForeground(new java.awt.Color(4, 109, 181));
+        mostrarNombreLbl.setText("X");
 
-        mostrarIdLbl.setText("X");
         mostrarIdLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarIdLbl.setForeground(new java.awt.Color(4, 109, 181));
+        mostrarIdLbl.setText("X");
 
-        mostrarCarreraLbl.setText("X");
         mostrarCarreraLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarCarreraLbl.setForeground(new java.awt.Color(4, 109, 181));
+        mostrarCarreraLbl.setText("X");
 
-        mostrarUnidadLbl.setText("X");
         mostrarUnidadLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarUnidadLbl.setForeground(new java.awt.Color(4, 109, 181));
+        mostrarUnidadLbl.setText("X");
 
         motivoTxt.setColumns(20);
         motivoTxt.setRows(5);
         jScrollPane1.setViewportView(motivoTxt);
 
-        mostrarFechaLbl.setText("X");
         mostrarFechaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarFechaLbl.setForeground(new java.awt.Color(4, 109, 181));
+        mostrarFechaLbl.setText("X");
 
-        fechaLbl.setText("FECHA:");
         fechaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         fechaLbl.setForeground(new java.awt.Color(4, 109, 181));
+        fechaLbl.setText("FECHA:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -242,6 +250,16 @@ public class PanelDesbloquear extends javax.swing.JPanel {
             .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        PanelConsultarBloqueos panelAnterior = new PanelConsultarBloqueos();
+
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(panelAnterior, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+    }//GEN-LAST:event_btnAnteriorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
