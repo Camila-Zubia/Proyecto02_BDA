@@ -2,7 +2,11 @@ package presentacion.reportes;
 
 //@author SAUL ISAAC APODACA BALDENEGRO 00000252020
 
+import DTO.FiltroReporteBloqueoDTO;
+import DTO.FiltroReporteCarrerasDTO;
 import DTO.FiltrosReporteCentroComputoDTO;
+import DTO.ReporteBloqueoDTO;
+import DTO.ReporteCarrerasDTO;
 import DTO.ReporteCentroComputoDTO;
 import excepciones.NegocioException;
 import fachada.IReporteFachada;
@@ -53,6 +57,58 @@ public class Reporte {
             JasperViewer.viewReport(jasperPrint, false);
             
         }catch(NegocioException | IOException | JRException ex){
+            throw new NegocioException(ex.getMessage());
+        }
+    }
+    
+    public void generarReporteCarreras(FiltroReporteCarrerasDTO filtro) throws NegocioException {
+        try {
+            IReporteFachada reporteFachada = new ReporteFachada();
+            List<ReporteCarrerasDTO> reporte = reporteFachada.generarReporteCarreras(filtro);
+            
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(reporte);
+            
+            //mapeo de parametros
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("fechaInicio", filtro.getFechaInicio());
+            parametros.put("fechaFin", filtro.getFechaFin());
+            parametros.put("carreras", filtro.getCarreras());
+            
+            
+            InputStream jasperStream = new FileInputStream(RUTA_JASPER);
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+            jasperStream.close();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, dataSource);
+
+            JasperViewer.viewReport(jasperPrint, false);
+            
+        }catch(NegocioException | IOException | JRException ex){
+            throw new NegocioException(ex.getMessage());
+        }
+    }
+    
+    public void generarReporteBloqueo(FiltroReporteBloqueoDTO filtro) throws NegocioException {
+        try {
+            IReporteFachada reporteFachada = new ReporteFachada();
+            List<ReporteBloqueoDTO> reporte = reporteFachada.generarReporteBloqueo(filtro);
+
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(reporte);
+
+            //mapeo de parametros
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("fechaInicio", filtro.getFechaInicio());
+            parametros.put("fechaFin", filtro.getFechaFin());
+
+            InputStream jasperStream = new FileInputStream(RUTA_JASPER);
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+            jasperStream.close();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, dataSource);
+
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (NegocioException | IOException | JRException ex) {
             throw new NegocioException(ex.getMessage());
         }
     }

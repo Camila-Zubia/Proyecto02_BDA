@@ -4,6 +4,17 @@
  */
 package presentacion.Administrador;
 
+import DTO.FiltroReporteBloqueoDTO;
+import DTO.FiltroReporteCarrerasDTO;
+import excepciones.NegocioException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import presentacion.reportes.Reporte;
+
 /**
  *
  * @author saula
@@ -41,25 +52,30 @@ public class PanelReporteBloqueos extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(186, 215, 235));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray));
 
-        jLabel1.setText("REPORTE DE BLOQUEOS");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(4, 109, 181));
+        jLabel1.setText("REPORTE DE BLOQUEOS");
 
         agregarBtn.setText("GENERAR REPORTE");
         agregarBtn.setBackground(new java.awt.Color(0, 153, 255));
         agregarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        agregarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarBtnActionPerformed(evt);
+            }
+        });
 
-        btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
         btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
+        btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
 
-        fechaFinLbl.setText("FECHA FIN:");
         fechaFinLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         fechaFinLbl.setForeground(new java.awt.Color(4, 109, 181));
+        fechaFinLbl.setText("FECHA FIN:");
 
-        fechaInicioLbl.setText("FECHA INICIO:");
         fechaInicioLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         fechaInicioLbl.setForeground(new java.awt.Color(4, 109, 181));
+        fechaInicioLbl.setText("FECHA INICIO:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,7 +154,37 @@ public class PanelReporteBloqueos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
+        try {
+            FiltroReporteBloqueoDTO filtro = new FiltroReporteBloqueoDTO();
 
+            if (datePickerInicio.getDate() == null || datePickerFin.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Selecciona ambas fechas.");
+                return;
+            }
+
+            Date inicio = convertirLocalDateADate(datePickerInicio.getDate());
+            Date fin = convertirLocalDateADate(datePickerFin.getDate());
+
+            if (inicio.after(fin)) {
+                JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser posterior a la fecha fin.");
+                return;
+            }
+            filtro.setFechaInicio(inicio);
+            filtro.setFechaFin(fin);
+
+            Reporte reporte = new Reporte();
+            reporte.generarReporteBloqueo(filtro);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_agregarBtnActionPerformed
+
+    private Date convertirLocalDateADate(LocalDate localDate) {
+        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JButton agregarBtn;

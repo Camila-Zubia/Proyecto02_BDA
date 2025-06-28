@@ -4,7 +4,11 @@
  */
 package negocio;
 
+import DTO.FiltroReporteBloqueoDTO;
+import DTO.FiltroReporteCarrerasDTO;
 import DTO.FiltrosReporteCentroComputoDTO;
+import DTO.ReporteBloqueoDTO;
+import DTO.ReporteCarrerasDTO;
 import DTO.ReporteCentroComputoDTO;
 import excepciones.NegocioException;
 import java.util.List;
@@ -15,5 +19,9 @@ import java.util.List;
  */
 public interface IReporteNegocio {
     public List<ReporteCentroComputoDTO> generarReporte(FiltrosReporteCentroComputoDTO filtro) throws NegocioException;
+    
+    public List<ReporteCarrerasDTO> generarReporteCarreras(FiltroReporteCarrerasDTO filtro) throws NegocioException;
+
+    public List<ReporteBloqueoDTO> generarReporteBloqueo(FiltroReporteBloqueoDTO filtro) throws NegocioException;
 
 }

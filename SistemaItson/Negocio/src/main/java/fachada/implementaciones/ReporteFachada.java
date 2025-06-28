@@ -2,7 +2,11 @@ package fachada.implementaciones;
 
 //@author SAUL ISAAC APODACA BALDENEGRO 00000252020
 
+import DTO.FiltroReporteBloqueoDTO;
+import DTO.FiltroReporteCarrerasDTO;
 import DTO.FiltrosReporteCentroComputoDTO;
+import DTO.ReporteBloqueoDTO;
+import DTO.ReporteCarrerasDTO;
 import DTO.ReporteCentroComputoDTO;
 import daos.IConexionBD;
 import daos.IReporteDAO;
@@ -28,6 +32,16 @@ private final IReporteNegocio reporteNegocio;
     @Override
     public List<ReporteCentroComputoDTO> generarReporte(FiltrosReporteCentroComputoDTO filtro) throws NegocioException {
         return reporteNegocio.generarReporte(filtro);
+    }
+
+    @Override
+    public List<ReporteCarrerasDTO> generarReporteCarreras(FiltroReporteCarrerasDTO filtro) throws NegocioException {
+        return reporteNegocio.generarReporteCarreras(filtro);
+    }
+
+    @Override
+    public List<ReporteBloqueoDTO> generarReporteBloqueo(FiltroReporteBloqueoDTO filtro) throws NegocioException {
+        return reporteNegocio.generarReporteBloqueo(filtro);
     }
     
     
