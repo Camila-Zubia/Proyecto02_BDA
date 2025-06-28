@@ -19,7 +19,7 @@ public interface IEstudianteDAO {
 
     List<TablaEstudiantesDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException;
 
-    EstudianteDominio buscarPorID(String id) throws PersistenciaException;
+    EstudianteDominio buscarPorID(int id) throws PersistenciaException;
 
     boolean estaBloqueado(String id) throws PersistenciaException;
 

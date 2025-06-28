@@ -38,7 +38,7 @@ public class EstudianteFachada implements IEstudianteFachada {
     }
 
     @Override
-    public EstudianteDominio buscarPorID(String id) throws NegocioException {
+    public EstudianteDominio buscarPorID(int id) throws NegocioException {
         return estudianteNegocio.buscarPorID(id);
     }
 

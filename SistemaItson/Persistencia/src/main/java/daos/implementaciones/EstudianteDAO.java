@@ -36,7 +36,7 @@ public class EstudianteDAO implements IEstudianteDAO {
     
     
     @Override
-    public EstudianteDominio buscarPorID(String id) throws PersistenciaException {
+    public EstudianteDominio buscarPorID(int id) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
         try {
             EstudianteDominio estudiante = manager.find(EstudianteDominio.class, id);
@@ -123,12 +123,13 @@ public class EstudianteDAO implements IEstudianteDAO {
     }
 
     private TablaEstudiantesDTO convertirTabla(EstudianteDominio estudiante) {
-        String id = estudiante.getIdEscolar();
+        int id = estudiante.getIdEstudiante();
+        String idEstudiante = estudiante.getIdEscolar();
         String nombre = estudiante.getNombres();
         String apellidoP = estudiante.getApellidoPaterno();
         String apellidoM = estudiante.getApellidoMaterno();
         boolean estatus = estudiante.isEstatus();
-        TablaEstudiantesDTO tabla = new TablaEstudiantesDTO(id, nombre, apellidoP, apellidoM, estatus);
+        TablaEstudiantesDTO tabla = new TablaEstudiantesDTO(id,idEstudiante, nombre, apellidoP, apellidoM, estatus);
         return tabla;
     }
 

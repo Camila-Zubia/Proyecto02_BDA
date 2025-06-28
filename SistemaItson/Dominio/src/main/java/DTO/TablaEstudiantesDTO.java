@@ -10,19 +10,32 @@ package DTO;
  */
 public class TablaEstudiantesDTO {
     
+    private int id;
     private String idEstudiante;
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private boolean estatus;
 
-    public TablaEstudiantesDTO(String idEstudiante, String nombres, String apellidoPaterno, String apellidoMaterno, boolean estatus) {
+    public TablaEstudiantesDTO(int id, String idEstudiante, String nombres, String apellidoPaterno, String apellidoMaterno, boolean estatus) {
+        this.id = id;
         this.idEstudiante = idEstudiante;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.estatus = estatus;
     }
+    
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
 
     public String getIdEstudiante() {
         return idEstudiante;
