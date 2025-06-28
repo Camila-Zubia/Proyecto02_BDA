@@ -1,4 +1,5 @@
 DTO\FiltroDTO.class
+DTO\ReporteCentroComputoDTO.class
 dominios\BloqueoDominio.class
 dominios\ComputadoraSoftwareDominio.class
 dominios\EstudianteReservaComputadoraDominio.class
@@ -13,6 +14,7 @@ dominios\ComputadoraDominio.class
 DTO\TablaEstudiantesDTO.class
 dominios\EstatusComputadora.class
 dominios\TipoComputadora.class
+DTO\FiltrosReporteCentroComputoDTO.class
 DTO\EstudianteRegistroDTO.class
 dominios\SoftwareDominio.class
 DTO\AdministradorRegistroDTO.class
