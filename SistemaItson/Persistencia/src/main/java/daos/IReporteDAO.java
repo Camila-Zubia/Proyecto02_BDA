@@ -4,7 +4,11 @@
  */
 package daos;
 
+import DTO.FiltroReporteBloqueoDTO;
+import DTO.FiltroReporteCarrerasDTO;
 import DTO.FiltrosReporteCentroComputoDTO;
+import DTO.ReporteBloqueoDTO;
+import DTO.ReporteCarrerasDTO;
 import DTO.ReporteCentroComputoDTO;
 import excepciones.PersistenciaException;
 import java.util.List;
@@ -17,4 +21,10 @@ public interface IReporteDAO {
 
     public List<ReporteCentroComputoDTO> generarReporteCentroComputo
         (FiltrosReporteCentroComputoDTO filtro) throws PersistenciaException;
+        
+    public List<ReporteCarrerasDTO> generarReporteCarreras
+        (FiltroReporteCarrerasDTO filtro) throws PersistenciaException;
+        
+    public List<ReporteBloqueoDTO> generarReporteBloqueo
+        (FiltroReporteBloqueoDTO filtro) throws PersistenciaException;
 }
