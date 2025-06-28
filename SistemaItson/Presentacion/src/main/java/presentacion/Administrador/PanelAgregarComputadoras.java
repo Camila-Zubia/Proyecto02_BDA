@@ -6,8 +6,10 @@ package presentacion.Administrador;
 
 import DTO.NuevaComputadoraDTO;
 import dominios.ComputadoraDominio;
+import dominios.ComputadoraSoftwareDominio;
 import dominios.EstatusComputadora;
 import dominios.LaboratorioDominio;
+import dominios.SoftwareDominio;
 import dominios.TipoComputadora;
 import excepciones.NegocioException;
 import fachada.IComputadoraFachada;
@@ -324,7 +326,14 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
             }
 
             NuevaComputadoraDTO compu = construirNuevaComputadora();
-            computadoraFachada.agregar(compu);
+            ComputadoraDominio computadora = computadoraFachada.agregar(compu);
+            List<ComputadoraSoftwareDominio> detalles = null;
+            List<SoftwareDominio> lista = construirSoftwares();
+            for (SoftwareDominio s : lista) {
+                ComputadoraSoftwareDominio csd = new ComputadoraSoftwareDominio(s, computadora);
+                detalles.add(csd);
+            }
+            computadora.setDetalles(detalles);
             JOptionPane.showMessageDialog(this, "Laboratorio registrado con éxito.");
             limpiarCampos();
 
@@ -427,6 +436,32 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
         String lab = laboratorioComboBox.getSelectedItem().toString();
         return new NuevaComputadoraDTO(numero, ip, estatus, tipo, lab);
     }
+    
+    private List<SoftwareDominio> construirSoftwares(){
+        List<SoftwareDominio> softwares = null;
+        if (wordCheckBox.isSelected()) {
+            SoftwareDominio word = new SoftwareDominio(wordCheckBox.getText(), "v1.5.4");
+            softwares.add(word);
+        }
+        if (mySqlCheckBox.isSelected()) {
+            SoftwareDominio sql = new SoftwareDominio(mySqlCheckBox.getText(), "v5.3.5");
+            softwares.add(sql);
+        }
+        if (netBeansCheckBox.isSelected()) {
+            SoftwareDominio net = new SoftwareDominio(netBeansCheckBox.getText(), "v2.3.7");
+            softwares.add(net);
+        }
+        if (photoshopCheckBox.isSelected()) {
+            SoftwareDominio photo = new SoftwareDominio(photoshopCheckBox.getText(), "v6.9");
+            softwares.add(photo);
+        }
+        if (AutoCadCheckBox.isSelected()) {
+            SoftwareDominio cad = new SoftwareDominio(AutoCadCheckBox.getText(), "v2.7.8");
+            softwares.add(cad);
+        }
+        return softwares;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox AutoCadCheckBox;
