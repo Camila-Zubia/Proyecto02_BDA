@@ -36,6 +36,34 @@
             <artifactId>Negocio</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!-- Core de JasperReports -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>7.0.3</version> <!-- Asegúrate de usar una versión reciente o igual a la del reporte -->
+        </dependency>
+
+        <!-- Para soporte de Swing (JasperViewer) -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-functions</artifactId>
+            <version>7.0.3</version>
+        </dependency>
+
+        <!-- Fuente de datos con beans -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-javaflow</artifactId>
+            <version>7.0.3</version>
+        </dependency>
+
+        <!-- (Opcional, para fuentes de letra y gráficos) -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>7.0.3</version>
+        </dependency>
+
     </dependencies>
     <properties>
         <maven.compiler.release>22</maven.compiler.release>
