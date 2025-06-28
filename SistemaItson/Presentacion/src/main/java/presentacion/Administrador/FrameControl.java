@@ -5,9 +5,6 @@
 package presentacion.Administrador;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import javax.swing.border.Border;
 
 /**
  *
@@ -40,10 +37,8 @@ public class FrameControl extends javax.swing.JFrame {
         menuGestionBloqueos = new javax.swing.JMenu();
         menuItemConsultarBloqueos = new javax.swing.JMenuItem();
         menuItemBloquearAcceso = new javax.swing.JMenuItem();
+        menuItemConsultarLaboratorios = new javax.swing.JMenuItem();
         menuItemConsultarComputadoras = new javax.swing.JMenuItem();
-        menuGestionLaboratorios = new javax.swing.JMenu();
-        menuItemAgregarLaboratorio = new javax.swing.JMenuItem();
-        menuItemModificarLaboratorio = new javax.swing.JMenuItem();
         menuGenerarReportes = new javax.swing.JMenu();
         menuItemReporteCentroComputo = new javax.swing.JMenuItem();
         menuItemReporteCarreras = new javax.swing.JMenuItem();
@@ -108,6 +103,15 @@ public class FrameControl extends javax.swing.JFrame {
 
         menuPanelControl.add(menuGestionBloqueos);
 
+        menuItemConsultarLaboratorios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemConsultarLaboratorios.setText("Consultar Laboratorios");
+        menuItemConsultarLaboratorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemConsultarLaboratoriosActionPerformed(evt);
+            }
+        });
+        menuPanelControl.add(menuItemConsultarLaboratorios);
+
         menuItemConsultarComputadoras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuItemConsultarComputadoras.setText("Consultar Computadoras");
         menuItemConsultarComputadoras.addActionListener(new java.awt.event.ActionListener() {
@@ -116,28 +120,6 @@ public class FrameControl extends javax.swing.JFrame {
             }
         });
         menuPanelControl.add(menuItemConsultarComputadoras);
-
-        menuGestionLaboratorios.setText("Gestión de Laboratorios");
-
-        menuItemAgregarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemAgregarLaboratorio.setText("Agregar Laboratorio");
-        menuItemAgregarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemAgregarLaboratorioActionPerformed(evt);
-            }
-        });
-        menuGestionLaboratorios.add(menuItemAgregarLaboratorio);
-
-        menuItemModificarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemModificarLaboratorio.setText("Modificar Laboratorio");
-        menuItemModificarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemModificarLaboratorioActionPerformed(evt);
-            }
-        });
-        menuGestionLaboratorios.add(menuItemModificarLaboratorio);
-
-        menuPanelControl.add(menuGestionLaboratorios);
 
         menuGenerarReportes.setText("Generar Reportes");
 
@@ -188,12 +170,15 @@ public class FrameControl extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuItemModificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarLaboratorioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
-
     private void menuItemConsultarComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemConsultarComputadorasActionPerformed
-        // TODO add your handling code here:
+        PanelConsultarComputadoras panel = new PanelConsultarComputadoras();
+        
+        getContentPane().removeAll();
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(panel, BorderLayout.CENTER);
+        
+        revalidate();
+        repaint();
     }//GEN-LAST:event_menuItemConsultarComputadorasActionPerformed
 
     private void menuItemConsultarBloqueosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemConsultarBloqueosActionPerformed
@@ -203,15 +188,6 @@ public class FrameControl extends javax.swing.JFrame {
     private void menuItemBloquearAccesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemBloquearAccesoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemBloquearAccesoActionPerformed
-
-    private void menuItemAgregarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAgregarLaboratorioActionPerformed
-        PanelAgregarLaboratorio panel = new PanelAgregarLaboratorio();
-        getContentPane().removeAll();
-        getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(panel, BorderLayout.CENTER);
-        revalidate();
-        repaint();
-    }//GEN-LAST:event_menuItemAgregarLaboratorioActionPerformed
 
     private void menuItemReporteCentroComputoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReporteCentroComputoActionPerformed
         // TODO add your handling code here:
@@ -224,6 +200,17 @@ public class FrameControl extends javax.swing.JFrame {
     private void menuItemReporteBloqueosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReporteBloqueosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemReporteBloqueosActionPerformed
+
+    private void menuItemConsultarLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemConsultarLaboratoriosActionPerformed
+        PanelConsultarLaboratorios panel = new PanelConsultarLaboratorios();
+        
+        getContentPane().removeAll();
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(panel, BorderLayout.CENTER);
+        
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_menuItemConsultarLaboratoriosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -267,12 +254,10 @@ public class FrameControl extends javax.swing.JFrame {
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuGenerarReportes;
     private javax.swing.JMenu menuGestionBloqueos;
-    private javax.swing.JMenu menuGestionLaboratorios;
-    private javax.swing.JMenuItem menuItemAgregarLaboratorio;
     private javax.swing.JMenuItem menuItemBloquearAcceso;
     private javax.swing.JMenuItem menuItemConsultarBloqueos;
     private javax.swing.JMenuItem menuItemConsultarComputadoras;
-    private javax.swing.JMenuItem menuItemModificarLaboratorio;
+    private javax.swing.JMenuItem menuItemConsultarLaboratorios;
     private javax.swing.JMenuItem menuItemReporteBloqueos;
     private javax.swing.JMenuItem menuItemReporteCarreras;
     private javax.swing.JMenuItem menuItemReporteCentroComputo;

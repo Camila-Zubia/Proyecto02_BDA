@@ -176,7 +176,7 @@ public class InicioSesionFrm extends javax.swing.JFrame {
                 SesionAdministrador.iniciarSesion(admin);
 
                 JOptionPane.showMessageDialog(this, "¡Bienvenido, " + admin.getUsuario() + "!");
-                new MenuFrm().setVisible(true);
+                new FrameControl().setVisible(true);
                 this.dispose();
             }else{
                 JOptionPane.showMessageDialog(this, "Credenciales incorrectas.");

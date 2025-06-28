@@ -1,27 +1,23 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package presentacion.Administrador;
+
+import fachada.IComputadoraFachada;
+import fachada.implementaciones.ComputadoraFachada;
 
 /**
  *
  * @author saula
  */
-public class AgregarComputadoraFrm extends javax.swing.JFrame {
-    
-    ConsultarComputadorasFrm consultarFrm;
-    int id;
+public class PanelAgregarComputadoras extends javax.swing.JPanel {
 
-    /**
-     * Creates new form AgregarCompuFrm
-     * @param consultarFrm
-     * @param id
-     */
-    public AgregarComputadoraFrm (ConsultarComputadorasFrm consultarFrm, int id) {
+    private final IComputadoraFachada computadoraFachada;
+    
+    public PanelAgregarComputadoras() {
         initComponents();
-        this.id = id;
-        this.consultarFrm = consultarFrm;
+        this.computadoraFachada = new ComputadoraFachada();
     }
 
     /**
@@ -51,21 +47,6 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
         laboratorioLbl = new javax.swing.JLabel();
         laboratorioComboBox = new javax.swing.JComboBox<>();
         btnAnterior = new javax.swing.JButton();
-        menuBar = new javax.swing.JMenuBar();
-        menuPanelControl = new javax.swing.JMenu();
-        menuGestionBloqueos = new javax.swing.JMenu();
-        menuItemConsultarBloqueos = new javax.swing.JMenuItem();
-        menuItemBloquearAcceso = new javax.swing.JMenuItem();
-        menuGestionLaboratorios = new javax.swing.JMenu();
-        menuItemAgregarLaboratorio = new javax.swing.JMenuItem();
-        menuItemModificarLaboratorio = new javax.swing.JMenuItem();
-        menuGenerarReportes = new javax.swing.JMenu();
-        menuItemReporteCentroComputo = new javax.swing.JMenuItem();
-        menuItemReporteCarreras = new javax.swing.JMenuItem();
-        menuItemReporteBloqueos = new javax.swing.JMenuItem();
-        menuGestionComputadoras = new javax.swing.JMenu();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         PanelFondo.setBackground(new java.awt.Color(0, 109, 182));
 
@@ -248,100 +229,38 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
         PanelFondo.setLayout(PanelFondoLayout);
         PanelFondoLayout.setHorizontalGroup(
             PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelFondoLayout.createSequentialGroup()
-                .addGap(101, 101, 101)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoLayout.createSequentialGroup()
+                .addContainerGap(104, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGap(101, 101, 101))
         );
         PanelFondoLayout.setVerticalGroup(
             PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoLayout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+            .addGroup(PanelFondoLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        menuPanelControl.setText("Panel de Control");
-
-        menuGestionBloqueos.setText("Gestión de Bloqueos");
-
-        menuItemConsultarBloqueos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemConsultarBloqueos.setText("Consultar Bloqueos");
-        menuGestionBloqueos.add(menuItemConsultarBloqueos);
-
-        menuItemBloquearAcceso.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemBloquearAcceso.setText("Bloquear Acceso");
-        menuGestionBloqueos.add(menuItemBloquearAcceso);
-
-        menuPanelControl.add(menuGestionBloqueos);
-
-        menuGestionLaboratorios.setText("Gestión de Laboratorios");
-
-        menuItemAgregarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemAgregarLaboratorio.setText("Agregar Laboratorio");
-        menuGestionLaboratorios.add(menuItemAgregarLaboratorio);
-
-        menuItemModificarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemModificarLaboratorio.setText("Modificar Laboratorio");
-        menuItemModificarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemModificarLaboratorioActionPerformed(evt);
-            }
-        });
-        menuGestionLaboratorios.add(menuItemModificarLaboratorio);
-
-        menuPanelControl.add(menuGestionLaboratorios);
-
-        menuGenerarReportes.setText("Generar Reportes");
-
-        menuItemReporteCentroComputo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemReporteCentroComputo.setText("Centro de Computo");
-        menuGenerarReportes.add(menuItemReporteCentroComputo);
-
-        menuItemReporteCarreras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemReporteCarreras.setText("Carreras");
-        menuGenerarReportes.add(menuItemReporteCarreras);
-
-        menuItemReporteBloqueos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemReporteBloqueos.setText("Bloqueos");
-        menuGenerarReportes.add(menuItemReporteBloqueos);
-
-        menuPanelControl.add(menuGenerarReportes);
-
-        menuGestionComputadoras.setText("Gestión de Computadoras");
-        menuPanelControl.add(menuGestionComputadoras);
-
-        menuBar.add(menuPanelControl);
-
-        setJMenuBar(menuBar);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void photoshopCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_photoshopCheckBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_photoshopCheckBoxActionPerformed
-
-    private void menuItemModificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarLaboratorioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
 
     private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_agregarBtnActionPerformed
+
+    private void photoshopCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_photoshopCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_photoshopCheckBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -356,19 +275,6 @@ public class AgregarComputadoraFrm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JComboBox<String> laboratorioComboBox;
     private javax.swing.JLabel laboratorioLbl;
-    private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenu menuGenerarReportes;
-    private javax.swing.JMenu menuGestionBloqueos;
-    private javax.swing.JMenu menuGestionComputadoras;
-    private javax.swing.JMenu menuGestionLaboratorios;
-    private javax.swing.JMenuItem menuItemAgregarLaboratorio;
-    private javax.swing.JMenuItem menuItemBloquearAcceso;
-    private javax.swing.JMenuItem menuItemConsultarBloqueos;
-    private javax.swing.JMenuItem menuItemModificarLaboratorio;
-    private javax.swing.JMenuItem menuItemReporteBloqueos;
-    private javax.swing.JMenuItem menuItemReporteCarreras;
-    private javax.swing.JMenuItem menuItemReporteCentroComputo;
-    private javax.swing.JMenu menuPanelControl;
     private javax.swing.JCheckBox mySqlCheckBox;
     private javax.swing.JCheckBox netBeansCheckBox;
     private javax.swing.JTextField numeroComputadoraTxt;
