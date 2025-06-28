@@ -6,10 +6,19 @@ package presentacion.Administrador;
 
 import DTO.NuevoLaboratorioDTO;
 import dominios.LaboratorioDominio;
+import dominios.UnidadAcademicaDominio;
 import excepciones.NegocioException;
 import fachada.ILaboratorioFachada;
+import fachada.IUnidadAcademicaFachada;
 import fachada.implementaciones.LaboratorioFachada;
+import fachada.implementaciones.UnidadAcademicaFachada;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,9 +28,12 @@ import javax.swing.JOptionPane;
 public class PanelAgregarLaboratorio extends javax.swing.JPanel {
 
     private final ILaboratorioFachada laboratorioFachada;
+    private final IUnidadAcademicaFachada unidadAcademicaFachada;
     public PanelAgregarLaboratorio () {
         this.laboratorioFachada = new LaboratorioFachada();
+        this.unidadAcademicaFachada = new UnidadAcademicaFachada();
         initComponents();
+        cargarUnidadesAcademicas();
     }
 
     /**
@@ -299,8 +311,8 @@ public class PanelAgregarLaboratorio extends javax.swing.JPanel {
     private NuevoLaboratorioDTO construirNuevoLaboratorioDTO(){
         NuevoLaboratorioDTO dto = new NuevoLaboratorioDTO();
         dto.setNombre(nombreTxt.getText().trim());
-        dto.setHoraInicio(timePickerHoraInicio.getTime());
-        dto.setHoraCierre(timePickerHoraCierre.getTime());
+        dto.setHoraInicio(convertirLocalTimeADate(timePickerHoraInicio.getTime()));
+        dto.setHoraCierre(convertirLocalTimeADate(timePickerHoraCierre.getTime())   );
         dto.setUnidad(unidadComboBox.getSelectedItem().toString());
         dto.setContrasena(contraseñaTxt.getPassword());
         return dto;
@@ -313,6 +325,24 @@ public class PanelAgregarLaboratorio extends javax.swing.JPanel {
         timePickerHoraInicio.setTime(null);
         timePickerHoraCierre.setTime(null);
         unidadComboBox.setSelectedIndex(0);
+    }
+    
+    private void cargarUnidadesAcademicas() {
+        List<UnidadAcademicaDominio> unidades;
+        try {
+            unidades = unidadAcademicaFachada.obtenerUnidadesAcademicas();
+            for (UnidadAcademicaDominio unidad : unidades) {
+                unidadComboBox.addItem(unidad.getNombres());
+            }
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR);
+        }
+
+    }
+    
+    private Date convertirLocalTimeADate(LocalTime time) {
+        LocalDateTime ldt = LocalDateTime.of(LocalDate.now(), time);
+        return Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     
