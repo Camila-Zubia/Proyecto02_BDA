@@ -7,11 +7,16 @@ package fachada.implementaciones;
 import DTO.FiltroDTO;
 import DTO.NuevaComputadoraDTO;
 import DTO.TablaComputadoraDTO;
+import com.mycompany.persistencia.IComputadoraDAO;
+import daos.IConexionBD;
+import daos.implementaciones.ComputadoraDAO;
+import daos.implementaciones.ConexionBD;
 import dominios.ComputadoraDominio;
 import excepciones.NegocioException;
 import fachada.IComputadoraFachada;
 import java.util.List;
 import negocio.IComputadoraNegocio;
+import negocio.implementaciones.ComputadoraNegocio;
 
 /**
  *
@@ -20,6 +25,12 @@ import negocio.IComputadoraNegocio;
 public class ComputadoraFachada implements IComputadoraFachada{
     
     private IComputadoraNegocio computadoraNegocio;
+    
+    public ComputadoraFachada() {
+        IConexionBD conexionBD = new ConexionBD();
+        IComputadoraDAO computadoraDAO = new ComputadoraDAO(conexionBD);
+        this.computadoraNegocio = new ComputadoraNegocio(computadoraDAO);
+    }
     
     @Override
     public ComputadoraDominio buscarPorId(int id) throws NegocioException {
