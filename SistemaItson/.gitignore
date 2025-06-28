@@ -1,0 +1,23 @@
+# Archivos de compilación
+target/
+*.class
+*.jar
+*.war
+
+# JasperReports compilados
+*.jasper
+*.jrprint
+
+# Configuración de NetBeans
+nbproject/private/
+build/
+dist/
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+
+# Sistema
+.DS_Store
+Thumbs.db

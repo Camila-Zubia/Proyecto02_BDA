@@ -4,15 +4,23 @@
  */
 package presentacion.Administrador;
 
+import DTO.FiltrosReporteCentroComputoDTO;
+import excepciones.NegocioException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import presentacion.reportes.Reporte;
+
 /**
  *
  * @author saula
  */
 public class PanelReporteCentroComputo extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PanelReporteCentroComputo
-     */
+   
     public PanelReporteCentroComputo() {
         initComponents();
     }
@@ -58,6 +66,11 @@ public class PanelReporteCentroComputo extends javax.swing.JPanel {
         agregarBtn.setText("GENERAR REPORTE");
         agregarBtn.setBackground(new java.awt.Color(0, 153, 255));
         agregarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        agregarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarBtnActionPerformed(evt);
+            }
+        });
 
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
         btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
@@ -97,11 +110,6 @@ public class PanelReporteCentroComputo extends javax.swing.JPanel {
         mecatronicaCheckBox.setText("Ing. Mecatrónica");
         mecatronicaCheckBox.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
         mecatronicaCheckBox.setForeground(new java.awt.Color(4, 109, 181));
-        mecatronicaCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mecatronicaCheckBoxActionPerformed(evt);
-            }
-        });
 
         industrialCheckBox.setText("Ing. Industrial");
         industrialCheckBox.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
@@ -208,17 +216,17 @@ public class PanelReporteCentroComputo extends javax.swing.JPanel {
         PanelFondo.setLayout(PanelFondoLayout);
         PanelFondoLayout.setHorizontalGroup(
             PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(PanelFondoLayout.createSequentialGroup()
+                .addGap(69, 69, 69)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(135, 135, 135))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         PanelFondoLayout.setVerticalGroup(
             PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelFondoLayout.createSequentialGroup()
-                .addGap(81, 81, 81)
+                .addGap(77, 77, 77)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -233,10 +241,51 @@ public class PanelReporteCentroComputo extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mecatronicaCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mecatronicaCheckBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mecatronicaCheckBoxActionPerformed
+    private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
+        try {
+            FiltrosReporteCentroComputoDTO filtro = new FiltrosReporteCentroComputoDTO();
 
+            if (datePickerInicio.getDate() == null || datePickerFin.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Selecciona ambas fechas.");
+                return;
+            }
+
+            if (laboratorioComboBox.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "Selecciona un laboratorio.");
+                return;
+            }
+
+            Date inicio = convertirLocalDateADate(datePickerInicio.getDate());
+            Date fin = convertirLocalDateADate(datePickerFin.getDate());
+
+            if (inicio.after(fin)) {
+                JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser posterior a la fecha fin.");
+                return;
+            }
+            filtro.setFechaInicio(inicio);
+            filtro.setFechaFin(fin);
+            filtro.setLaboratorio(laboratorioComboBox.getSelectedItem().toString());
+            
+            //Carreras
+            List<String> carreras = new ArrayList<>();
+            if(softwareCheckBox.isSelected()) carreras.add("Software");
+            if(diseñoGraficoCheckBox.isSelected()) carreras.add("Diseño");
+            if(mecatronicaCheckBox.isSelected()) carreras.add("Mecatronico");
+            if(industrialCheckBox.isSelected()) carreras.add("Industrial");
+            if(arquitecturaCheckBox.isSelected()) carreras.add("Arquitecto");
+            filtro.setCarreras(carreras);
+            
+            Reporte reporte = new Reporte();
+            reporte.generarReporteCentroComputo(filtro);
+            
+        }catch(NegocioException ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_agregarBtnActionPerformed
+    
+    private Date convertirLocalDateADate(LocalDate localDate) {
+        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;

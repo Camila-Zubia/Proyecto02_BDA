@@ -4,10 +4,17 @@
  */
 package presentacion.Administrador;
 
+import dominios.ComputadoraDominio;
+import dominios.EstatusComputadora;
+import dominios.TipoComputadora;
+import excepciones.NegocioException;
 import fachada.IComputadoraFachada;
 import fachada.implementaciones.ComputadoraFachada;
 import java.awt.BorderLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -17,9 +24,11 @@ import javax.swing.SwingUtilities;
 public class PanelModificarComputadoras extends javax.swing.JPanel {
 
     private final IComputadoraFachada computadoraFachada;
+    int id;
     
-    public PanelModificarComputadoras() {
+    public PanelModificarComputadoras(int id) {
         initComponents();
+        this.id = id;
         this.computadoraFachada = new ComputadoraFachada();
     }
 
@@ -35,16 +44,16 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
         PanelFondo = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        agregarBtn = new javax.swing.JButton();
+        modificarBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         ipTxt = new javax.swing.JTextField();
         softwareLbl = new javax.swing.JLabel();
         ipLbl = new javax.swing.JLabel();
         laboratorioLbl = new javax.swing.JLabel();
         numeroLbl = new javax.swing.JLabel();
-        numeroComputadoraTxt = new javax.swing.JTextField();
         numeroComputadoraTxt1 = new javax.swing.JTextField();
-        numeroComputadoraTxt2 = new javax.swing.JTextField();
+        tipoComboBox1 = new javax.swing.JComboBox<>();
+        EstatusComboBox2 = new javax.swing.JComboBox<>();
         btnAnterior = new javax.swing.JButton();
 
         PanelFondo.setBackground(new java.awt.Color(0, 109, 182));
@@ -57,12 +66,12 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(4, 109, 181));
         jLabel1.setText("MODIFICAR COMPUTADORA");
 
-        agregarBtn.setBackground(new java.awt.Color(0, 153, 255));
-        agregarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        agregarBtn.setText("MODIFICAR");
-        agregarBtn.addActionListener(new java.awt.event.ActionListener() {
+        modificarBtn.setBackground(new java.awt.Color(0, 153, 255));
+        modificarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        modificarBtn.setText("MODIFICAR");
+        modificarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarBtnActionPerformed(evt);
+                modificarBtnActionPerformed(evt);
             }
         });
 
@@ -86,11 +95,25 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
         numeroLbl.setForeground(new java.awt.Color(4, 109, 181));
         numeroLbl.setText("NUMERO:");
 
-        numeroComputadoraTxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-
         numeroComputadoraTxt1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
-        numeroComputadoraTxt2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        tipoComboBox1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        tipoComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PORTERO", "ESTUDIANTE" }));
+        tipoComboBox1.setToolTipText("");
+        tipoComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoComboBox1ActionPerformed(evt);
+            }
+        });
+
+        EstatusComboBox2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        EstatusComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DISPONIBLE", "APARTADA", "DESCONECTADA" }));
+        EstatusComboBox2.setToolTipText("");
+        EstatusComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EstatusComboBox2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -99,21 +122,19 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(ipLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(170, 170, 170))
+                    .addComponent(numeroLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ipLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(softwareLbl)
-                            .addComponent(laboratorioLbl)
-                            .addComponent(numeroLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ipTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(numeroComputadoraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(numeroComputadoraTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(numeroComputadoraTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
+                            .addComponent(laboratorioLbl))
+                        .addGap(75, 75, 75)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tipoComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ipTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(numeroComputadoraTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EstatusComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(16, 16, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,11 +150,11 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(laboratorioLbl)
-                    .addComponent(numeroComputadoraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(tipoComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(softwareLbl)
-                    .addComponent(numeroComputadoraTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EstatusComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -153,7 +174,7 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(agregarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(modificarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(47, Short.MAX_VALUE)
@@ -173,7 +194,7 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(agregarBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(modificarBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAnterior, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -192,7 +213,7 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
             .addGroup(PanelFondoLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -207,9 +228,42 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_agregarBtnActionPerformed
+    private void modificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarBtnActionPerformed
+        ComputadoraDominio compu = null;
+        try {
+            compu = computadoraFachada.buscarPorId(id);
+        } catch (NegocioException ex) {
+            Logger.getLogger(PanelModificarComputadoras.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "No se pudo buscar la computadora.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!numeroComputadoraTxt1.getText().trim().isEmpty()) {
+            compu.setNumero(numeroComputadoraTxt1.getText().trim());
+        }
+        if (!ipTxt.getText().trim().isEmpty()) {
+            compu.setDireccionIp(ipTxt.getText().trim());
+        }
+        if (tipoComboBox1.getSelectedItem() != null) {
+            String t = tipoComboBox1.getSelectedItem().toString().trim();
+            if (!t.isEmpty()) {
+                compu.setTipo(TipoComputadora.fromString(t));
+            }
+        }
+        if (EstatusComboBox2.getSelectedItem() != null) {
+            String e = EstatusComboBox2.getSelectedItem().toString().trim();
+            if (!e.isEmpty()) {
+                compu.setEstatus(EstatusComputadora.fromString(e));
+            }
+        }
+        try {
+            computadoraFachada.modificar(compu);
+            JOptionPane.showMessageDialog(this, "Computadora modificada correctamente.");
+            limpiarCampos();
+        } catch (NegocioException ex) {
+            Logger.getLogger(PanelModificarComputadoras.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "No se pudo modificar la computadora", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_modificarBtnActionPerformed
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -221,10 +275,25 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
         frame.repaint();
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
+    private void tipoComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipoComboBox1ActionPerformed
+
+    private void EstatusComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstatusComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EstatusComboBox2ActionPerformed
+
+    
+    private void limpiarCampos() {
+        numeroComputadoraTxt1.setText("");
+        ipTxt.setText("");
+        tipoComboBox1.setSelectedIndex(0);
+        EstatusComboBox2.setSelectedIndex(0);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> EstatusComboBox2;
     private javax.swing.JPanel PanelFondo;
-    private javax.swing.JButton agregarBtn;
     private javax.swing.JButton btnAnterior;
     private javax.swing.JLabel ipLbl;
     private javax.swing.JTextField ipTxt;
@@ -232,10 +301,10 @@ public class PanelModificarComputadoras extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel laboratorioLbl;
-    private javax.swing.JTextField numeroComputadoraTxt;
+    private javax.swing.JButton modificarBtn;
     private javax.swing.JTextField numeroComputadoraTxt1;
-    private javax.swing.JTextField numeroComputadoraTxt2;
     private javax.swing.JLabel numeroLbl;
     private javax.swing.JLabel softwareLbl;
+    private javax.swing.JComboBox<String> tipoComboBox1;
     // End of variables declaration//GEN-END:variables
 }

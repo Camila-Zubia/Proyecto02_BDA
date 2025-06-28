@@ -1,7 +1,19 @@
 package presentacion.Administrador;
 
+import DTO.LaboratorioDTO;
+import excepciones.NegocioException;
+import fachada.ILaboratorioFachada;
+import fachada.implementaciones.LaboratorioFachada;
 import java.awt.BorderLayout;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /*
@@ -14,12 +26,15 @@ import javax.swing.SwingUtilities;
  * @author saula
  */
 public class PanelModificarLaboratorio extends javax.swing.JPanel {
-
+    private final ILaboratorioFachada fachada;
+    private int id;
     /**
      * Creates new form PanelModificarLaboratorio
      */
-    public PanelModificarLaboratorio() {
+    public PanelModificarLaboratorio(int id) {
         initComponents();
+        this.fachada = new LaboratorioFachada();
+        this.id = id;
     }
 
     /**
@@ -188,7 +203,36 @@ public class PanelModificarLaboratorio extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void modificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarBtnActionPerformed
-
+        LaboratorioDTO lab = null;
+        LocalTime horaInicio = timePickerHoraInicio.getTime();
+        LocalTime horaFin = timePickerHoraCierre.getTime();
+        
+        try {
+            lab = fachada.buscarPorId(id);
+        } catch (NegocioException ex) {
+            Logger.getLogger(PanelModificarComputadoras.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "No se pudo buscar la computadora.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!nombreTxt.getText().trim().isEmpty()) {
+            lab.setNombre(nombreTxt.getText().trim());
+        }
+        if (horaInicio != null){
+            Date hi = convertirLocalTimeADate(horaInicio);
+            lab.setHoraInicio(hi);
+        }
+        if (horaFin != null) {
+            Date hf = convertirLocalTimeADate(horaFin);
+            lab.setHoraFin(hf);
+        }
+        try {
+            fachada.modificar(lab);
+            JOptionPane.showMessageDialog(this, "Laboratorio modificado correctamente.");
+            limpiarCampos();
+        } catch (NegocioException ex) {
+            Logger.getLogger(PanelModificarComputadoras.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "No se pudo modificar el laboratorio", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_modificarBtnActionPerformed
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
@@ -201,7 +245,17 @@ public class PanelModificarLaboratorio extends javax.swing.JPanel {
         frame.repaint();
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
-
+    private Date convertirLocalTimeADate(LocalTime time) {
+        LocalDateTime ldt = LocalDateTime.of(LocalDate.now(), time);
+        return Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+    }
+    
+    private void limpiarCampos() {
+        nombreTxt.setText("");
+        timePickerHoraInicio.setTime(null);
+        timePickerHoraCierre.setTime(null);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JButton btnAnterior;
