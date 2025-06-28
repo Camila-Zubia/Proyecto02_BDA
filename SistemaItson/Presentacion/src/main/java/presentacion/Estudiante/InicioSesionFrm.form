@@ -63,11 +63,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-<<<<<<< Updated upstream
                   <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-=======
-                  <EmptySpace pref="35" max="32767" attributes="0"/>
->>>>>>> Stashed changes
               </Group>
           </Group>
         </DimensionLayout>
@@ -131,11 +127,7 @@
                           <Component id="fieldContraseña" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="lblContraseña" alignment="3" max="32767" attributes="0"/>
                       </Group>
-<<<<<<< Updated upstream
                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-=======
-                      <EmptySpace pref="98" max="32767" attributes="0"/>
->>>>>>> Stashed changes
                       <Component id="btnIniciarSesion" min="-2" pref="64" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   </Group>
