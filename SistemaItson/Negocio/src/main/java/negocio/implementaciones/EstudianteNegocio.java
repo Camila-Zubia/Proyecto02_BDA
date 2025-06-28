@@ -23,51 +23,52 @@ import org.mindrot.jbcrypt.BCrypt;
  * @author adell
  */
 public class EstudianteNegocio implements IEstudianteNegocio {
-    
-     private IEstudianteDAO estudianteDAO;
+
+    private IEstudianteDAO estudianteDAO;
 
     public EstudianteNegocio(IEstudianteDAO estudianteDAO) {
         this.estudianteDAO = estudianteDAO;
     }
-    
+
     @Override
     public List<TablaEstudiantesDTO> buscarTabla(FiltroDTO filtro) throws NegocioException {
-         try {
-             return estudianteDAO.buscarTabla(filtro);
-         } catch (PersistenciaException ex) {
-             Logger.getLogger(EstudianteNegocio.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         return null;
+        try {
+            return estudianteDAO.buscarTabla(filtro);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(EstudianteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public EstudianteDominio buscarPorID(int id) throws NegocioException {
-         try {
-             return estudianteDAO.buscarPorID(id);
-         } catch (PersistenciaException ex) {
-             Logger.getLogger(EstudianteNegocio.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         return null;
+        try {
+            validarId(id);
+            return estudianteDAO.buscarPorID(id);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(EstudianteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public boolean estaBloqueado(String id) throws NegocioException {
-         try {
-             return estudianteDAO.estaBloqueado(id);
-         } catch (PersistenciaException ex) {
-             Logger.getLogger(EstudianteNegocio.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         return false;
+        try {
+            return estudianteDAO.estaBloqueado(id);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(EstudianteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
     public List<EstudianteDominio> obtenerEstudiantesConBloqueosActivos() throws NegocioException {
-         try {
-             return estudianteDAO.obtenerEstudiantesConBloqueosActivos();
-         } catch (PersistenciaException ex) {
-             Logger.getLogger(EstudianteNegocio.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         return null;
+        try {
+            return estudianteDAO.obtenerEstudiantesConBloqueosActivos();
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(EstudianteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
      @Override
@@ -92,6 +93,9 @@ public class EstudianteNegocio implements IEstudianteNegocio {
                     return null;
                 }
             }
+            
+            validarCredenciales(dto);
+            
             if (BCrypt.checkpw(contrasenaIngresada, contraseñaBD)) {
                 return estudiante;
             }
@@ -105,4 +109,23 @@ public class EstudianteNegocio implements IEstudianteNegocio {
     }
 
     
+
+    /**
+     * VALIDACIONES
+     *
+     */
+    private void validarId(int id) throws NegocioException {
+        if (id <= 0) {
+            throw new NegocioException("El ID de estudiante no es válido.");
+        }
+    }
+
+    private void validarCredenciales(EstudianteRegistroDTO dto) throws NegocioException {
+        if (dto == null || dto.getUsuario() == null || dto.getContrasena() == null) {
+            throw new NegocioException("Matrícula y contraseña son obligatorias.");
+        }
+    }
+
+   
+
 }

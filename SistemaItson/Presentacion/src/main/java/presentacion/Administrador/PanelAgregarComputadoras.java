@@ -335,7 +335,7 @@ public class PanelAgregarComputadoras extends javax.swing.JPanel {
                 detalles.add(csd);
             }
             computadora.setDetalles(detalles);
-            JOptionPane.showMessageDialog(this, "Laboratorio registrado con éxito.");
+            JOptionPane.showMessageDialog(this, "Computadora registrado con éxito.");
             limpiarCampos();
 
         } catch (NegocioException ex) {
