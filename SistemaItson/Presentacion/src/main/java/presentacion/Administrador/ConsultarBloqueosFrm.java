@@ -362,15 +362,23 @@ public class ConsultarBloqueosFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPaginadoAnteriorActionPerformed
 
     private void consultarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarBtnActionPerformed
-        // TODO add your handling code here:
-        try {
-            // TODO add your handling code here:
-            //new frmdonde se ve el bloqueo consultado (this).setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Error al cargar la consulta: " + ex.getMessage());
+        int filaSeleccionada = jTable1.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Seleciona una fila");
+            return;
         }
-        this.setVisible(false);
+
+        if (filaSeleccionada != -1) {
+            int idBloqueo = (int) jTable1.getValueAt(filaSeleccionada, 0);
+            try {
+                fachada.buscarPorId(idBloqueo);
+                new DesbloquearFrm(this, idBloqueo).setVisible(true);
+            } catch (NegocioException ex) {
+                Logger.getLogger(BloquearFrm.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "error al cambiar acceso");
+            }
+        }
     }//GEN-LAST:event_consultarBtnActionPerformed
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed

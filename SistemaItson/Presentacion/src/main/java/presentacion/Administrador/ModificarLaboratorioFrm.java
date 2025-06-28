@@ -9,12 +9,19 @@ package presentacion.Administrador;
  * @author adell
  */
 public class ModificarLaboratorioFrm extends javax.swing.JFrame {
+    
+    ConsultarLaboratoriosFrm consultarFrm;
+    int id;
 
     /**
      * Creates new form ModificarLaboratorio
+     * @param consultarFrm
+     * @param id
      */
-    public ModificarLaboratorioFrm() {
+    public ModificarLaboratorioFrm(ConsultarLaboratoriosFrm consultarFrm, int id) {
         initComponents();
+        this.consultarFrm = consultarFrm;
+        this.id = id;
     }
 
     /**

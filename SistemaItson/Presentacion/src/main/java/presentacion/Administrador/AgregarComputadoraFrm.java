@@ -9,12 +9,19 @@ package presentacion.Administrador;
  * @author saula
  */
 public class AgregarComputadoraFrm extends javax.swing.JFrame {
+    
+    ConsultarComputadorasFrm consultarFrm;
+    int id;
 
     /**
      * Creates new form AgregarCompuFrm
+     * @param consultarFrm
+     * @param id
      */
-    public AgregarComputadoraFrm () {
+    public AgregarComputadoraFrm (ConsultarComputadorasFrm consultarFrm, int id) {
         initComponents();
+        this.id = id;
+        this.consultarFrm = consultarFrm;
     }
 
     /**
