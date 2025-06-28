@@ -4,6 +4,7 @@
  */
 package fachada;
 
+import DTO.EstudianteRegistroDTO;
 import DTO.FiltroDTO;
 import DTO.TablaEstudiantesDTO;
 import dominios.EstudianteDominio;
@@ -22,4 +23,6 @@ public interface IEstudianteFachada {
     boolean estaBloqueado(String id) throws NegocioException;
 
     public List<EstudianteDominio> obtenerEstudiantesConBloqueosActivos() throws NegocioException;
+    
+    public EstudianteDominio iniciarSesion(EstudianteRegistroDTO estudianteRegistroDTO) throws NegocioException;
 }

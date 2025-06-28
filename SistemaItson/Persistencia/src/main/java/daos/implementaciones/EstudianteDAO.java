@@ -4,6 +4,7 @@
  */
 package daos.implementaciones;
 
+import DTO.EstudianteRegistroDTO;
 import DTO.FiltroDTO;
 import DTO.TablaEstudiantesDTO;
 import daos.IConexionBD;
@@ -129,5 +130,19 @@ public class EstudianteDAO implements IEstudianteDAO {
         boolean estatus = estudiante.isEstatus();
         TablaEstudiantesDTO tabla = new TablaEstudiantesDTO(id, nombre, apellidoP, apellidoM, estatus);
         return tabla;
+    }
+
+    @Override
+    public EstudianteDominio buscarPorUsuario(EstudianteRegistroDTO estudianteRegistroDTO) throws PersistenciaException {
+        EntityManager manager = conexionBD.crearConexion();
+        EstudianteDominio estudiante = null;
+        try {
+            estudiante = manager.find(EstudianteDominio.class, estudianteRegistroDTO.getUsuario());
+        } catch (Exception ex) {
+
+        } finally {
+            manager.close();
+        }
+        return estudiante;
     }
 }

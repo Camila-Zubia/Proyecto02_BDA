@@ -4,19 +4,41 @@
  */
 package presentacion.Portero;
 
+import DTO.EstudianteRegistroDTO;
+
 /**
  *
  * @author Camila Zubía
  */
 public class ConfirmarReservacionFrm extends javax.swing.JFrame {
-
+    
+    SeleccionComputadoraFrm seleccionar;
+    EstudianteRegistroDTO estudianteRegistrado;
+    int numero;
+    String tiempo;
+    
     /**
      * Creates new form SeleccionComputadoraFrm
+     * @param seleccionar
+     * @param estudianteRegistrado
+     * @param numero
      */
-    public ConfirmarReservacionFrm() {
+    public ConfirmarReservacionFrm(SeleccionComputadoraFrm seleccionar, EstudianteRegistroDTO estudianteRegistrado, int numero, String tiempo) {
         initComponents();
+        this.seleccionar = seleccionar;
+        this.estudianteRegistrado = estudianteRegistrado;
+        this.numero = numero;
+        this.tiempo = tiempo;
+        cargarDatos();
     }
-
+    
+    private void cargarDatos(){
+        txtFieldNumero1.setText(estudianteRegistrado.getUsuario());
+        txtFieldNumero.setText(String.valueOf(numero));
+        txtFieldNumero2.setText(tiempo);
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

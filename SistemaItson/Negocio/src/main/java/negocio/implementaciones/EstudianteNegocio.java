@@ -4,16 +4,19 @@
  */
 package negocio.implementaciones;
 
+import DTO.EstudianteRegistroDTO;
 import DTO.FiltroDTO;
 import DTO.TablaEstudiantesDTO;
 import daos.IEstudianteDAO;
 import dominios.EstudianteDominio;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import negocio.IEstudianteNegocio;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -65,6 +68,35 @@ public class EstudianteNegocio implements IEstudianteNegocio {
              Logger.getLogger(EstudianteNegocio.class.getName()).log(Level.SEVERE, null, ex);
          }
          return null;
+    }
+
+    @Override
+    public EstudianteDominio iniciarSesion(EstudianteRegistroDTO estudianteRegistroDTO) throws NegocioException {
+        try {
+            EstudianteDominio estudiante = estudianteDAO.buscarPorUsuario(estudianteRegistroDTO);
+            if (estudiante == null) {
+                return null;
+            }
+            encriptarContrasena(estudianteRegistroDTO);
+            boolean contrasenaValida = BCrypt.checkpw(
+                    estudianteRegistroDTO.getContrasenaHash(), estudiante.getContraseña());
+            return contrasenaValida ? estudiante : null;
+        } catch (PersistenciaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
+    }
+    
+    private String encriptarContrasena(EstudianteRegistroDTO administradorRegistroDTO) throws NegocioException {
+        try {
+            String textoPlano = new String(administradorRegistroDTO.getContrasena());
+            String hash = BCrypt.hashpw(textoPlano, BCrypt.gensalt());
+            if (administradorRegistroDTO.getContrasena() != null) {
+                Arrays.fill(administradorRegistroDTO.getContrasena(), '\0');
+            }
+            return hash;
+        } catch (Exception ex) {
+            throw new NegocioException("Error al guardar.");
+        }
     }
     
 }

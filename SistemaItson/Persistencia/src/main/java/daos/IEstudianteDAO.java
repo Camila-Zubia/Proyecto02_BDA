@@ -4,6 +4,7 @@
  */
 package daos;
 
+import DTO.EstudianteRegistroDTO;
 import DTO.FiltroDTO;
 import DTO.TablaEstudiantesDTO;
 import dominios.EstudianteDominio;
@@ -24,6 +25,6 @@ public interface IEstudianteDAO {
 
     public List<EstudianteDominio> obtenerEstudiantesConBloqueosActivos() throws PersistenciaException;
 
-
+    public EstudianteDominio buscarPorUsuario(EstudianteRegistroDTO estudianteRegistroDTO) throws PersistenciaException;
 
 }
