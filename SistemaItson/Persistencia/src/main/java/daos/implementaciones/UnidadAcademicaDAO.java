@@ -31,7 +31,7 @@ public class UnidadAcademicaDAO implements IUnidadAcademicaDAO{
             CriteriaQuery<UnidadAcademicaDominio> query = cb.createQuery(UnidadAcademicaDominio.class);
             Root<UnidadAcademicaDominio> root = query.from(UnidadAcademicaDominio.class);
             query.select(root).where(cb.equal(
-                    cb.lower(root.get("nombre")), 
+                    cb.lower(root.get("nombres")), 
                     nombre.toLowerCase()));
             return manager.createQuery(query).getSingleResult();
         }catch(NoResultException ex){
