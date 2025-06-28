@@ -87,6 +87,8 @@ public class LaboratorioNegocio implements ILaboratorioNegocio{
             throw new NegocioException("La hora de inicio debe ser anterior a la hora de cierre.");
     }
     
+    
+    
     private void validarUnidadAcademica(NuevoLaboratorioDTO nuevoLaboratorio) throws NegocioException{
         if(nuevoLaboratorio.getUnidad().equals(UNIDAD_DEFAULT))
             throw new NegocioException("Unidad Académica no valida.");
