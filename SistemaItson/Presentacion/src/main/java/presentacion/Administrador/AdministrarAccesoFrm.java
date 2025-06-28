@@ -7,6 +7,7 @@ package presentacion.Administrador;
 import DTO.FiltroDTO;
 import DTO.TablaEstudiantesDTO;
 import excepciones.NegocioException;
+import fachada.IEstudianteFachada;
 import fachada.implementaciones.EstudianteFachada;
 import java.util.List;
 import java.util.logging.Level;
@@ -29,7 +30,7 @@ public class AdministrarAccesoFrm extends javax.swing.JFrame {
         cargarTabla();
     }
     
-    EstudianteFachada fachada = new EstudianteFachada();
+    IEstudianteFachada fachada = new EstudianteFachada();
     private int offset = 0;
     private final int limite = 5;
     

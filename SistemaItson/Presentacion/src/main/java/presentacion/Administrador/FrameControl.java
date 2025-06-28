@@ -4,6 +4,11 @@
  */
 package presentacion.Administrador;
 
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.border.Border;
+
 /**
  *
  * @author saula
@@ -27,6 +32,9 @@ public class FrameControl extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        labelImagenItson = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         menuPanelControl = new javax.swing.JMenu();
         menuGestionBloqueos = new javax.swing.JMenu();
@@ -42,6 +50,39 @@ public class FrameControl extends javax.swing.JFrame {
         menuItemReporteBloqueos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(186, 215, 235));
+        jPanel1.setForeground(new java.awt.Color(186, 215, 235));
+
+        labelImagenItson.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITSON_azul.png"))); // NOI18N
+
+        jLabel2.setText("BIENVENIDO");
+        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(4, 109, 181));
+        jLabel2.setToolTipText("");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(357, 357, 357))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(128, 128, 128)
+                .addComponent(labelImagenItson, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(119, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(159, Short.MAX_VALUE)
+                .addComponent(labelImagenItson, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(99, 99, 99))
+        );
 
         menuPanelControl.setText("Panel de Control");
 
@@ -137,11 +178,11 @@ public class FrameControl extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1070, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -166,7 +207,8 @@ public class FrameControl extends javax.swing.JFrame {
     private void menuItemAgregarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAgregarLaboratorioActionPerformed
         PanelAgregarLaboratorio panel = new PanelAgregarLaboratorio();
         getContentPane().removeAll();
-        getContentPane().add(panel);
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(panel, BorderLayout.CENTER);
         revalidate();
         repaint();
     }//GEN-LAST:event_menuItemAgregarLaboratorioActionPerformed
@@ -219,6 +261,9 @@ public class FrameControl extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelImagenItson;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuGenerarReportes;
     private javax.swing.JMenu menuGestionBloqueos;
