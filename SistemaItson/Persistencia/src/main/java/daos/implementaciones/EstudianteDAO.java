@@ -136,14 +136,35 @@ public class EstudianteDAO implements IEstudianteDAO {
     @Override
     public EstudianteDominio buscarPorUsuario(EstudianteRegistroDTO estudianteRegistroDTO) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
-        EstudianteDominio estudiante = null;
         try {
-            estudiante = manager.find(EstudianteDominio.class, estudianteRegistroDTO.getUsuario());
+            String consulta = "SELECT e FROM EstudianteDominio e WHERE e.idEscolar = :usuario";
+            TypedQuery<EstudianteDominio> query = manager.createQuery(consulta, EstudianteDominio.class);
+            query.setParameter("usuario", estudianteRegistroDTO.getUsuario());
+            return query.getSingleResult();
         } catch (Exception ex) {
-
+            throw new PersistenciaException("Error al buscar estudiante: " + ex.getMessage());
         } finally {
             manager.close();
         }
-        return estudiante;
     }
+    
+    @Override
+    public void actualizarContraseña(EstudianteDominio estudiante) throws PersistenciaException {
+        EntityManager manager = conexionBD.crearConexion();
+        try {
+            manager.getTransaction().begin();
+            manager.merge(estudiante);
+            manager.getTransaction().commit();
+        } catch (Exception ex) {
+            if (manager.getTransaction().isActive()) {
+                manager.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al actualizar la contraseña: " + ex.getMessage());
+        } finally {
+            manager.close();
+        }
+    }
+
+
+
 }

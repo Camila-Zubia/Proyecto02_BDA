@@ -9,6 +9,7 @@ import dominios.ComputadoraDominio;
 import dominios.EstatusComputadora;
 import excepciones.NegocioException;
 import fachada.IComputadoraFachada;
+import fachada.implementaciones.ComputadoraFachada;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -38,15 +39,16 @@ public class SeleccionComputadoraFrm extends javax.swing.JFrame {
      * @throws excepciones.NegocioException
      */
     public SeleccionComputadoraFrm(InicioSesionFrm iniciarSesion, EstudianteRegistroDTO estudianteRegistrado) throws NegocioException {
+        this.fachada = new ComputadoraFachada();
         this.computadoras = fachada.listarComputadoras();
         this.iniciarSesion = iniciarSesion;
         this.estudianteRegistrado = estudianteRegistrado;
         initComponents();
-        listarComputadoras(computadoras);
+        imprimirComputadoras(computadoras);
     }
     
     
-    private void listarComputadoras(List<ComputadoraDominio> computadoras){
+    private void imprimirComputadoras(List<ComputadoraDominio> computadoras){
         panelComputadoras.removeAll();
         panelComputadoras.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         

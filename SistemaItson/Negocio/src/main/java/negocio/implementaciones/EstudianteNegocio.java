@@ -70,33 +70,39 @@ public class EstudianteNegocio implements IEstudianteNegocio {
          return null;
     }
 
-    @Override
-    public EstudianteDominio iniciarSesion(EstudianteRegistroDTO estudianteRegistroDTO) throws NegocioException {
+     @Override
+    public EstudianteDominio iniciarSesion(EstudianteRegistroDTO dto) throws NegocioException {
         try {
-            EstudianteDominio estudiante = estudianteDAO.buscarPorUsuario(estudianteRegistroDTO);
-            if (estudiante == null) {
-                return null;
+            EstudianteDominio estudiante = estudianteDAO.buscarPorUsuario(dto);
+
+            if (estudiante == null) return null;
+            System.out.println(estudiante.getIdEstudiante());
+            
+            String contrasenaIngresada = new String(dto.getContrasena());
+            System.out.println(contrasenaIngresada);
+            String contraseñaBD = estudiante.getContraseña();
+
+            if (!contraseñaBD.startsWith("$2a$")) {
+                if (contrasenaIngresada.equals(contraseñaBD)) {
+                    String hashNuevo = BCrypt.hashpw(contrasenaIngresada, BCrypt.gensalt());
+                    estudiante.setContraseña(hashNuevo);
+                    estudianteDAO.actualizarContraseña(estudiante);
+                    return estudiante;
+                } else {
+                    return null;
+                }
             }
-            encriptarContrasena(estudianteRegistroDTO);
-            boolean contrasenaValida = BCrypt.checkpw(
-                    estudianteRegistroDTO.getContrasenaHash(), estudiante.getContraseña());
-            return contrasenaValida ? estudiante : null;
+            if (BCrypt.checkpw(contrasenaIngresada, contraseñaBD)) {
+                return estudiante;
+            }
+            return null;
+
         } catch (PersistenciaException ex) {
-            throw new NegocioException(ex.getMessage());
+            throw new NegocioException("Error al autenticar: " + ex.getMessage());
+        } finally {
+            Arrays.fill(dto.getContrasena(), '\0');
         }
     }
-    
-    private String encriptarContrasena(EstudianteRegistroDTO administradorRegistroDTO) throws NegocioException {
-        try {
-            String textoPlano = new String(administradorRegistroDTO.getContrasena());
-            String hash = BCrypt.hashpw(textoPlano, BCrypt.gensalt());
-            if (administradorRegistroDTO.getContrasena() != null) {
-                Arrays.fill(administradorRegistroDTO.getContrasena(), '\0');
-            }
-            return hash;
-        } catch (Exception ex) {
-            throw new NegocioException("Error al guardar.");
-        }
-    }
+
     
 }

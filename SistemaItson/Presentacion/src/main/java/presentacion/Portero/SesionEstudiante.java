@@ -17,7 +17,7 @@ public class SesionEstudiante {
         SesionEstudiante.estudianteActual = estudiante;
     }
     
-    public static EstudianteDominio getAdministradorActual() {
+    public static EstudianteDominio getEstudianteActual() {
         return estudianteActual;
     }
 
@@ -28,4 +28,5 @@ public class SesionEstudiante {
     public static boolean haySesionActiva() {
         return estudianteActual != null;
     }
+    
 }

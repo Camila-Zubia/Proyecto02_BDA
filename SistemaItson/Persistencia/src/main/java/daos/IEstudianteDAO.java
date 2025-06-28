@@ -26,5 +26,7 @@ public interface IEstudianteDAO {
     public List<EstudianteDominio> obtenerEstudiantesConBloqueosActivos() throws PersistenciaException;
 
     public EstudianteDominio buscarPorUsuario(EstudianteRegistroDTO estudianteRegistroDTO) throws PersistenciaException;
+    
+    public void actualizarContraseña(EstudianteDominio estudiante) throws PersistenciaException;
 
 }

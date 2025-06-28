@@ -45,7 +45,7 @@ public class EstudianteDominio implements Serializable {
     @Column(name = "estatus", nullable = false)
     private boolean estatus;
 
-    @Column(name = "contraseña", nullable = false, length = 50)
+    @Column(name = "contraseña", nullable = false, length = 150)
     private String contraseña;
     
     /**
