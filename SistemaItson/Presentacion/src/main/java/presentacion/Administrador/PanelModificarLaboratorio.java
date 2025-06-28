@@ -35,6 +35,7 @@ public class PanelModificarLaboratorio extends javax.swing.JPanel {
         initComponents();
         this.fachada = new LaboratorioFachada();
         this.id = id;
+        System.out.println("id lab:" + " " + id);
     }
 
     /**

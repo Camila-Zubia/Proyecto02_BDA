@@ -5,7 +5,6 @@
 package dominios;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,12 +31,12 @@ public class BloqueoDominio implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idBloqueo;
 
-    @Column(name = "FechaBloqueo", nullable = false, length = 50)
-    @Temporal(TemporalType.DATE)
+    @Column(name = "FechaBloqueo", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaBloqueo;
-    
-    @Column(name = "FechaLiberacion", length = 50)
-    @Temporal(TemporalType.DATE)
+
+    @Column(name = "FechaLiberacion")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaLiberacion;
 
     @Column(name = "motivo", nullable = false, length = 50)
@@ -53,11 +52,9 @@ public class BloqueoDominio implements Serializable {
     @JoinColumn(name = "idEstudiante")
     private EstudianteDominio estudiante;
 
-    
     /**
-     * 
+     *
      */
-    
     public BloqueoDominio() {
     }
 
@@ -68,11 +65,6 @@ public class BloqueoDominio implements Serializable {
         this.estudiante = estudiante;
     }
 
-    
-    
-    
-    
-    
     public BloqueoDominio(Date fechaBloqueo, Date fechaLiberacion, String motivo, boolean estatus) {
         this.fechaBloqueo = fechaBloqueo;
         this.fechaLiberacion = fechaLiberacion;
@@ -127,10 +119,5 @@ public class BloqueoDominio implements Serializable {
     public void setEstudiante(EstudianteDominio estudiante) {
         this.estudiante = estudiante;
     }
-    
-   
-    
-    
-    
-    
+
 }

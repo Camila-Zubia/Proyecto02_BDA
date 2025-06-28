@@ -82,6 +82,7 @@ public class BloqueoDAO implements IBloqueoDAO {
             if (bloqueo == null) {
                 throw new PersistenciaException("No se encontró el bloqueo con ID: " + id);
             }
+            
             Date fechaActual = new Date();
             bloqueo.setFechaLiberacion(fechaActual);
             bloqueo.setEstatus(false);

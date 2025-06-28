@@ -3,7 +3,6 @@
   <persistence-unit name="conexionJPA" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>dominios.AdministradorDominio</class>
-    <class>dominios.BloqueoDominio</class>
     <class>dominios.CarreraDominio</class>
     <class>dominios.ComputadoraDominio</class>
     <class>dominios.ComputadoraSoftwareDominio</class>
@@ -12,16 +11,16 @@
     <class>dominios.LaboratorioDominio</class>
     <class>dominios.SoftwareDominio</class>
     <class>dominios.UnidadAcademicaDominio</class>
+    <class>dominios.BloqueoDominio</class>
     <properties>
-        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/proyecto2bda?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
-        <property name="javax.persistence.jdbc.user" value="root"/>
-        <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="javax.persistence.jdbc.password" value="moxxito1"/>
-        <property name="javax.persistence.schema-generation.database.action" value="create"/>
-        <property name="eclipselink.logging.level" value="FINE"/>
-        <property name="eclipselink.ddl-generation" value="create-tables"/>
-        <property name="eclipselink.ddl-generation.output-mode" value="database"/>
-
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/proyecto2bda?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="moxxito1"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="eclipselink.logging.level" value="FINE"/>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
+      <property name="eclipselink.ddl-generation.output-mode" value="database"/>
     </properties>
   </persistence-unit>
 </persistence>

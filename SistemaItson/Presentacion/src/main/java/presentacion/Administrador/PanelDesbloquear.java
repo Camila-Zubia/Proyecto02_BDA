@@ -11,6 +11,10 @@ import fachada.IBloqueoFachada;
 import fachada.implementaciones.BloqueoFachada;
 import java.awt.BorderLayout;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,18 +43,26 @@ public class PanelDesbloquear extends javax.swing.JPanel {
             BloqueoDominio bloqueo = bloqueoFachada.buscarPorId(id);
 
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-            String fechaFormateada = formato.format(bloqueo.getFechaBloqueo());
+            LocalTime horaActual = LocalTime.now();
+            Date fecha = convertirLocalTimeADate(horaActual);
+
+            String hora = formato.format(fecha);
 
             EstudianteDominio estudiante = bloqueo.getEstudiante();
             mostrarIdLbl.setText(estudiante.getIdEscolar());
             mostrarCarreraLbl.setText(estudiante.getCarrera().toString());
             mostrarNombreLbl.setText(estudiante.getNombres());
             mostrarUnidadLbl.setText(estudiante.getCarrera().getUnidadAcademica().getNombres());
-            mostrarFechaLbl.setText(fechaFormateada);
+            mostrarFechaLbl.setText(hora);
         } catch (NegocioException ex) {
             Logger.getLogger(PanelBloquear.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private Date convertirLocalTimeADate(LocalTime time) {
+        LocalDateTime ldt = LocalDateTime.of(LocalDate.now(), time);
+        return Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     /**

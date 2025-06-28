@@ -286,8 +286,11 @@ public class PanelBloquear extends javax.swing.JPanel {
     private void consultarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarBtnActionPerformed
 
         Date fechaActual = new Date();
+        
+        
         String motivo = motivoTxt.getText();
         boolean estatus = true;
+        
         try {
             EstudianteDominio estudiante = estudianteFachada.buscarPorID(id);
             BloqueoDominio bloqueo = new BloqueoDominio(fechaActual, motivo, estatus, estudiante);

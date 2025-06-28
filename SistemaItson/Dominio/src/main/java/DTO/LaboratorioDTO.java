@@ -53,6 +53,12 @@ public class LaboratorioDTO {
         return idLaboratorios;
     }
 
+    public void setIdLaboratorios(int idLaboratorios) {
+        this.idLaboratorios = idLaboratorios;
+    }
+    
+    
+    
     @Override
     public String toString() {
         return "LaboratorioDTO{" + "nombre=" + nombre + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + '}';

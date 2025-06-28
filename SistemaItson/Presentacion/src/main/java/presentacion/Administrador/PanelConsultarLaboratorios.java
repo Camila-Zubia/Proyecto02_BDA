@@ -26,7 +26,7 @@ public class PanelConsultarLaboratorios extends javax.swing.JPanel {
     private final ILaboratorioFachada laboratorioFachada;
     private int offset = 0;
     private final int limite = 5;
-    
+    private int idLab;
     public PanelConsultarLaboratorios() {
         this.laboratorioFachada = new LaboratorioFachada();
         initComponents();
@@ -256,6 +256,7 @@ public class PanelConsultarLaboratorios extends javax.swing.JPanel {
 
         if (filaSeleccionada != -1) {
             int idBloqueo = (int) jTable1.getValueAt(filaSeleccionada, 0);
+            idLab = idBloqueo;
             try {
                 laboratorioFachada.buscarPorId(idBloqueo);
                 abrirPanelModificar();
@@ -300,13 +301,10 @@ public class PanelConsultarLaboratorios extends javax.swing.JPanel {
     }
 
     public void abrirPanelModificar() {
-        int filaSeleccionada = jTable1.getSelectedRow();
-
-        if (filaSeleccionada != -1) {
-            int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+       
             try {
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-                PanelModificarLaboratorio panel = new PanelModificarLaboratorio(id);
+                PanelModificarLaboratorio panel = new PanelModificarLaboratorio(idLab);
 
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -315,7 +313,7 @@ public class PanelConsultarLaboratorios extends javax.swing.JPanel {
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error al cargar la siguiente ventana: " + ex.getMessage());
             }
-        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
