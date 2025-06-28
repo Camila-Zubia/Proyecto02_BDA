@@ -5,6 +5,7 @@
 package presentacion.Administrador;
 
 import java.awt.BorderLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -172,45 +173,47 @@ public class FrameControl extends javax.swing.JFrame {
 
     private void menuItemConsultarComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemConsultarComputadorasActionPerformed
         PanelConsultarComputadoras panel = new PanelConsultarComputadoras();
-        
-        getContentPane().removeAll();
-        getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(panel, BorderLayout.CENTER);
-        
-        revalidate();
-        repaint();
+        configurarPanel(panel);
     }//GEN-LAST:event_menuItemConsultarComputadorasActionPerformed
 
     private void menuItemConsultarBloqueosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemConsultarBloqueosActionPerformed
-        // TODO add your handling code here:
+        PanelConsultarBloqueos panel = new PanelConsultarBloqueos();
+        configurarPanel(panel);
     }//GEN-LAST:event_menuItemConsultarBloqueosActionPerformed
 
     private void menuItemBloquearAccesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemBloquearAccesoActionPerformed
-        // TODO add your handling code here:
+        PanelAdministrarAcceso panel = new PanelAdministrarAcceso();
+        configurarPanel(panel);
     }//GEN-LAST:event_menuItemBloquearAccesoActionPerformed
 
     private void menuItemReporteCentroComputoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReporteCentroComputoActionPerformed
-        // TODO add your handling code here:
+        PanelReporteCentroComputo panel = new PanelReporteCentroComputo();
+        configurarPanel(panel);
     }//GEN-LAST:event_menuItemReporteCentroComputoActionPerformed
 
     private void menuItemReporteCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReporteCarrerasActionPerformed
-        // TODO add your handling code here:
+        PanelReporteCarreras panel =  new PanelReporteCarreras();
+        configurarPanel(panel);
     }//GEN-LAST:event_menuItemReporteCarrerasActionPerformed
 
     private void menuItemReporteBloqueosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemReporteBloqueosActionPerformed
-        // TODO add your handling code here:
+        PanelReporteBloqueos panel = new PanelReporteBloqueos();
+        configurarPanel(panel);
     }//GEN-LAST:event_menuItemReporteBloqueosActionPerformed
 
     private void menuItemConsultarLaboratoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemConsultarLaboratoriosActionPerformed
         PanelConsultarLaboratorios panel = new PanelConsultarLaboratorios();
-        
+        configurarPanel(panel);
+    }//GEN-LAST:event_menuItemConsultarLaboratoriosActionPerformed
+
+    private void configurarPanel(JPanel panel) {
         getContentPane().removeAll();
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(panel, BorderLayout.CENTER);
-        
+
         revalidate();
         repaint();
-    }//GEN-LAST:event_menuItemConsultarLaboratoriosActionPerformed
+    }
 
     /**
      * @param args the command line arguments

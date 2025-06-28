@@ -11,8 +11,6 @@ import fachada.ILaboratorioFachada;
 import fachada.implementaciones.LaboratorioFachada;
 import java.awt.BorderLayout;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -228,7 +226,6 @@ public class PanelConsultarLaboratorios extends javax.swing.JPanel {
         try {
             cargarTabla();
         } catch (NegocioException ex) {
-            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -246,7 +243,6 @@ public class PanelConsultarLaboratorios extends javax.swing.JPanel {
         try {
             cargarTabla();
         } catch (NegocioException ex) {
-            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnPaginadoAnteriorActionPerformed
@@ -256,7 +252,6 @@ public class PanelConsultarLaboratorios extends javax.swing.JPanel {
         try {
             cargarTabla();
         } catch (NegocioException ex) {
-            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Error al cargar los bloqueos: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnPaginadoSiguienteActionPerformed
@@ -275,7 +270,6 @@ public class PanelConsultarLaboratorios extends javax.swing.JPanel {
                 laboratorioFachada.buscarPorId(idBloqueo);
                 abrirPanelModificar();
             } catch (NegocioException ex) {
-                Logger.getLogger(BloquearFrm.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "error al abrir la ventana");
             }
         }

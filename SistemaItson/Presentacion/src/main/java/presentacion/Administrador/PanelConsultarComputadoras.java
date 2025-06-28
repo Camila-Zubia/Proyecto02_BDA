@@ -245,7 +245,6 @@ public class PanelConsultarComputadoras extends javax.swing.JPanel {
         try {
             cargarTabla();
         } catch (NegocioException ex) {
-            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Error al cargar las computadoras: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnPaginadoAnteriorActionPerformed
@@ -255,7 +254,6 @@ public class PanelConsultarComputadoras extends javax.swing.JPanel {
         try{
             cargarTabla();
         }catch(NegocioException ex){
-            Logger.getLogger(ConsultarBloqueosFrm.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Error al cargar las computadoras: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnPaginadoSiguienteActionPerformed
@@ -274,7 +272,6 @@ public class PanelConsultarComputadoras extends javax.swing.JPanel {
                 computadoraFachada.buscarPorId(idBloqueo);
                 abrirPanelModificar();
             } catch (NegocioException ex) {
-                Logger.getLogger(BloquearFrm.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "error al abrir la ventana");
             }
         }
