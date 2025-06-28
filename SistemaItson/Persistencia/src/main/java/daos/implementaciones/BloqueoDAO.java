@@ -32,8 +32,7 @@ public class BloqueoDAO implements IBloqueoDAO {
     
     public BloqueoDAO(IConexionBD conexionBD){
         this.conexionBD = conexionBD;
-    }
-    
+    } 
     
     @Override
     public BloqueoDominio registrarBloqueo(BloqueoDominio bloqueo) throws PersistenciaException {

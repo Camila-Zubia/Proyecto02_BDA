@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package presentacion.Administrador;
 
@@ -8,20 +8,13 @@ package presentacion.Administrador;
  *
  * @author saula
  */
-public class DesbloquearFrm extends javax.swing.JFrame {
-    
-    ConsultarBloqueosFrm consultarAcceso;
-    int id;
+public class PanelBloquear extends javax.swing.JPanel {
 
     /**
-     * Creates new form DesbloquearFrm
-     * @param consultarAcceso
-     * @param id
+     * Creates new form PanelBloquear
      */
-    public DesbloquearFrm(ConsultarBloqueosFrm consultarAcceso, int id) {
+    public PanelBloquear() {
         initComponents();
-        this.consultarAcceso = consultarAcceso;
-        this.id = id;
     }
 
     /**
@@ -50,93 +43,65 @@ public class DesbloquearFrm extends javax.swing.JFrame {
         mostrarUnidadLbl = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         motivoTxt = new javax.swing.JTextArea();
-        mostrarFechaLbl = new javax.swing.JLabel();
-        fechaLbl = new javax.swing.JLabel();
-        menuBar = new javax.swing.JMenuBar();
-        menuPanelControl = new javax.swing.JMenu();
-        menuGestionBloqueos = new javax.swing.JMenu();
-        menuItemConsultarBloqueos = new javax.swing.JMenuItem();
-        menuItemBloquearAcceso = new javax.swing.JMenuItem();
-        menuGestionComputadoras = new javax.swing.JMenu();
-        menuItemAgregarComputadoras = new javax.swing.JMenuItem();
-        menuItemModificarComputadoras = new javax.swing.JMenuItem();
-        menuGestionLaboratorios = new javax.swing.JMenu();
-        menuItemAgregarLaboratorio = new javax.swing.JMenuItem();
-        menuItemModificarLaboratorio = new javax.swing.JMenuItem();
-        menuGenerarReportes = new javax.swing.JMenu();
-        menuItemReporteCentroComputo = new javax.swing.JMenuItem();
-        menuItemReporteCarreras = new javax.swing.JMenuItem();
-        menuItemReporteBloqueos = new javax.swing.JMenuItem();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         PanelFondo.setBackground(new java.awt.Color(0, 109, 182));
 
         jPanel1.setBackground(new java.awt.Color(186, 215, 235));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray));
 
+        jLabel1.setText("ADMINISTRAR ACCESO");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(4, 109, 181));
-        jLabel1.setText("ADMINISTRAR ACCESO");
 
-        btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
         btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/anterior.png"))); // NOI18N
+        btnAnterior.setBackground(new java.awt.Color(186, 215, 235));
 
+        consultarBtn.setText("BLOQUEAR");
         consultarBtn.setBackground(new java.awt.Color(0, 153, 255));
         consultarBtn.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        consultarBtn.setText("DESBLOQUEAR");
 
-        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.setOpaque(false);
 
+        idLbl.setText("ID:");
         idLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         idLbl.setForeground(new java.awt.Color(4, 109, 181));
-        idLbl.setText("ID:");
 
+        nombreLbl.setText("NOMBRE:");
         nombreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         nombreLbl.setForeground(new java.awt.Color(4, 109, 181));
-        nombreLbl.setText("NOMBRE:");
 
+        carreraLbl.setText("CARRERA:");
         carreraLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         carreraLbl.setForeground(new java.awt.Color(4, 109, 181));
-        carreraLbl.setText("CARRERA:");
 
+        unidadLbl.setText("UNIDAD:");
         unidadLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         unidadLbl.setForeground(new java.awt.Color(4, 109, 181));
-        unidadLbl.setText("UNIDAD:");
 
+        motivoLbl.setText("MOTIVO:");
         motivoLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         motivoLbl.setForeground(new java.awt.Color(4, 109, 181));
-        motivoLbl.setText("MOTIVO:");
 
+        mostrarNombreLbl.setText("X");
         mostrarNombreLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarNombreLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarNombreLbl.setText("X");
 
+        mostrarIdLbl.setText("X");
         mostrarIdLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarIdLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarIdLbl.setText("X");
 
+        mostrarCarreraLbl.setText("X");
         mostrarCarreraLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarCarreraLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarCarreraLbl.setText("X");
 
+        mostrarUnidadLbl.setText("X");
         mostrarUnidadLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         mostrarUnidadLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarUnidadLbl.setText("X");
 
         motivoTxt.setColumns(20);
         motivoTxt.setRows(5);
         jScrollPane1.setViewportView(motivoTxt);
-
-        mostrarFechaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        mostrarFechaLbl.setForeground(new java.awt.Color(4, 109, 181));
-        mostrarFechaLbl.setText("X");
-
-        fechaLbl.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        fechaLbl.setForeground(new java.awt.Color(4, 109, 181));
-        fechaLbl.setText("FECHA:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -144,7 +109,6 @@ public class DesbloquearFrm extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(fechaLbl)
                     .addComponent(motivoLbl)
                     .addComponent(unidadLbl)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,8 +127,7 @@ public class DesbloquearFrm extends javax.swing.JFrame {
                         .addComponent(mostrarIdLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(mostrarUnidadLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mostrarCarreraLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mostrarFechaLbl))
+                    .addComponent(mostrarCarreraLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -187,14 +150,10 @@ public class DesbloquearFrm extends javax.swing.JFrame {
                     .addComponent(unidadLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(mostrarUnidadLbl))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fechaLbl)
-                    .addComponent(mostrarFechaLbl))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(motivoLbl)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -202,33 +161,34 @@ public class DesbloquearFrm extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(331, 331, 331)
-                .addComponent(consultarBtn)
-                .addGap(410, 410, 410))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(735, 735, 735)
+                        .addComponent(consultarBtn))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(190, 190, 190)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(172, 172, 172)
+                                .addComponent(jLabel1)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(consultarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40))
+                        .addGap(46, 46, 46)
+                        .addComponent(consultarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -237,108 +197,30 @@ public class DesbloquearFrm extends javax.swing.JFrame {
         PanelFondo.setLayout(PanelFondoLayout);
         PanelFondoLayout.setHorizontalGroup(
             PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoLayout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 927, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89))
+            .addGroup(PanelFondoLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         PanelFondoLayout.setVerticalGroup(
             PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelFondoLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(43, 43, 43)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
-        menuPanelControl.setText("Panel de Control");
-
-        menuGestionBloqueos.setText("Gestión de Bloqueos");
-
-        menuItemConsultarBloqueos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemConsultarBloqueos.setText("Consultar Bloqueos");
-        menuGestionBloqueos.add(menuItemConsultarBloqueos);
-
-        menuItemBloquearAcceso.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemBloquearAcceso.setText("Bloquear Acceso");
-        menuGestionBloqueos.add(menuItemBloquearAcceso);
-
-        menuPanelControl.add(menuGestionBloqueos);
-
-        menuGestionComputadoras.setText("Gestión de Computadoras");
-
-        menuItemAgregarComputadoras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemAgregarComputadoras.setText("Agregar Computadoras");
-        menuGestionComputadoras.add(menuItemAgregarComputadoras);
-
-        menuItemModificarComputadoras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemModificarComputadoras.setText("Modificar Computadoras");
-        menuItemModificarComputadoras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemModificarComputadorasActionPerformed(evt);
-            }
-        });
-        menuGestionComputadoras.add(menuItemModificarComputadoras);
-
-        menuPanelControl.add(menuGestionComputadoras);
-
-        menuGestionLaboratorios.setText("Gestión de Laboratorios");
-
-        menuItemAgregarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemAgregarLaboratorio.setText("Agregar Laboratorio");
-        menuGestionLaboratorios.add(menuItemAgregarLaboratorio);
-
-        menuItemModificarLaboratorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemModificarLaboratorio.setText("Modificar Laboratorio");
-        menuItemModificarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemModificarLaboratorioActionPerformed(evt);
-            }
-        });
-        menuGestionLaboratorios.add(menuItemModificarLaboratorio);
-
-        menuPanelControl.add(menuGestionLaboratorios);
-
-        menuGenerarReportes.setText("Generar Reportes");
-
-        menuItemReporteCentroComputo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemReporteCentroComputo.setText("Centro de Computo");
-        menuGenerarReportes.add(menuItemReporteCentroComputo);
-
-        menuItemReporteCarreras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemReporteCarreras.setText("Carreras");
-        menuGenerarReportes.add(menuItemReporteCarreras);
-
-        menuItemReporteBloqueos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemReporteBloqueos.setText("Bloqueos");
-        menuGenerarReportes.add(menuItemReporteBloqueos);
-
-        menuPanelControl.add(menuGenerarReportes);
-
-        menuBar.add(menuPanelControl);
-
-        setJMenuBar(menuBar);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelFondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void menuItemModificarComputadorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarComputadorasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemModificarComputadorasActionPerformed
-
-    private void menuItemModificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModificarLaboratorioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemModificarLaboratorioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -346,29 +228,12 @@ public class DesbloquearFrm extends javax.swing.JFrame {
     private javax.swing.JButton btnAnterior;
     private javax.swing.JLabel carreraLbl;
     private javax.swing.JButton consultarBtn;
-    private javax.swing.JLabel fechaLbl;
     private javax.swing.JLabel idLbl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenu menuGenerarReportes;
-    private javax.swing.JMenu menuGestionBloqueos;
-    private javax.swing.JMenu menuGestionComputadoras;
-    private javax.swing.JMenu menuGestionLaboratorios;
-    private javax.swing.JMenuItem menuItemAgregarComputadoras;
-    private javax.swing.JMenuItem menuItemAgregarLaboratorio;
-    private javax.swing.JMenuItem menuItemBloquearAcceso;
-    private javax.swing.JMenuItem menuItemConsultarBloqueos;
-    private javax.swing.JMenuItem menuItemModificarComputadoras;
-    private javax.swing.JMenuItem menuItemModificarLaboratorio;
-    private javax.swing.JMenuItem menuItemReporteBloqueos;
-    private javax.swing.JMenuItem menuItemReporteCarreras;
-    private javax.swing.JMenuItem menuItemReporteCentroComputo;
-    private javax.swing.JMenu menuPanelControl;
     private javax.swing.JLabel mostrarCarreraLbl;
-    private javax.swing.JLabel mostrarFechaLbl;
     private javax.swing.JLabel mostrarIdLbl;
     private javax.swing.JLabel mostrarNombreLbl;
     private javax.swing.JLabel mostrarUnidadLbl;
