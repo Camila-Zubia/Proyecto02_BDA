@@ -147,8 +147,9 @@ public class ComputadoraDAO implements IComputadoraDAO{
     public List<ComputadoraDominio> listarComputadoras() throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
         try {
-            String consulta = "SELECT c FROM computadoraDominio c";
+            String consulta = "SELECT c FROM computadoraDominio c WHERE c.tipo = :tipo";
             TypedQuery<ComputadoraDominio> query = manager.createQuery(consulta, ComputadoraDominio.class);
+            query.setParameter("tipo", TipoComputadora.ESTUDIANTE);
             return query.getResultList();
         }catch (Exception ex) {
             throw new PersistenciaException("Error al eliminar la computadora: " + ex.getMessage());

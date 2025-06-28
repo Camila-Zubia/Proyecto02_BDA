@@ -13,6 +13,7 @@ dominios\ComputadoraDominio.class
 DTO\TablaEstudiantesDTO.class
 dominios\EstatusComputadora.class
 dominios\TipoComputadora.class
+DTO\EstudianteRegistroDTO.class
 dominios\SoftwareDominio.class
 DTO\AdministradorRegistroDTO.class
 DTO\TablaLaboratorioDTO.class
