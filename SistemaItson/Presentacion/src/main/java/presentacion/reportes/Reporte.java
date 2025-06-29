@@ -40,29 +40,26 @@ public class Reporte {
         try {
             IReporteFachada reporteFachada = new ReporteFachada();
             List<ReporteCentroComputoDTO> reporte = reporteFachada.generarReporte(filtro);
-            
+
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(reporte);
-            
-            //mapeo de parametros
+
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("fechaInicio", filtro.getFechaInicio());
             parametros.put("fechaFin", filtro.getFechaFin());
             parametros.put("laboratorio", filtro.getLaboratorio());
             parametros.put("carreras", filtro.getCarreras());
-            
-            
-            InputStream jasperStream = new FileInputStream(RUTA_CENTRO);
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-            jasperStream.close();
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(RUTA_CENTRO);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, dataSource);
 
             JasperViewer.viewReport(jasperPrint, false);
-            
-        }catch(NegocioException | IOException | JRException ex){
-            throw new NegocioException(ex.getMessage());
+
+        } catch (NegocioException | JRException ex) {
+            throw new NegocioException("Error al generar reporte: " + ex.getMessage());
         }
     }
+
     
     public void generarReporteCarreras(FiltroReporteCarrerasDTO filtro) throws NegocioException {
         try {

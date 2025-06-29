@@ -13,6 +13,13 @@ import excepciones.PersistenciaException;
  * @author saula
  */
 public interface IAdministradorDAO {
-     
+
+    /**
+     * Busca un administrador por su usuario.
+     *
+     * @param administradorRegistroDTO DTO que contiene el usuario a buscar.
+     * @return AdministradorDominio encontrado o null si no existe.
+     * @throws PersistenciaException Si ocurre un error durante la consulta.
+     */
     public AdministradorDominio buscarPorUsuario(AdministradorRegistroDTO administradorRegistroDTO) throws PersistenciaException;
 }

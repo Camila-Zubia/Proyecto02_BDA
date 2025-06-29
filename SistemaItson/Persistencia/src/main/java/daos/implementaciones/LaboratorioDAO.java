@@ -40,6 +40,13 @@ public class LaboratorioDAO implements ILaboratorioDAO {
         this.unidadAcademicaDAO = new UnidadAcademicaDAO(this.conexionBD);
     }
 
+    /**
+     * Busca un laboratorio por su ID y devuelve un DTO con los datos.
+     * @param id ID del laboratorio.
+     * @return LaboratorioDTO con los datos del laboratorio.
+     * @throws PersistenciaException Si no se encuentra o hay error en la
+     * consulta.
+     */
     @Override
     public LaboratorioDTO buscarPorId(int id) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -61,6 +68,12 @@ public class LaboratorioDAO implements ILaboratorioDAO {
         }
     }
 
+    /**
+     * Guarda un nuevo laboratorio en la base de datos a partir de un DTO.
+     * @param nuevoLaboratorio DTO con los datos para crear el laboratorio.
+     * @return LaboratorioDominio guardado.
+     * @throws PersistenciaException Si ocurre un error al guardar.
+     */
     @Override
     public LaboratorioDominio guardar(NuevoLaboratorioDTO nuevoLaboratorio) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -88,6 +101,13 @@ public class LaboratorioDAO implements ILaboratorioDAO {
         }
     }
 
+    /**
+     * Modifica un laboratorio existente con los datos del DTO.
+     * @param laboratorio DTO con los datos a modificar.
+     * @return LaboratorioDominio modificado.
+     * @throws PersistenciaException Si no se encuentra o hay error al
+     * modificar.
+     */
     @Override
     public LaboratorioDominio modificar(LaboratorioDTO laboratorio) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -114,6 +134,12 @@ public class LaboratorioDAO implements ILaboratorioDAO {
         }
     }
 
+    /**
+     * Verifica si existe un laboratorio con el nombre dado (case insensitive).
+     * @param nombre Nombre del laboratorio.
+     * @return true si existe, false si no.
+     * @throws PersistenciaException Si ocurre un error en la consulta.
+     */
     @Override
     public boolean existePorNombre(String nombre) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -131,6 +157,12 @@ public class LaboratorioDAO implements ILaboratorioDAO {
         return resultado > 0;
     }
 
+    /**
+     * Busca laboratorios aplicando filtro y paginación, devuelve lista de DTOs.
+     * @param filtro DTO con texto, límite y offset para la búsqueda.
+     * @return Lista de TablaLaboratorioDTO con los resultados.
+     * @throws PersistenciaException Si ocurre un error en la consulta.
+     */
     @Override
     public List<TablaLaboratorioDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -167,6 +199,11 @@ public class LaboratorioDAO implements ILaboratorioDAO {
         }
     }
 
+    /**
+     * Convierte un LaboratorioDominio en un DTO para tabla.
+     * @param lab Objeto dominio.
+     * @return DTO simplificado para tabla.
+     */
     private TablaLaboratorioDTO convertirTabla(LaboratorioDominio lab) {
         int id = lab.getIdLaboratorios();
         String nombre = lab.getNombre();
@@ -176,6 +213,11 @@ public class LaboratorioDAO implements ILaboratorioDAO {
         return tabla;
     }
 
+    /**
+     * Obtiene todos los laboratorios disponibles.
+     * @return Lista con todos los LaboratorioDominio.
+     * @throws PersistenciaException Si ocurre error en la consulta.
+     */
     @Override
     public List<LaboratorioDominio> obtenerLaboratorios() throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -192,6 +234,13 @@ public class LaboratorioDAO implements ILaboratorioDAO {
         }
     }
 
+    /**
+     * Obtiene un laboratorio por su nombre (case insensitive).
+     *
+     * @param nombre Nombre del laboratorio.
+     * @return LaboratorioDominio encontrado.
+     * @throws PersistenciaException Si no se encuentra o hay error.
+     */
     @Override
     public LaboratorioDominio obtenerPorNombre(String nombre) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();

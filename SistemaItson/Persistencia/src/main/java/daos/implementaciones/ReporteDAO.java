@@ -7,9 +7,15 @@ import DTO.FiltrosReporteCentroComputoDTO;
 import DTO.ReporteBloqueoDTO;
 import DTO.ReporteCarrerasDTO;
 import DTO.ReporteCentroComputoDTO;
+import com.google.protobuf.Timestamp;
 import daos.IConexionBD;
 import daos.IReporteDAO;
 import excepciones.PersistenciaException;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -26,14 +32,8 @@ public class ReporteDAO implements IReporteDAO {
     public List<ReporteCentroComputoDTO> generarReporteCentroComputo(FiltrosReporteCentroComputoDTO filtro) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
         try {
-            StringBuilder codigoJPQL = new StringBuilder();
-            codigoJPQL.append("SELECT new DTO.ReporteCentroComputoDTO(")
-                    .append("lab.nombre, comp.numero, ")
-                    .append("COUNT(DISTINCT est.idEstudiante), ")
-                    .append("SUM(res.tiempoReserva), ")
-                    .append("CAST(FUNCTION('TIMESTAMPDIFF', 'MINUTE', lab.horaInicio, lab.horaFin), )AS long")
-                    .append("CAST(FUNCTION('DATE', res.fechaInicio) ) AS long") 
-                    .append(") ") 
+            StringBuilder jpql = new StringBuilder();
+            jpql.append("SELECT lab.nombre, comp.numero, COUNT(DISTINCT est.idEstudiante), SUM(res.tiempoReserva), lab.horaInicio, lab.horaFin, FUNCTION('DATE', res.fechaInicio) ")
                     .append("FROM EstudianteReservaComputadoraDominio res ")
                     .append("JOIN res.computadoraReservas comp ")
                     .append("JOIN comp.laboratorio lab ")
@@ -42,17 +42,16 @@ public class ReporteDAO implements IReporteDAO {
                     .append("WHERE res.fechaInicio BETWEEN :inicio AND :fin ");
 
             if (filtro.getLaboratorio() != null && !filtro.getLaboratorio().isEmpty()) {
-                codigoJPQL.append("AND lab.nombre = :nombreLab ");
+                jpql.append("AND lab.nombre = :nombreLab ");
             }
 
             if (filtro.getCarreras() != null && !filtro.getCarreras().isEmpty()) {
-                codigoJPQL.append("AND car.nombre IN :nombresCarreras ");
+                jpql.append("AND car.nombre IN :nombresCarreras ");
             }
 
-            codigoJPQL.append("GROUP BY lab.nombre, comp.numero, FUNCTION('DATE', res.fechaInicio) ");
+            jpql.append("GROUP BY lab.nombre, comp.numero, lab.horaInicio, lab.horaFin, FUNCTION('DATE', res.fechaInicio)");
 
-            TypedQuery<ReporteCentroComputoDTO> query = manager.createQuery(codigoJPQL.toString(), ReporteCentroComputoDTO.class);
-
+            TypedQuery<Object[]> query = manager.createQuery(jpql.toString(), Object[].class);
             query.setParameter("inicio", filtro.getFechaInicio());
             query.setParameter("fin", filtro.getFechaFin());
 
@@ -64,7 +63,40 @@ public class ReporteDAO implements IReporteDAO {
                 query.setParameter("nombresCarreras", filtro.getCarreras());
             }
 
-            return query.getResultList();
+            List<Object[]> resultados = query.getResultList();
+
+            List<ReporteCentroComputoDTO> reporte = new ArrayList<>();
+            for (Object[] row : resultados) {
+                String nombreLab = (String) row[0];
+                String numeroCompu = (String) row[1];
+                Long cantidadEstudiantes = (Long) row[2];
+                Long minutosUsos = (Long) row[3];
+                Date fechaHoraInicio = (Date) row[4];
+                Date fechaHoraFin = (Date) row[5];
+                Date fecha = (Date) row[6];
+
+                LocalTime horaInicio = fechaHoraInicio.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalTime();
+                LocalTime horaFin = fechaHoraFin.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalTime();
+                long minutosDisponibles = ChronoUnit.MINUTES.between(horaInicio, horaFin);
+
+                ReporteCentroComputoDTO dto = new ReporteCentroComputoDTO(
+                        nombreLab,
+                        numeroCompu,
+                        cantidadEstudiantes != null ? cantidadEstudiantes : 0,
+                        minutosUsos != null ? minutosUsos : 0,
+                        minutosDisponibles,
+                        fecha
+                );
+
+                reporte.add(dto);
+            }
+
+            return reporte;
+
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new PersistenciaException("Error al consultar el reporte.");

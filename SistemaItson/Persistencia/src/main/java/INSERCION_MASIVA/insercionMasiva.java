@@ -19,6 +19,7 @@ public class insercionMasiva {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        //CREATE DATABASE proyecto2bda;
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("conexionJPA");
         InsercionMasivaDAO dao = new InsercionMasivaDAO(factory);
         dao.insertarTodo();

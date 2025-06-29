@@ -30,7 +30,7 @@ import javax.persistence.criteria.Root;
  *
  * @author Camila Zubía
  */
-public class ComputadoraDAO implements IComputadoraDAO{
+public class ComputadoraDAO implements IComputadoraDAO {
 
     private final ILaboratorioDAO labDAO;
     private final IConexionBD conexionBD;
@@ -39,17 +39,25 @@ public class ComputadoraDAO implements IComputadoraDAO{
         this.conexionBD = conexionBD;
         this.labDAO = new LaboratorioDAO(this.conexionBD);
     }
-    
+
+    /**
+     * Busca una computadora por su ID.
+     *
+     * @param id ID de la computadora a buscar.
+     * @return Computadora encontrada.
+     * @throws PersistenciaException Si no se encuentra o hay error en la
+     * búsqueda.
+     */
     @Override
     public ComputadoraDominio buscarPorId(int id) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
-        try{
+        try {
             ComputadoraDominio computadora = manager.find(ComputadoraDominio.class, id);
             if (computadora == null) {
                 throw new PersistenciaException("No se encontró la computadora con ID: " + id);
             }
             return computadora;
-        }catch (PersistenciaException ex) {
+        } catch (PersistenciaException ex) {
             throw new PersistenciaException("Error al buscar la computadora por ID" + ex.getMessage());
         } finally {
             if (manager != null) {
@@ -58,6 +66,13 @@ public class ComputadoraDAO implements IComputadoraDAO{
         }
     }
 
+    /**
+     * Agrega una nueva computadora a la base de datos.
+     *
+     * @param computadoraDTO DTO con los datos de la computadora.
+     * @return Computadora registrada.
+     * @throws PersistenciaException Si ocurre un error durante el guardado.
+     */
     @Override
     public ComputadoraDominio agregar(NuevaComputadoraDTO computadoraDTO) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -84,6 +99,13 @@ public class ComputadoraDAO implements IComputadoraDAO{
         }
     }
 
+    /**
+     * Marca una computadora como apartada.
+     *
+     * @param id ID de la computadora a apartar.
+     * @throws PersistenciaException Si no se encuentra o hay error al
+     * modificar.
+     */
     @Override
     public void apartarComputadora(int id) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -107,6 +129,14 @@ public class ComputadoraDAO implements IComputadoraDAO{
         }
     }
 
+    /**
+     * Modifica los datos de una computadora existente.
+     *
+     * @param computadora Objeto con los datos actualizados.
+     * @return Computadora actualizada.
+     * @throws PersistenciaException Si no se encuentra o hay error al
+     * actualizar.
+     */
     @Override
     public ComputadoraDominio modificar(ComputadoraDominio computadora) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -134,6 +164,13 @@ public class ComputadoraDAO implements IComputadoraDAO{
         }
     }
 
+    /**
+     * Cambia el estatus de la computadora a "DESCONECTADA".
+     *
+     * @param id ID de la computadora a desconectar.
+     * @throws PersistenciaException Si no se encuentra o hay error al
+     * modificar.
+     */
     @Override
     public void eliminar(int id) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -157,6 +194,12 @@ public class ComputadoraDAO implements IComputadoraDAO{
         }
     }
 
+    /**
+     * Retorna la lista de todas las computadoras registradas.
+     *
+     * @return Lista de computadoras.
+     * @throws PersistenciaException Si ocurre un error al consultar.
+     */
     @Override
     public List<ComputadoraDominio> listarComputadoras() throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -164,7 +207,7 @@ public class ComputadoraDAO implements IComputadoraDAO{
             String consulta = "SELECT c FROM ComputadoraDominio c";
             TypedQuery<ComputadoraDominio> query = manager.createQuery(consulta, ComputadoraDominio.class);
             return query.getResultList();
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             throw new PersistenciaException("Error al eliminar la computadora: " + ex.getMessage());
         } finally {
             if (manager != null) {
@@ -173,6 +216,13 @@ public class ComputadoraDAO implements IComputadoraDAO{
         }
     }
 
+    /**
+     * Cambia el estatus de la computadora a "DISPONIBLE".
+     *
+     * @param id ID de la computadora a liberar.
+     * @throws PersistenciaException Si no se encuentra o hay error al
+     * modificar.
+     */
     @Override
     public void liberarComputadora(int id) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -196,16 +246,23 @@ public class ComputadoraDAO implements IComputadoraDAO{
         }
     }
 
+    /**
+     * Busca computadoras filtrando por texto (número o IP), con paginación.
+     *
+     * @param filtro Objeto con filtro, límite y offset.
+     * @return Lista de DTOs con las computadoras encontradas.
+     * @throws PersistenciaException Si ocurre un error al buscar.
+     */
     @Override
     public List<TablaComputadoraDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
-        try{
+        try {
             CriteriaBuilder cb = manager.getCriteriaBuilder();
             CriteriaQuery cq = cb.createQuery(ComputadoraDominio.class);
             List<Predicate> predicate = new ArrayList<>();
             Root<ComputadoraDominio> root = cq.from(ComputadoraDominio.class);
             if (filtro.getFiltro() != null && !filtro.getFiltro().trim().isEmpty()) {
-           
+
                 String textoFiltro = "%" + filtro.getFiltro() + "%";
 
                 Predicate numero = cb.like(cb.function("CAST", String.class, root.get("numero")), textoFiltro);
@@ -213,26 +270,31 @@ public class ComputadoraDAO implements IComputadoraDAO{
 
                 predicate.add(cb.or(numero, ip));
             }
-            
+
             cq.select(root).where(cb.and(predicate.toArray(Predicate[]::new)));
             TypedQuery<ComputadoraDominio> query = manager.createQuery(cq);
             query.setFirstResult(filtro.getOffset());
             query.setMaxResults(filtro.getLimit());
             List<ComputadoraDominio> resultados = query.getResultList();
             List<TablaComputadoraDTO> computadoras = resultados.stream()
-                    .map(c ->convertirTabla(c)).collect(Collectors.toList());
+                    .map(c -> convertirTabla(c)).collect(Collectors.toList());
             return computadoras;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             throw new PersistenciaException("Error al buscar la tabla de computadoras" + ex);
-        }finally {
+        } finally {
             if (manager != null) {
                 manager.close();
             }
         }
     }
-    
-    
-    private TablaComputadoraDTO convertirTabla(ComputadoraDominio compu){
+
+    /**
+     * Convierte un objeto de dominio a un DTO para tabla.
+     *
+     * @param compu Objeto de dominio Computadora.
+     * @return DTO correspondiente.
+     */
+    private TablaComputadoraDTO convertirTabla(ComputadoraDominio compu) {
         int id = compu.getIdComputadoras();
         String numero = compu.getNumero();
         String ip = compu.getDireccionIp();
@@ -242,9 +304,17 @@ public class ComputadoraDAO implements IComputadoraDAO{
         return tabla;
     }
 
+    /**
+     * Busca el laboratorio al que pertenece una computadora por su dirección
+     * IP.
+     *
+     * @param ip Dirección IP de la computadora.
+     * @return Laboratorio correspondiente.
+     * @throws PersistenciaException Si no se encuentra o hay error.
+     */
     @Override
     public LaboratorioDominio buscarLaboratorioPorIp(String ip) throws PersistenciaException {
-       EntityManager manager = conexionBD.crearConexion();
+        EntityManager manager = conexionBD.crearConexion();
         try {
             String jpql = "SELECT c.laboratorio FROM ComputadoraDominio c WHERE c.direccionIp = :ip";
             return manager.createQuery(jpql, LaboratorioDominio.class)
@@ -256,7 +326,14 @@ public class ComputadoraDAO implements IComputadoraDAO{
             manager.close();
         }
     }
-    
+
+    /**
+     * Busca una computadora por su número identificador.
+     *
+     * @param numero Número de la computadora.
+     * @return Computadora encontrada.
+     * @throws PersistenciaException Si no se encuentra o hay error al buscar.
+     */
     @Override
     public ComputadoraDominio buscarPorNumero(String numero) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();

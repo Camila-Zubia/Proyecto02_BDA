@@ -33,8 +33,14 @@ public class EstudianteDAO implements IEstudianteDAO {
     public EstudianteDAO(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
     }
-    
-    
+
+    /**
+     * Busca un estudiante por su ID.
+     *
+     * @param id ID del estudiante.
+     * @return Estudiante encontrado.
+     * @throws PersistenciaException Si no se encuentra o hay error.
+     */
     @Override
     public EstudianteDominio buscarPorID(int id) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -53,6 +59,13 @@ public class EstudianteDAO implements IEstudianteDAO {
         }
     }
 
+    /**
+     * Verifica si un estudiante está bloqueado.
+     *
+     * @param id ID escolar del estudiante.
+     * @return true si está bloqueado, false si no.
+     * @throws PersistenciaException Si ocurre un error en la consulta.
+     */
     @Override
     public boolean estaBloqueado(String id) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -71,6 +84,11 @@ public class EstudianteDAO implements IEstudianteDAO {
         }
     }
 
+    /**
+     * Obtiene la lista de estudiantes que tienen bloqueos activos.
+     *
+     * @return Lista de estudiantes bloqueados.
+     */
     @Override
     public List<EstudianteDominio> obtenerEstudiantesConBloqueosActivos() {
         EntityManager em = conexionBD.crearConexion();
@@ -84,6 +102,13 @@ public class EstudianteDAO implements IEstudianteDAO {
         }
     }
 
+    /**
+     * Busca estudiantes aplicando filtro y paginación.
+     *
+     * @param filtro Objeto con texto, límite y offset para la consulta.
+     * @return Lista de DTOs con los estudiantes encontrados.
+     * @throws PersistenciaException Si hay error en la consulta.
+     */
     @Override
     public List<TablaEstudiantesDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -122,6 +147,12 @@ public class EstudianteDAO implements IEstudianteDAO {
         }
     }
 
+    /**
+     * Convierte un EstudianteDominio a su DTO correspondiente para tabla.
+     *
+     * @param estudiante Objeto de dominio.
+     * @return DTO con datos simplificados.
+     */
     private TablaEstudiantesDTO convertirTabla(EstudianteDominio estudiante) {
         int id = estudiante.getIdEstudiante();
         String idEstudiante = estudiante.getIdEscolar();
@@ -129,10 +160,17 @@ public class EstudianteDAO implements IEstudianteDAO {
         String apellidoP = estudiante.getApellidoPaterno();
         String apellidoM = estudiante.getApellidoMaterno();
         boolean estatus = estudiante.isEstatus();
-        TablaEstudiantesDTO tabla = new TablaEstudiantesDTO(id,idEstudiante, nombre, apellidoP, apellidoM, estatus);
+        TablaEstudiantesDTO tabla = new TablaEstudiantesDTO(id, idEstudiante, nombre, apellidoP, apellidoM, estatus);
         return tabla;
     }
 
+    /**
+     * Busca un estudiante por su usuario (idEscolar).
+     *
+     * @param estudianteRegistroDTO DTO con el usuario a buscar.
+     * @return Estudiante encontrado.
+     * @throws PersistenciaException Si no se encuentra o hay error.
+     */
     @Override
     public EstudianteDominio buscarPorUsuario(EstudianteRegistroDTO estudianteRegistroDTO) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -147,7 +185,13 @@ public class EstudianteDAO implements IEstudianteDAO {
             manager.close();
         }
     }
-    
+
+    /**
+     * Actualiza la contraseña de un estudiante.
+     *
+     * @param estudiante Objeto con la información actualizada.
+     * @throws PersistenciaException Si hay error al actualizar.
+     */
     @Override
     public void actualizarContraseña(EstudianteDominio estudiante) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -164,7 +208,5 @@ public class EstudianteDAO implements IEstudianteDAO {
             manager.close();
         }
     }
-
-
 
 }

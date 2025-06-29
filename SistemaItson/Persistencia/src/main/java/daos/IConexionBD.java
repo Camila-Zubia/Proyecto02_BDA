@@ -12,6 +12,12 @@ import javax.persistence.EntityManager;
  */
 public interface IConexionBD {
     
-    public EntityManager crearConexion();
+    /**
+ * Crea y devuelve una nueva instancia de EntityManager para interactuar con la base de datos.
+ *
+ * @return EntityManager instancia para realizar operaciones JPA.
+ */
+public EntityManager crearConexion();
+
   
 }
