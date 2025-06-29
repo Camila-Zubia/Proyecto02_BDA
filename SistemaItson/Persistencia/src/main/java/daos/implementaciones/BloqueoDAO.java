@@ -30,11 +30,18 @@ import javax.persistence.criteria.Root;
 public class BloqueoDAO implements IBloqueoDAO {
 
     private final IConexionBD conexionBD;
-    
-    public BloqueoDAO(IConexionBD conexionBD){
+
+    public BloqueoDAO(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
-    } 
-    
+    }
+
+    /**
+     * Registra un nuevo bloqueo en la base de datos.
+     *
+     * @param bloqueo Bloqueo a registrar.
+     * @return El bloqueo registrado.
+     * @throws PersistenciaException Si ocurre un error al guardar el bloqueo.
+     */
     @Override
     public BloqueoDominio registrarBloqueo(BloqueoDominio bloqueo) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -55,6 +62,14 @@ public class BloqueoDAO implements IBloqueoDAO {
         }
     }
 
+    /**
+     * Busca un bloqueo por su ID.
+     *
+     * @param id ID del bloqueo a buscar.
+     * @return El bloqueo encontrado.
+     * @throws PersistenciaException Si no se encuentra o hay un error durante
+     * la búsqueda.
+     */
     @Override
     public BloqueoDominio buscarPorId(int id) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -73,6 +88,14 @@ public class BloqueoDAO implements IBloqueoDAO {
         }
     }
 
+    /**
+     * Libera un bloqueo actualizando su estatus a false y estableciendo la
+     * fecha de liberación.
+     *
+     * @param id ID del bloqueo a liberar.
+     * @throws PersistenciaException Si no se encuentra el bloqueo o hay un
+     * error en la operación.
+     */
     @Override
     public void liberarBloqueo(int id) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -82,7 +105,7 @@ public class BloqueoDAO implements IBloqueoDAO {
             if (bloqueo == null) {
                 throw new PersistenciaException("No se encontró el bloqueo con ID: " + id);
             }
-            
+
             Date fechaActual = new Date();
             bloqueo.setFechaLiberacion(fechaActual);
             bloqueo.setEstatus(false);
@@ -99,6 +122,12 @@ public class BloqueoDAO implements IBloqueoDAO {
         }
     }
 
+    /**
+     * Obtiene la lista de bloqueos que están actualmente activos.
+     *
+     * @return Lista de bloqueos activos.
+     * @throws PersistenciaException Si ocurre un error en la consulta.
+     */
     @Override
     public List<BloqueoDominio> obtenerBloqueosActivos() throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
@@ -116,6 +145,15 @@ public class BloqueoDAO implements IBloqueoDAO {
         }
     }
 
+    /**
+     * Realiza una búsqueda de bloqueos activos aplicando filtros (fecha o
+     * motivo).
+     *
+     * @param filtro Objeto con el texto de filtro, límite y offset de la
+     * consulta.
+     * @return Lista de DTOs con los resultados paginados de bloqueos.
+     * @throws PersistenciaException Si ocurre un error durante la búsqueda.
+     */
     @Override
     public List<TablaBloqueosDTO> buscarTabla(FiltroDTO filtro) throws PersistenciaException {
         EntityManager manager = conexionBD.crearConexion();
