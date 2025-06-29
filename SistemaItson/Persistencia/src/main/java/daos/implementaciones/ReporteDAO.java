@@ -31,9 +31,8 @@ public class ReporteDAO implements IReporteDAO {
                     .append("lab.nombre, comp.numero, ")
                     .append("COUNT(DISTINCT est.idEstudiante), ")
                     .append("SUM(res.tiempoReserva), ")
-                    .append("FUNCTION('TIMESTAMPDIFF', ''MINUTE'', lab.horaInicio, lab.horaFin), ")
-
-                    .append("FUNCTION('DATE', res.fechaInicio) ") 
+                    .append("CAST(FUNCTION('TIMESTAMPDIFF', 'MINUTE', lab.horaInicio, lab.horaFin), )AS long")
+                    .append("CAST(FUNCTION('DATE', res.fechaInicio) ) AS long") 
                     .append(") ") 
                     .append("FROM EstudianteReservaComputadoraDominio res ")
                     .append("JOIN res.computadoraReservas comp ")

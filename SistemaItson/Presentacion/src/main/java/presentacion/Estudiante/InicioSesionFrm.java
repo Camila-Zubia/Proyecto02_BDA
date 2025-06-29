@@ -213,19 +213,21 @@ public class InicioSesionFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldContraseñaActionPerformed
 
     
-    public static boolean esComputadoraValida(List<ComputadoraDominio> computadoras) throws UnknownHostException{
+    public boolean esComputadoraValida(List<ComputadoraDominio> computadoras) throws UnknownHostException{
         try{
             String ipLocal = InetAddress.getLocalHost().getHostAddress();
             for (ComputadoraDominio c : computadoras) {
                 System.out.println("IP: [" + c.getDireccionIp().trim() + "] - Tipo: [" + c.getTipo() + "]");
-                if (c.getDireccionIp().trim().equals(ipLocal) && c.getTipo() == TipoComputadora.PORTERO) {
+                if (c.getDireccionIp().trim().equals(ipLocal) && c.getTipo() == TipoComputadora.ESTUDIANTE) {
                     return true;
                 }
             }
             JOptionPane.showMessageDialog(null, "Esta computadora no es valida" + ipLocal, "Error", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
             return false;
         }catch(UnknownHostException ex){
             JOptionPane.showMessageDialog(null, "Esta computadora no es valida"  + InetAddress.getLocalHost().getHostAddress(), "Error", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
             return false;
         }
     }
